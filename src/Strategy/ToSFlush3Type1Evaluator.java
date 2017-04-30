@@ -1,9 +1,11 @@
-package videopoker;
+package Strategy;
 
+import videopoker.Card;
+import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class ToSFlush3Type2Evaluator extends ToSFlush3Evaluator implements Evaluator{
+public class ToSFlush3Type1Evaluator extends ToSFlush3Evaluator implements Evaluator{
 	
 	public boolean[] whereCards(Hand hand){
 		
@@ -25,15 +27,9 @@ public class ToSFlush3Type2Evaluator extends ToSFlush3Evaluator implements Evalu
 		int numHighCards = this.numHighCards(test);
 		
 		if (this.hasAce(test) && (this.hasThree(test) || this.hasFour(test)))
-			return s3flush;
+			numHighCards--;
 		
-		if (numGaps == 1)
-			return s3flush;
-		
-		if (numGaps == 2 && numHighCards == 1)
-			return s3flush;
-		
-		if (this.hasSameSuit(test) && this.hasTwo(test) && this.hasThree(test) && this.hasFour(test))
+		if (numGaps != 0 && numHighCards >= numGaps)
 			return s3flush;
 		
 		return new boolean[0];
@@ -50,7 +46,8 @@ public class ToSFlush3Type2Evaluator extends ToSFlush3Evaluator implements Evalu
 		Card c5 = new Card(Value.NINE, Suit.SPADES);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		ToSFlush3Type2Evaluator eval = new ToSFlush3Type2Evaluator();
+		ToSFlush3Type1Evaluator eval = new ToSFlush3Type1Evaluator();
+		
 		boolean[] keep = eval.whereCards(hand);
 	
 		for (int i = 0; i < keep.length; i++){
@@ -58,6 +55,5 @@ public class ToSFlush3Type2Evaluator extends ToSFlush3Evaluator implements Evalu
 		}
 	
 	}
-
 
 }

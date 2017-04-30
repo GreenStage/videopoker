@@ -1,4 +1,6 @@
-package videopoker;
+package Strategy;
+
+import videopoker.Hand;
 
 public interface Evaluator {
 	

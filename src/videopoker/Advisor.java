@@ -2,6 +2,9 @@ package videopoker;
 
 import java.util.ArrayList;
 
+import Strategy.Evaluator;
+import Strategy.Strategy;
+import Strategy.TraditionalStrategy;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
@@ -44,7 +47,7 @@ public class Advisor {
 		Card c2 = new Card(Value.JACK, Suit.HEARTS);
 		Card c3 = new Card(Value.KING, Suit.HEARTS);
 		Card c4 = new Card(Value.TEN, Suit.HEARTS);
-		Card c5 = new Card(Value.ACE, Suit.HEARTS);
+		Card c5 = new Card(Value.TWO, Suit.HEARTS);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		Advisor adv = new Advisor(new TraditionalStrategy());

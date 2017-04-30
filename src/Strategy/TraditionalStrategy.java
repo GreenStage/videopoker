@@ -1,4 +1,4 @@
-package videopoker;
+package Strategy;
 
 public class TraditionalStrategy extends Strategy{
 	

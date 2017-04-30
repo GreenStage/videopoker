@@ -1,5 +1,7 @@
-package videopoker;
+package Strategy;
 
+import videopoker.Card;
+import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 

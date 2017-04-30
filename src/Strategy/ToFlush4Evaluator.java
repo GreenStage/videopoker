@@ -1,10 +1,11 @@
-package videopoker;
+package Strategy;
 
+import videopoker.Card;
+import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
-	
+public class ToFlush4Evaluator extends HandEvaluator implements Evaluator{
 	
 	public boolean[] whereCards(Hand hand){
 		
@@ -16,24 +17,18 @@ public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
 		boolean test1_ss = hasSameSuit(test1);
 		boolean test2_ss = hasSameSuit(test2);
 		
-		if (!test1_ss && !test2_ss)
-			return new boolean[0];
-		
+	
 		if (test1_ss){
-			int numRoyalCards = numRoyalCards(test1);
-			if (numRoyalCards == 4){
-				boolean[] keep = {false, false, false, false, false};
-				keep[hand.search(test1[0])] = true;
-				keep[hand.search(test1[1])] = true;
-				keep[hand.search(test1[2])] = true;
-				keep[hand.search(test1[3])] = true;
-				
-				return keep;
-			}	
+			boolean[] keep = {false, false, false, false, false};
+			keep[hand.search(test1[0])] = true;
+			keep[hand.search(test1[1])] = true;
+			keep[hand.search(test1[2])] = true;
+			keep[hand.search(test1[3])] = true;
+			
+			return keep;
 		}
 		
-		int numRoyalCards = numRoyalCards(test2);
-		if (numRoyalCards == 4){
+		if (test2_ss){
 			boolean[] keep = {false, false, false, false, false};
 			keep[hand.search(test2[0])] = true;
 			keep[hand.search(test2[1])] = true;
@@ -41,11 +36,11 @@ public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
 			keep[hand.search(test2[3])] = true;
 			
 			return keep;
-		}	
+		}
 		
 		return new boolean[0];	
+		
 	}
-	
 	
 	public static void main(String[] args){
 		
@@ -56,7 +51,7 @@ public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
 		Card c5 = new Card(Value.EIGHT, Suit.HEARTS);
 
 		Hand hand = new Hand(c2,c5,c1,c4,c3);
-		ToRFlush4Evaluator eval = new ToRFlush4Evaluator();
+		ToFlush4Evaluator eval = new ToFlush4Evaluator();
 		boolean[] keep = eval.whereCards(hand);
 		
 		for (int i = 0; i < keep.length; i++){
@@ -64,7 +59,6 @@ public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
 		}
 		
 	}
-	
 	
 	
 }

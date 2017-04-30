@@ -1,4 +1,4 @@
-package videopoker;
+package Strategy;
 
 import java.util.ArrayList;
 
