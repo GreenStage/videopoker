@@ -2,6 +2,8 @@ package Strategy;
 
 import videopoker.Card;
 import videopoker.Hand;
+import videopoker.Card.Suit;
+import videopoker.Card.Value;
 
 public class LowPairEvaluator extends HandEvaluator implements Evaluator{
 	
@@ -22,13 +24,13 @@ public class LowPairEvaluator extends HandEvaluator implements Evaluator{
 		}
 
 		if(size == 0){
-			if(hand_o[aux[1]].getValueWeight() < 11){
+			if(hand_o[aux[1]].getValueWeight() > 10){
 				return new boolean[0];
 			}
 		}else{
-			if(hand_o[aux[1]].getValueWeight() < 11 && hand_o[aux[3]].getValueWeight() < 11){
+			if(hand_o[aux[1]].getValueWeight() > 10 && hand_o[aux[3]].getValueWeight() > 10){
 				return new boolean[0];
-			}else if(hand_o[aux[1]].getValueWeight() > 10){
+			}else if(hand_o[aux[1]].getValueWeight() < 11){
 				idx = 0;
 			}else{
 				idx = 2;
@@ -38,9 +40,28 @@ public class LowPairEvaluator extends HandEvaluator implements Evaluator{
 		
 		boolean[] keep = {false, false, false, false, false};
 		for(int i = aux[idx + 1]; i < aux[idx + 1] + aux[idx]; i++){
-			keep[i] = true;
+			keep[hand.search(hand_o[i])] = true;
 		}
 
 		return keep;
 	}
+	
+public static void main(String[] args){
+		
+		Card c1 = new Card(Value.TEN, Suit.HEARTS);
+		Card c2 = new Card(Value.TEN, Suit.SPADES);
+		Card c3 = new Card(Value.TWO, Suit.CLOVERS);
+		Card c4 = new Card(Value.KING, Suit.DIAMONDS);
+		Card c5 = new Card(Value.KING, Suit.CLOVERS);
+	
+		Hand hand = new Hand(c1,c2,c3,c4,c5);
+		LowPairEvaluator eval = new LowPairEvaluator();
+		boolean[] keep = eval.whereCards(hand);
+		
+		for (int i = 0; i < keep.length; i++){
+			System.out.println(keep[i]);
+	}
+	
+}
+
 }
