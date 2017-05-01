@@ -35,13 +35,10 @@ public class HighPairEvaluator extends HandEvaluator implements Evaluator{
 			}
 		}
 		
-		if(aux[idx] != 2){
-			return new boolean[0];
-		}
 		
 		boolean[] keep = {false, false, false, false, false};
 		for(int i = aux[idx + 1]; i < aux[idx + 1] + aux[idx]; i++){
-			keep[i] = true;
+			keep[hand.search(hand_o[i])] = true;
 		}
 
 		return keep;
