@@ -5,9 +5,11 @@ import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class RoyalFlushEvaluator extends HandEvaluator implements Evaluator {
+public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
+	
 	public final static String handPower = "ROYAL FLUSH";
 	
+	@Override
 	public boolean hasHandPower(Hand hand){
 		Card[] hand_o  = hand.orderByValueSuit();
 		
@@ -17,14 +19,21 @@ public class RoyalFlushEvaluator extends HandEvaluator implements Evaluator {
 		if(!hasSameSuit(hand_o)){
 			return false;
 		}
+		
 		return true;
 	}
 	
+	@Override
 	public boolean[] whereCards(Hand hand){
 		if(hasHandPower(hand) ){
 			return new boolean[] {true, true, true, true, true};
 		}
 		else return new boolean[0];
+	}
+	
+	@Override
+	public String getHandPower(){
+		return handPower;
 	}
 	
 	

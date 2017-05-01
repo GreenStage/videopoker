@@ -5,7 +5,36 @@ import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class ThreeOfAKindEvaluator extends HandEvaluator implements Evaluator{
+public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
+	
+	private static final String handPower = "THREE OF A KIND";
+	
+	@Override
+	public boolean hasHandPower(Hand hand) {
+
+		Card[] hand_o = hand.orderByValue();
+		int[] aux;
+		int idx;
+		
+		aux = equality(hand_o);
+		
+		if(!(aux[0] >= 3 || aux[2] >= 3)){
+			return false;
+		}
+		if(aux[0] >= 3){
+			idx = 0;
+		}else{
+			idx = 2;
+		}
+		
+		if(hand_o[aux[idx]].getValue() == 'A'){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public boolean[] whereCards(Hand hand){
 		Card[] hand_o = hand.orderByValue();
 		int[] aux;
@@ -34,6 +63,11 @@ public class ThreeOfAKindEvaluator extends HandEvaluator implements Evaluator{
 		return keep;
 	}
 	
+	@Override
+	public String getHandPower(){
+		return handPower;
+	}
+	
 	public static void main(String[] args){
 		
 		Card c1 = new Card(Value.TEN, Suit.HEARTS);
@@ -51,6 +85,8 @@ public class ThreeOfAKindEvaluator extends HandEvaluator implements Evaluator{
 		}
 		
 	}
+
+
 	
 	
 }

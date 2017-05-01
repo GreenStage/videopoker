@@ -5,9 +5,10 @@ import java.util.Comparator;
 
 import videopoker.Card;
 
-public class HandEvaluator {
-	public String handPower ="HAND_NONE";
+public abstract class HandEvaluator {
 	
+	private final static String handPower ="HAND_NONE";
+		
 	public boolean hasSameSuit(Card[] set){
 		int suit = set[0].getSuitWeight();
 		
@@ -17,6 +18,10 @@ public class HandEvaluator {
 		}
 		
 		return true;
+	}
+	
+	public String getHandPower(){
+		return handPower;
 	}
 	
 	public int numRoyalCards(Card[] set){
@@ -32,9 +37,7 @@ public class HandEvaluator {
 		return num;
 	}
 	
-	public int numGaps(Card[] set){
-		
-		//Check also if set length is bigger than one		
+	public int numGaps(Card[] set){		
 
 		if (set.length < 2)
 			return 0;
@@ -191,7 +194,7 @@ public class HandEvaluator {
 	}
 	
 	public int[] equality(Card[] set){
-		//odd indexes have the number of the same cards; even indexes have the index where where the stream starts
+		
 		int[] eq = new int[4];
 		int size_eq = 0;
 		
@@ -260,7 +263,5 @@ public class HandEvaluator {
 		
 		return false;
 		
-	}
-	
-	
+	}	
 }

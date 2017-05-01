@@ -7,6 +7,8 @@ import videopoker.Card.Value;
 
 public class FourOfAKindEvaluator extends HandEvaluator implements Evaluator {
 	
+	public static final String handPower = "FOUR OF A KIND";
+	
 	public boolean[] whereCards(Hand hand){
 		
 		Card[] hand_o = hand.orderByValue();

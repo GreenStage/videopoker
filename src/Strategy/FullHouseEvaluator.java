@@ -5,9 +5,12 @@ import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class FullHouseEvaluator extends HandEvaluator implements Evaluator {
+public class FullHouseEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
-	public boolean[] whereCards(Hand hand){
+	private static final String handPower = "FULL HOUSE";
+	
+	@Override
+	public boolean hasHandPower(Hand hand) {
 		
 		Card[] hand_o  = hand.orderByValue();
 		int[] aux;
@@ -15,12 +18,26 @@ public class FullHouseEvaluator extends HandEvaluator implements Evaluator {
 		aux = equality(hand_o);
 		
 		if(!((aux[0] == 3 && aux[2] == 2)||(aux[0] == 2 && aux[2] == 3))){
-			return new boolean[0];
+			return false;
 		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean[] whereCards(Hand hand){
+		
+		if (!(hasHandPower(hand)))
+			return new boolean[0];
 		
 		boolean[] keep = {true, true, true, true, true};
 
 		return keep;
+	}
+	
+	@Override
+	public String getHandPower(){
+		return handPower;
 	}
 	
 	public static void main(String[] args){
@@ -40,5 +57,7 @@ public class FullHouseEvaluator extends HandEvaluator implements Evaluator {
 		}
 		
 	}
+
+
 	
 }
