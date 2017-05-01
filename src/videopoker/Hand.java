@@ -11,7 +11,6 @@ import videopoker.Card.Value;
 public class Hand {
 	private Card[] hand = new Card[5];
 	
-	
 	//Hand cannot have duplicate cards...
 	
 	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4){
@@ -24,6 +23,19 @@ public class Hand {
 	
 	public Card getCard(int pos){
 		return hand[pos];
+	}
+	
+	public String[] getHandStrArr(){
+		String[] handStr = new String[5];
+		for(int i = 0; i < 5; i ++){
+			if(this.getCard(i) != null)
+				handStr[i] = this.getCard(i).toString();
+		}
+		return handStr;
+	}
+	
+	public void setCard(int index, Card card){
+		this.hand[index] = card;
 	}
 	
 	public Card[] getCardList(){

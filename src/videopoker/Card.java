@@ -6,9 +6,10 @@ public class Card {
 	private Suit suit;
 	
 	public enum Value {
-        TWO('2', 2), THREE('3', 3), FOUR('4', 4), FIVE('5', 5), SIX('6', 6), SEVEN('7', 7), 
-        EIGHT('8', 8),
-        NINE('9', 9), TEN('T', 10), JACK('J', 11), QUEEN('Q', 12), KING('K', 13), ACE('A', 14);
+        TWO('2', 2), THREE('3', 3), FOUR('4', 4), FIVE('5', 5),
+        SIX('6', 6), SEVEN('7', 7),EIGHT('8', 8), NINE('9', 9),
+        TEN('T', 10), JACK('J', 11), QUEEN('Q', 12), KING('K', 13),
+        ACE('A', 14);
 		
         private char value;
         private int weight;
@@ -53,6 +54,32 @@ public class Card {
 		this.suit = suit;
 	}
 	
+	public Card(String card){
+		char valueC = card.charAt(0);
+		char suitC = card.charAt(1);
+		boolean valueSet = false;
+		boolean suitSet = false;
+		
+		for ( Value v : Card.Value.values() ){
+			if ( v.getValue() == valueC){
+				this.value = v;
+				valueSet = true;
+			}
+		}
+		if(valueSet == false){
+			 throw new IllegalArgumentException("Invalid card Value: " + valueC);
+		}	
+		
+		for( Suit s : Card.Suit.values() ){
+			if ( s.getSuit() == suitC){
+				this.suit = s;
+			}	
+		}
+		if(suitSet == false){
+			 throw new IllegalArgumentException("Invalid card Suit: " + suitC);
+		}
+		
+	}
 	public char getSuit(){
 		return this.suit.getSuit();
 	}
