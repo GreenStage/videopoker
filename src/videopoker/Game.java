@@ -27,23 +27,22 @@ public class Game {
 		this.mDeck = new Deck();
 		mAdvisor = new Advisor(new TraditionalStrategy());
 		
-		this.winningPrizes.put("ROYAL FLUSH",	 new int[] {250,500,750,1000,4000});
-		this.winningPrizes.put("FOUR ACES",		 new int[] {160,320,480,640,800});
-		this.winningPrizes.put("FOUR 2-4",		 new int[] {80,160,240,320,400});
-		this.winningPrizes.put("FOUR 5-K",		 new int[] {50,100,150,200,250});
-		this.winningPrizes.put("STRAIGHT FLUSH", new int[] {50,100,150,200,250});
-		this.winningPrizes.put("FULL HOUSE",	 new int[] {10,20,30,40,50});
-		this.winningPrizes.put("FLUSH",			 new int[] {7,14,21,28,35});
-		this.winningPrizes.put("STRAIGHT",		 new int[] {5,10,15,20,25});
+		this.winningPrizes.put("ROYAL FLUSH",new int[] {250,500,750,1000,4000});
+		this.winningPrizes.put("FOUR ACES",new int[] {160,320,480,640,800});
+		this.winningPrizes.put("FOUR 2-4",new int[] {80,160,240,320,400});
+		this.winningPrizes.put("FOUR 5-K",new int[] {50,100,150,200,250});
+		this.winningPrizes.put("STRAIGHT FLUSH",new int[] {50,100,150,200,250});
+		this.winningPrizes.put("FULL HOUSE",new int[] {10,20,30,40,50});
+		this.winningPrizes.put("FLUSH",new int[] {7,14,21,28,35});
+		this.winningPrizes.put("STRAIGHT",new int[] {5,10,15,20,25});
 		this.winningPrizes.put("THREE OF A KIND",new int[] {3,6,9,12,15});
-		this.winningPrizes.put("TWO PAIR",		 new int[] {1,2,3,4,5});
-		this.winningPrizes.put("JACKS +",		 new int[] {1,2,3,4,5});
+		this.winningPrizes.put("TWO PAIR",new int[] {1,2,3,4,5});
+		this.winningPrizes.put("JACKS +",new int[] {1,2,3,4,5});
 	}
 	
 	public Game(int credit, String[] cards){
-		this.mPlayer = new Player(credit);
+		this(credit);
 		this.mDeck = new Deck(cards);
-		mAdvisor = new Advisor(new TraditionalStrategy());
 	}	
 	
 	public void setCredit(int credit){

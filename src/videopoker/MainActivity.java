@@ -1,5 +1,4 @@
 package videopoker;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,11 +38,11 @@ public class MainActivity {
 				//TODO : probably should be smth like "Missing files"
 			}
 			try{
-				BufferedReader cardsReader = new BufferedReader(new FileReader(args[3]));
-				String line = cardsReader.readLine();
-				cardsReader.close();
-				String[] cardArray = line.split(" ");
-				mGame = new Game(credit,cardArray);
+				FileReader cardReader = new FileReader(args[3]);
+				FileReadHandler cardRH = new FileReadHandler(cardReader);
+				String line = cardRH.getLine();
+				cardReader.close();
+				mGame = new Game(credit,line.split(" "));
 
 				FileReader fr =  new FileReader(args[2]);
 				rh = new FileReadHandler(fr);

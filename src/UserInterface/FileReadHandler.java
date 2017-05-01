@@ -4,14 +4,14 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class FileReadHandler extends ReadHandler{
-	String mString;
+	String mLine;
 	Scanner mScanner;
 	
 	public FileReadHandler(FileReader fr){
 		Scanner temp = new Scanner(fr);
-		this.mString = temp.nextLine();
+		this.mLine = temp.nextLine();
 		temp.close();
-		this.mScanner = new Scanner(mString);
+		this.mScanner = new Scanner(mLine);
 	}
 	
 	@Override
@@ -25,5 +25,9 @@ public class FileReadHandler extends ReadHandler{
 			return retval;
 		}	
 		else return null;
+	}
+	
+	public String getLine(){
+		return mLine;
 	}
 }
