@@ -75,9 +75,9 @@ public class TextUI {
 		mOutputStream.print("player should hold cards " + toHold + "\n");
 	}
 	
-	public void displayWin(boolean wins,String[] hand, int credit){
+	public void displayWin(boolean wins,String handPower, int credit){
 		if(wins){
-			mOutputStream.print("players wins with " + String.join(" ", hand) + 
+			mOutputStream.print("players wins with " + handPower + 
 								" and his credit is " + String.valueOf(credit) + "\n");
 		}
 		else{

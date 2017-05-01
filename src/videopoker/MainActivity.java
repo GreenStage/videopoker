@@ -122,12 +122,14 @@ public class MainActivity {
 						while(a.hasExtra()){
 							keepArray[a.getExtra() - 1] = true;
 						}
-						mGame.deal(keepArray, new Game.ActionListener() {
+						mGame.keep(keepArray, new Game.ActionListener() {
 							
 							@Override
 							public void onSuccess() {
 								mUI.displayHand( mGame.getPlayer().getHand().getHandStrArr());	
-								mUI.displayWin(mGame.getWinStatus(),mGame.getPlayer().getHand().getHandStrArr(),mGame.getCredit());
+								mUI.displayWin(mGame.getWinStatus(),
+										mGame.getWinningPrizes().getHandPower(mGame.getPlayer().getHand()),
+										mGame.getCredit());
 							}
 							
 							@Override
