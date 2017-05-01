@@ -100,8 +100,8 @@ public class HandEvaluator {
 		int nxt_val;
 		int cur_val;
 		Card[] set2;
-		boolean test1 = true;
-		boolean test2 = true;
+		boolean test1 = false;
+		boolean test2 = false;
 		
 		if (set[set.length-1].getValue() == 'A'){
 			set2 = new Card[set.length];
@@ -118,6 +118,7 @@ public class HandEvaluator {
 					break;
 				}
 				cur_val = nxt_val;
+				test2 = true;
 			}	
 		}
 		
@@ -131,6 +132,7 @@ public class HandEvaluator {
 				break;
 			}
 			cur_val = nxt_val;
+			test1 = true;
 		}
 		
 		

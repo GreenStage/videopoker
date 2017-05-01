@@ -5,36 +5,34 @@ import videopoker.Hand;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-public class FourOfAKindEvaluator extends HandEvaluator implements Evaluator {
+public class FullHouseEvaluator extends HandEvaluator implements Evaluator {
 	
 	public boolean[] whereCards(Hand hand){
 		
-		Card[] hand_o = hand.orderByValue();
-
-		int[] aux = equality(hand_o);
+		Card[] hand_o  = hand.orderByValue();
+		int[] aux;
 		
-		if(aux[0] != 4){
+		aux = equality(hand_o);
+		
+		if(!((aux[0] == 3 && aux[2] == 2)||(aux[0] == 2 && aux[2] == 3))){
 			return new boolean[0];
 		}
 		
-		boolean[] keep = {false, false, false, false, false};
-		for(int i = aux[1]; i < aux[1] + aux[0]; i++){
-			keep[hand.search(hand_o[i])] = true;
-		}
+		boolean[] keep = {true, true, true, true, true};
 
 		return keep;
 	}
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
+		Card c1 = new Card(Value.SIX, Suit.HEARTS);
 		Card c2 = new Card(Value.SIX, Suit.DIAMONDS);
 		Card c3 = new Card(Value.SIX, Suit.CLOVERS);
-		Card c4 = new Card(Value.SIX, Suit.SPADES);
-		Card c5 = new Card(Value.SIX, Suit.HEARTS);
+		Card c4 = new Card(Value.TEN, Suit.SPADES);
+		Card c5 = new Card(Value.TEN, Suit.CLOVERS);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		FourOfAKindEvaluator eval = new FourOfAKindEvaluator();
+		FullHouseEvaluator eval = new FullHouseEvaluator();
 		boolean[] keep = eval.whereCards(hand);
 		
 		for (int i = 0; i < keep.length; i++){
@@ -42,4 +40,5 @@ public class FourOfAKindEvaluator extends HandEvaluator implements Evaluator {
 		}
 		
 	}
+	
 }

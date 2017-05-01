@@ -47,10 +47,10 @@ public class ToFlush4Evaluator extends HandEvaluator implements Evaluator{
 		Card c1 = new Card(Value.TEN, Suit.HEARTS);
 		Card c2 = new Card(Value.JACK, Suit.HEARTS);
 		Card c3 = new Card(Value.QUEEN, Suit.HEARTS);
-		Card c4 = new Card(Value.ACE, Suit.HEARTS);
-		Card c5 = new Card(Value.EIGHT, Suit.HEARTS);
+		Card c4 = new Card(Value.EIGHT, Suit.HEARTS);
+		Card c5 = new Card(Value.EIGHT, Suit.CLOVERS);
 
-		Hand hand = new Hand(c2,c5,c1,c4,c3);
+		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		ToFlush4Evaluator eval = new ToFlush4Evaluator();
 		boolean[] keep = eval.whereCards(hand);
 		

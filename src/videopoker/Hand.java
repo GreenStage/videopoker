@@ -6,12 +6,11 @@ import java.util.Comparator;
 import videopoker.Card.Suit;
 import videopoker.Card.Value;
 
-//Avoid repeated values in hand!!!!
 
 public class Hand {
 	private Card[] hand = new Card[5];
 	
-	//Hand cannot have duplicate cards...
+	//TODO: Hand cannot have duplicate cards...
 	
 	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4){
 		hand[0] = c0;

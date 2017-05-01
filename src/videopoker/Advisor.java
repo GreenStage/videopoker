@@ -43,11 +43,11 @@ public class Advisor {
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.QUEEN, Suit.HEARTS);
-		Card c2 = new Card(Value.JACK, Suit.HEARTS);
-		Card c3 = new Card(Value.KING, Suit.HEARTS);
-		Card c4 = new Card(Value.TEN, Suit.HEARTS);
-		Card c5 = new Card(Value.TWO, Suit.HEARTS);
+		Card c1 = new Card(Value.NINE, Suit.CLOVERS);
+		Card c2 = new Card(Value.TEN, Suit.HEARTS);
+		Card c3 = new Card(Value.SIX, Suit.DIAMONDS);
+		Card c4 = new Card(Value.SIX, Suit.HEARTS);
+		Card c5 = new Card(Value.THREE, Suit.DIAMONDS);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		Advisor adv = new Advisor(new TraditionalStrategy());

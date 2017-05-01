@@ -27,9 +27,12 @@ public class ToSFlush3Type1Evaluator extends ToSFlush3Evaluator implements Evalu
 		int numHighCards = this.numHighCards(test);
 		
 		if (this.hasAce(test) && (this.hasThree(test) || this.hasFour(test)))
-			numHighCards--;
+			return new boolean[0];
 		
-		if (numGaps != 0 && numHighCards >= numGaps)
+		if (this.hasSameSuit(test) && (this.hasTwo(test) && this.hasThree(test) && this.hasFour(test)))
+			return new boolean[0];
+		
+		if (numHighCards != 0 && numHighCards >= numGaps)
 			return s3flush;
 		
 		return new boolean[0];
@@ -39,11 +42,11 @@ public class ToSFlush3Type1Evaluator extends ToSFlush3Evaluator implements Evalu
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.JACK, Suit.HEARTS);
-		Card c3 = new Card(Value.KING, Suit.HEARTS);
+		Card c1 = new Card(Value.TWO, Suit.HEARTS);
+		Card c2 = new Card(Value.THREE, Suit.HEARTS);
+		Card c3 = new Card(Value.ACE, Suit.SPADES);
 		Card c4 = new Card(Value.QUEEN, Suit.SPADES);
-		Card c5 = new Card(Value.NINE, Suit.SPADES);
+		Card c5 = new Card(Value.KING, Suit.SPADES);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		ToSFlush3Type1Evaluator eval = new ToSFlush3Type1Evaluator();
