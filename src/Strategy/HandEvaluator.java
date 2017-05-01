@@ -6,6 +6,7 @@ import java.util.Comparator;
 import videopoker.Card;
 
 public class HandEvaluator {
+	public String handPower ="HAND_NONE";
 	
 	public boolean hasSameSuit(Card[] set){
 		int suit = set[0].getSuitWeight();
@@ -33,8 +34,7 @@ public class HandEvaluator {
 	
 	public int numGaps(Card[] set){
 		
-		//Check also if set length is bigger than one
-		
+		//Check also if set length is bigger than one		
 
 		if (set.length < 2)
 			return 0;

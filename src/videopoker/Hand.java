@@ -9,7 +9,6 @@ import videopoker.Card.Value;
 
 public class Hand {
 	private Card[] hand = new Card[5];
-	
 	//TODO: Hand cannot have duplicate cards...
 	
 	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4){
