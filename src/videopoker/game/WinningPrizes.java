@@ -1,15 +1,24 @@
 package videopoker.game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import videopoker.evaluators.FlushEvaluator;
+import videopoker.evaluators.FourAcesEvaluator;
+import videopoker.evaluators.FourFiveKingEvaluator;
+import videopoker.evaluators.FourTwoFourEvaluator;
 import videopoker.evaluators.FullHouseEvaluator;
 import videopoker.evaluators.HandEvaluator;
+import videopoker.evaluators.HighPairEvaluator;
 import videopoker.evaluators.RoyalFlushEvaluator;
+import videopoker.evaluators.StraightEvaluator;
 import videopoker.evaluators.StraightFlushEvaluator;
 import videopoker.evaluators.ThreeOfAKindEvaluator;
+import videopoker.evaluators.TwoPairEvaluator;
+
 
 
 public class WinningPrizes {
@@ -19,37 +28,37 @@ public class WinningPrizes {
 	
 	public WinningPrizes(){
 		this.winnings.put("ROYAL FLUSH",new int[] {250,500,750,1000,4000});
-		evaluators.add(new RoyalFlushEvaluator() );
+		evaluators.add( new RoyalFlushEvaluator() );
 		
 		this.winnings.put("FOUR ACES",new int[] {160,320,480,640,800});
-		evaluators.add(new FourAcesEvaluator() );
+		evaluators.add( new FourAcesEvaluator() );
 		
 		this.winnings.put("FOUR 2-4",new int[] {80,160,240,320,400});
-		evaluators.add(new Four24Evaluator() );
+		evaluators.add( new FourTwoFourEvaluator() );
 		
 		this.winnings.put("FOUR 5-K",new int[] {50,100,150,200,250});
-		evaluators.add(new Four5KEvaluator() );
+		evaluators.add( new FourFiveKingEvaluator() );
 		
 		this.winnings.put("STRAIGHT FLUSH",new int[] {50,100,150,200,250});
-		evaluators.add(new StraightFlushEvaluator() );
+		evaluators.add( new StraightFlushEvaluator() );
 		
 		this.winnings.put("FULL HOUSE",new int[] {10,20,30,40,50});
-		evaluators.add(new FullHouseEvaluator() );
+		evaluators.add( new FullHouseEvaluator() );
 		
 		this.winnings.put("FLUSH",new int[] {7,14,21,28,35});
-		evaluators.add(new FlushEvaluator() );
+		evaluators.add( new FlushEvaluator() );
 		
 		this.winnings.put("STRAIGHT",new int[] {5,10,15,20,25});
-		evaluators.add(new StraightEvaluator() );
+		evaluators.add( new StraightEvaluator() );
 		
 		this.winnings.put("THREE OF A KIND",new int[] {3,6,9,12,15});
-		evaluators.add(new ThreeOfAKindEvaluator() );
+		evaluators.add( new ThreeOfAKindEvaluator() );
 		
 		this.winnings.put("TWO PAIR",new int[] {1,2,3,4,5});
-		evaluators.add(new TwoPairEvaluator() );
+		evaluators.add( new TwoPairEvaluator() );
 		
 		this.winnings.put("JACKS +",new int[] {1,2,3,4,5});
-		evaluators.add(new JacksHigherEvaluator() );	
+		evaluators.add( new HighPairEvaluator() );	
 	}
 	
 	public int getPrize(String handPower, int bet){
@@ -59,10 +68,21 @@ public class WinningPrizes {
 		else return 0;
 	}
 	
+	public int[] getPrizeArray(String handPower){
+		if(winnings.containsKey(handPower))
+			return winnings.get(handPower);
+		else return new int[0];
+	}
+	
+	public Collection<String> getKeySet(){
+		return winnings.keySet();	
+	}
+	
+
 	public String getHandPower(Hand hand){
 		for(HandEvaluator h : evaluators){
-			if(h.hasHandPower(hand)){
-				return h.getHandPower();
+			if(!h.getHandPower(hand).equals("HAND_NONE")){
+				return h.getHandPower(hand);
 			}
 		}
 		return "NONE";
