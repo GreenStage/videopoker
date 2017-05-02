@@ -5,11 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Strategy.FlushEvaluator;
+import Strategy.FourAcesEvaluator;
+import Strategy.FourFiveKingEvaluator;
+import Strategy.FourTwoFourEvaluator;
 import Strategy.FullHouseEvaluator;
 import Strategy.HandEvaluator;
+import Strategy.HighPairEvaluator;
 import Strategy.RoyalFlushEvaluator;
+import Strategy.StraightEvaluator;
 import Strategy.StraightFlushEvaluator;
 import Strategy.ThreeOfAKindEvaluator;
+import Strategy.TwoPairEvaluator;
 import Strategy.HandEvaluator;
 
 
@@ -26,10 +33,10 @@ public class WinningPrizes {
 		evaluators.add(new FourAcesEvaluator() );
 		
 		this.winnings.put("FOUR 2-4",new int[] {80,160,240,320,400});
-		evaluators.add(new Four24Evaluator() );
+		evaluators.add(new FourTwoFourEvaluator() );
 		
 		this.winnings.put("FOUR 5-K",new int[] {50,100,150,200,250});
-		evaluators.add(new Four5KEvaluator() );
+		evaluators.add(new FourFiveKingEvaluator() );
 		
 		this.winnings.put("STRAIGHT FLUSH",new int[] {50,100,150,200,250});
 		evaluators.add(new StraightFlushEvaluator() );
@@ -50,7 +57,7 @@ public class WinningPrizes {
 		evaluators.add(new TwoPairEvaluator() );
 		
 		this.winnings.put("JACKS +",new int[] {1,2,3,4,5});
-		evaluators.add(new JacksHigherEvaluator() );	
+		evaluators.add(new HighPairEvaluator() );	
 	}
 	
 	public int getPrize(String handPower, int bet){
@@ -62,8 +69,8 @@ public class WinningPrizes {
 	
 	public String getHandPower(Hand hand){
 		for(HandEvaluator h : evaluators){
-			if(h.hasHandPower(hand)){
-				return h.getHandPower();
+			if(!h.getHandPower(hand).equals("HAND_NONE")){
+				return h.getHandPower(hand);
 			}
 		}
 		return "NONE";
