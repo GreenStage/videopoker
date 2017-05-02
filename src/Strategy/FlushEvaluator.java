@@ -28,8 +28,11 @@ public class FlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 
 	
 	@Override
-	public String getHandPower(){
-		return handPower;
+	public String getHandPower(Hand hand){
+		if (this.hasHandPower(hand))
+			return handPower;
+		
+		return super.getHandPower(hand);
 	}
 	
 

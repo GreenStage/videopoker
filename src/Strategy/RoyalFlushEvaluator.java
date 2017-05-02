@@ -7,7 +7,7 @@ import videopoker.Card.Value;
 
 public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
-	public final static String handPower = "ROYAL FLUSH";
+	private final static String handPower = "ROYAL FLUSH";
 	
 	@Override
 	public boolean hasHandPower(Hand hand){
@@ -32,8 +32,11 @@ public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvalua
 	}
 	
 	@Override
-	public String getHandPower(){
-		return handPower;
+	public String getHandPower(Hand hand){
+		if (this.hasHandPower(hand))
+			return handPower;
+		
+		return super.getHandPower(hand);
 	}
 	
 	
@@ -43,7 +46,7 @@ public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvalua
 		Card c2 = new Card(Value.JACK, Suit.HEARTS);
 		Card c3 = new Card(Value.QUEEN, Suit.HEARTS);
 		Card c4 = new Card(Value.ACE, Suit.HEARTS);
-		Card c5 = new Card(Value.TWO, Suit.HEARTS);
+		Card c5 = new Card(Value.KING, Suit.HEARTS);
 
 		Hand hand = new Hand(c2,c5,c1,c4,c3);
 		RoyalFlushEvaluator eval = new RoyalFlushEvaluator();
@@ -52,6 +55,8 @@ public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvalua
 		for (int i = 0; i < keep.length; i++){
 			System.out.println(keep[i]);
 		}
+		
+		System.out.println(eval.getHandPower(hand));
 		
 	}
 	

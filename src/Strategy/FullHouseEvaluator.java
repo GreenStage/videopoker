@@ -36,8 +36,11 @@ public class FullHouseEvaluator extends HandEvaluator implements MainHandEvaluat
 	}
 	
 	@Override
-	public String getHandPower(){
-		return handPower;
+	public String getHandPower(Hand hand){
+		if (this.hasHandPower(hand))
+			return handPower;
+		
+		return super.getHandPower(hand);
 	}
 	
 	public static void main(String[] args){

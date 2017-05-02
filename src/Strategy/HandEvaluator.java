@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import videopoker.Card;
+import videopoker.Hand;
 
 public abstract class HandEvaluator {
 	
@@ -20,7 +21,7 @@ public abstract class HandEvaluator {
 		return true;
 	}
 	
-	public String getHandPower(){
+	public String getHandPower(Hand hand){
 		return handPower;
 	}
 	

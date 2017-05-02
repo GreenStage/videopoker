@@ -46,15 +46,18 @@ public class FourAcesEvaluator extends FourOfAKindEvaluator implements MainHandE
 	}
 	
 	@Override
-	public String getHandPower(){
-		return handPower;
+	public String getHandPower(Hand hand){
+		if (this.hasHandPower(hand))
+			return handPower;
+		
+		return super.getHandPower(hand);
 	}
 	
 	
 	public static void main(String[] args){
 		
 		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.DIAMONDS);
+		Card c2 = new Card(Value.TEN, Suit.DIAMONDS);
 		Card c3 = new Card(Value.ACE, Suit.CLOVERS);
 		Card c4 = new Card(Value.ACE, Suit.SPADES);
 		Card c5 = new Card(Value.ACE, Suit.HEARTS);
@@ -64,7 +67,7 @@ public class FourAcesEvaluator extends FourOfAKindEvaluator implements MainHandE
 		boolean[] keep = eval.whereCards(hand);
 		
 		for (int i = 0; i < keep.length; i++){
-			System.out.println(eval.getHandPower());
+			System.out.println(eval.getHandPower(hand));
 		}
 		
 	}
