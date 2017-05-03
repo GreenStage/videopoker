@@ -51,7 +51,7 @@ public class Game {
 	}
 	
 	public void bet(int value, Game.ActionListener listener){
-		if(mPlayer.getHand() != null || value > 5 || betted){
+		if(mPlayer.hasHand() || value > 5 || betted){
 			listener.onFailure("b: illegal command");
 		}
 		else{
@@ -70,7 +70,7 @@ public class Game {
 	}
 	
 	public void giveAdvice(Game.ActionListener listener){
-		if(mPlayer.getHand() == null){
+		if(!mPlayer.hasHand()){
 			listener.onFailure("a: illegal command");
 		}
 		else{
@@ -94,7 +94,7 @@ public class Game {
 	public boolean getWinStatus(){ return this.wins; }
 	
 	public boolean[] getAdvice(ActionListener listener){
-		if(mPlayer.getHand() == null){
+		if(!mPlayer.hasHand()){
 			listener.onFailure("a: illegal command");
 			return null;
 		}
@@ -106,7 +106,7 @@ public class Game {
 	
 	
 	public void deal(ActionListener listener){
-		if(mDeck.getAmountCards() < 1 || !betted || mPlayer.getHand() != null){
+		if(mDeck.getAmountCards() < 1 || !betted || mPlayer.hasHand()){
 			listener.onFailure("d: illegal command");
 		}
 		else{
@@ -118,7 +118,7 @@ public class Game {
 	}
 	
 	public void keep(boolean[] keep, ActionListener listener){
-		if(mPlayer.getHand() == null || !betted){
+		if(!mPlayer.hasHand() || !betted){
 			listener.onFailure("h: illegal command");	
 			return;
 		}

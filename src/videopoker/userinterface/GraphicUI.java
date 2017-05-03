@@ -2,8 +2,10 @@ package videopoker.userinterface;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -12,8 +14,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -29,20 +33,26 @@ public class GraphicUI extends JFrame implements UserInterface{
 	private boolean[] keepArray = {false,false,false,false,false};
 	private JLabel[] keepText = new JLabel[5];
 	private int mBet = 1;
+	private boolean canHold = false;
 	private HashMap<String,Image> cardsImgs = new HashMap<String,Image>();
-
+	private JLabel[][] winningsTable ;
+	private JPanel messagesPanel;
+	private JLabel alertMsgLabel;
 	private JPanel[] cardsOuterpannel = new JPanel[5];	
+	
+	private JButton betButton, dealButton, drawButton, adviceButton, statsButton;
 	
 	private void cleanVars(){
 		mBet = 1;
+		displayBet(mBet);
 		keepArray = new boolean[] {false,false,false,false,false};
 		for(JLabel kt : keepText){
 			kt.setText("");
 		}
-		for(JPanel jp : cardsOuterpannel){
-			CardLayout cl = (CardLayout) jp.getLayout();
-			cl.show(jp,"Default");
-		}
+		betButton.setEnabled(true);
+		dealButton.setEnabled(true);
+		drawButton.setEnabled(false);
+		canHold = false;
 		
 	}
 	public GraphicUI(Game game) {
@@ -64,18 +74,78 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    setLayout( new BorderLayout());
 
 	    //Winning Prizes Table
-	    JLabel winningsLabel = new JLabel();
+	    JPanel winningsLabel = new JPanel();
 	    BoxLayout winningsLayout = new BoxLayout(winningsLabel,BoxLayout.Y_AXIS);
-	    add(winningsLabel);
+	    winningsLabel.setLayout(winningsLayout);
+	    winningsLabel.setOpaque(false);
+	    winningsLabel.setPreferredSize(new Dimension(750, 300));
+	    winningsLabel.setMaximumSize(new Dimension(750, 300)); 
+	    winningsLabel.setMinimumSize(new Dimension(750, 300));
+	    add(winningsLabel,BorderLayout.NORTH);
 	    
-	    for( String s : mGame.getWinningPrizes().getKeySet() ){
-	    	JLabel handPrizesLabel = new JLabel();
-	    	BoxLayout handPrizesLayout = new BoxLayout(handPrizesLabel,BoxLayout.	X_AXIS);
+	    int it = 0;
+	    List<String> iterable = mGame.getWinningPrizes().getKeySet();
+    	winningsTable = new JLabel[iterable.size()][];
+	    for( String s : iterable ){	 
+	    	
+	    	JPanel handPrizesLabel = new JPanel();
+	    	BoxLayout handPrizesLayout = new BoxLayout(handPrizesLabel,BoxLayout.X_AXIS);
+	    	handPrizesLabel.setLayout(handPrizesLayout);
+	    	handPrizesLabel.setPreferredSize(new Dimension(730, 25));
+	    	handPrizesLabel.setMaximumSize(new Dimension(730, 25)); 
+	    	handPrizesLabel.setMinimumSize(new Dimension(730, 25));
+	    	
+	    	handPrizesLabel.setBackground((it % 2 == 0)? Color.WHITE : Color.LIGHT_GRAY);
+	    	
+	    	winningsLabel.add(handPrizesLabel);
+	    	
+	    	JLabel handPowerLabel = new JLabel(s);
+	    	handPowerLabel.setOpaque(false);
+	    	handPowerLabel.setPreferredSize(new Dimension(180, 30));
+	    	handPowerLabel.setMaximumSize(new Dimension(180, 30)); 
+	    	handPowerLabel.setMinimumSize(new Dimension(180, 30));
+	    	handPrizesLabel.add(handPowerLabel);		
 	    	
 	    	int[] retArray = mGame.getWinningPrizes().getPrizeArray(s);
-	    	
+	    	winningsTable[it] = new JLabel[retArray.length];
+	    	for(int it2 = 0; it2 < retArray.length ; it2++){
+	    		winningsTable[it][it2] = new JLabel(String.valueOf(retArray[it2]));
+	    		winningsTable[it][it2].setPreferredSize(new Dimension(110, 30));
+	    		winningsTable[it][it2].setMaximumSize(new Dimension(110, 30)); 
+	    		winningsTable[it][it2].setMinimumSize(new Dimension(110, 30));
+	    		winningsTable[it][it2].setOpaque(true);
+	    		if(it2 == 0){
+		    		winningsTable[it][it2].setBackground((it % 2 == 0) ? 
+		    				new Color(51,204,255) : new Color(107,125,148));			
+	    		}
+	    		else winningsTable[it][it2].setBackground(new Color(0,0,0,0));
+	    		handPrizesLabel.add(winningsTable[it][it2]);  
+
+	    	}
+	    	it++;
 	    }
 	   
+	    //Messages Panel
+	    messagesPanel = new JPanel(new FlowLayout());
+	    messagesPanel.setVisible(true);
+	    messagesPanel.setPreferredSize(new Dimension(800, 100));
+	    messagesPanel.setMaximumSize(new Dimension(800, 100)); 
+	    messagesPanel.setMinimumSize(new Dimension(800, 100));
+	    messagesPanel.setBackground(new Color(0,0,0,0));
+	    add(messagesPanel,BorderLayout.WEST);	 
+	    
+	    //Alert icon
+	    ImageIcon alertIcon = new ImageIcon(this.getClass().getResource("/alert-icon.png"));
+	    JLabel iconLabel = new JLabel(alertIcon);
+	    iconLabel.setBackground(new Color(0,0,0,0));
+	    messagesPanel.setOpaque(false);
+	    messagesPanel.add(iconLabel);
+	    
+	    //Alert text message
+	    alertMsgLabel = new JLabel("Good Luck!");
+	    alertMsgLabel.setBackground(new Color(0,0,0,0));
+	    messagesPanel.add(alertMsgLabel);
+
 	    
 	    //CARDS Panel
 
@@ -128,7 +198,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    cardsBox.add(buttonsPanel);
 	    
 	    // Bet button  
-	    JButton betButton = new JButton("Bet");
+	    betButton = new JButton("Bet");
 	    betButton.addActionListener(new ActionListener()
 	    {
 	      public void actionPerformed(ActionEvent e)
@@ -141,7 +211,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    buttonsPanel.add(betButton);
 	    
 	    // Deal button    
-	    JButton dealButton = new JButton("Deal");
+	    dealButton = new JButton("Deal");
 	    dealButton.addActionListener(new ActionListener()
 	    {
 	      public void actionPerformed(ActionEvent e)
@@ -150,7 +220,20 @@ public class GraphicUI extends JFrame implements UserInterface{
 				
 				@Override
 				public void onSuccess() {
-					// TODO Auto-generated method stub
+					mGame.deal(new Game.ActionListener() {
+						@Override
+						public void onSuccess() {
+							canHold = true;
+							betButton.setEnabled(false);
+							dealButton.setEnabled(false);
+							drawButton.setEnabled(true);
+							displayHand(mGame.getPlayer().getHand().getHandStrArr());
+						}
+						@Override
+						public void onFailure(String reason) {
+							displayError(reason);
+						}
+					});
 				}
 				
 				@Override
@@ -158,11 +241,30 @@ public class GraphicUI extends JFrame implements UserInterface{
 					displayError(reason);
 				}
 			});
-	    	  mGame.deal(new Game.ActionListener() {
+	    	  
+	      }
+	    });
+	    buttonsPanel.add(dealButton);
+	    
+	    // Draw button  
+	    drawButton = new JButton("Draw");
+	    drawButton.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  mGame.keep(keepArray, new Game.ActionListener() {
+				
 				@Override
 				public void onSuccess() {
+					canHold = false;
+					drawButton.setEnabled(false);
 					displayHand(mGame.getPlayer().getHand().getHandStrArr());
+					displayWin(mGame.getWinStatus(), mGame.getWinningPrizes().
+							getHandPower(mGame.getPlayer().getHand()),
+							mGame.getPlayer().getCredit() );
+					cleanVars();
 				}
+				
 				@Override
 				public void onFailure(String reason) {
 					displayError(reason);
@@ -170,20 +272,9 @@ public class GraphicUI extends JFrame implements UserInterface{
 			});
 	      }
 	    });
-	    buttonsPanel.add(dealButton);
-	    
-	    // Bet button  
-	    JButton Draw = new JButton("Draw");
-	    betButton.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	    	  if(mBet == 5) mBet = 0;
-	    	  mBet++;
-	    	  displayBet(mBet);
-	      }
-	    });
-	    buttonsPanel.add(betButton);
+	    drawButton.setEnabled(false);
+	    buttonsPanel.add(drawButton);
+
 	}
 	
 	//JUST FOR DEBUGING
@@ -231,13 +322,28 @@ public class GraphicUI extends JFrame implements UserInterface{
 	@Override
 	public void displayBet(int bet) {
 		// TODO Auto-generated method stub
+		for(int it = 0; it < winningsTable.length; it++){
+			for(int it2 = 0 ; it2 < winningsTable[it].length; it2++){
+	    		if(it2 == bet - 1){
+		    		winningsTable[it][it2].setBackground((it % 2 == 0) ? 
+		    				new Color(51,204,255) : new Color(107,125,148));			
+	    		}
+	    		else {
+	    			winningsTable[it][it2].setBackground((it % 2 == 0)? Color.WHITE : Color.LIGHT_GRAY);
+	    		}
+
+			}
+		}
 		
 	}
 
 	@Override
 	public void displayHand(String[] hand) {
-
 	    for(int i = 0; i < 5; i++){
+	    	if(keepArray[i] == true){
+	    		continue;
+	    	} 
+	    	
 			JPanel cardsPanel = new JPanel();
 			cardsPanel.setOpaque(false);
 	    	Image cardImg = imageReader("cards/" + hand[i] + ".png");
@@ -256,23 +362,26 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    	innerPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                	if(keepArray[a] == true){
-                		keepArray[a] = false;
-                		keepText[a].setText("");
-            	    	keepText[a].setOpaque(false);
+                	if(canHold){
+		            	if(keepArray[a] == true){
+		            		keepArray[a] = false;
+		            		keepText[a].setText("");
+		        	    	keepText[a].setOpaque(false);
+		            	}
+		            	else{
+		            		keepArray[a] = true;
+		            		keepText[a].setText("HOLD");
+		            		keepText[a].setOpaque(false);
+		            	}	
                 	}
-                	else{
-                		keepArray[a] = true;
-                		keepText[a].setText("HOLD");
-                		keepText[a].setOpaque(false);
-                	}	
                 }
 
             });
-	    	cardsOuterpannel[i].add(innerPanel ,"Card");
+	    	
+	    	cardsOuterpannel[i].add(innerPanel ,(canHold)? "Card" : "DrawCard");
 	    
 	    	CardLayout cl = (CardLayout)(cardsOuterpannel[i].getLayout());
-	 	    cl.show(cardsOuterpannel[i], "Card");
+	 	    cl.show(cardsOuterpannel[i], (canHold)? "Card" : "DrawCard");
 	    }
 	   
 	}
@@ -286,12 +395,21 @@ public class GraphicUI extends JFrame implements UserInterface{
 	@Override
 	public void displayError(String reason) {
 		// TODO Auto-generated method stub
-		
+		alertMsgLabel.setText(reason);
+		messagesPanel.setVisible(true);
 	}
 
 	@Override
 	public void displayWin(boolean wins, String handPower, int credit) {
-		// TODO Auto-generated method stub
+		String msg = "";
+		if(wins){
+			msg = "Player wins with " + handPower + " and his credit is " +
+					String.valueOf(credit);
+		}
+		else msg = "Player loses and his credit is " + String.valueOf(credit);
+		
+		alertMsgLabel.setText(msg);
+		messagesPanel.setBackground(new Color(0,0,0,0));
 		
 	}
 

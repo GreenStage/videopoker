@@ -2,6 +2,8 @@ package videopoker.game;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +59,7 @@ public class WinningPrizes {
 		this.winnings.put("TWO PAIR",new int[] {1,2,3,4,5});
 		evaluators.add( new TwoPairEvaluator() );
 		
-		this.winnings.put("JACKS +",new int[] {1,2,3,4,5});
+		this.winnings.put("JACKS OR BETTER",new int[] {1,2,3,4,5});
 		evaluators.add( new HighPairEvaluator() );	
 	}
 	
@@ -74,8 +76,15 @@ public class WinningPrizes {
 		else return new int[0];
 	}
 	
-	public Collection<String> getKeySet(){
-		return winnings.keySet();	
+	public List<String> getKeySet(){
+		List<String> retval = new ArrayList(winnings.keySet());
+		Collections.sort(retval,new Comparator<String>(){
+			@Override
+			public int compare(String o1, String o2) {
+				return  winnings.get(o2)[0] - winnings.get(o1)[0];
+			}
+		});
+		return retval;	
 	}
 	
 

@@ -73,6 +73,7 @@ public class Card {
 		for( Suit s : Card.Suit.values() ){
 			if ( s.getSuit() == suitC){
 				this.suit = s;
+				suitSet = true;
 			}	
 		}
 		if(suitSet == false){

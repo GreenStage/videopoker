@@ -13,6 +13,10 @@ public class Player {
 		this.mHand = hand;
 	}
 	
+	public boolean hasHand(){
+		return this.mHand != null;
+	}
+	
 	public Hand getHand(){
 		return this.mHand;
 	}
