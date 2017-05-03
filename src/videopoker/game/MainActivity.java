@@ -75,8 +75,8 @@ public class MainActivity {
 			System.out.println("Invalid game mode");
 			System.exit(ERR_INVALID_MODE);
 		}
-		
-		mUI.run();
+		if(mUI != null)
+			mUI.run();
 
 	}
 }
