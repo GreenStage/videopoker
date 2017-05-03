@@ -15,43 +15,45 @@ public class ToIStraight4Evaluator extends HandEvaluator implements Evaluator{
 		Card[] test1 = {hand_o[0], hand_o[1], hand_o[2], hand_o[3]};
 		Card[] test2 = {hand_o[1], hand_o[2], hand_o[3], hand_o[4]};
 		Card[] test3 = {hand_o[4], hand_o[0], hand_o[1], hand_o[2]};
+		boolean[] keep1 = {false, false, false, false, false};
+		boolean[] keep2 = {false, false, false, false, false};
+		boolean[] keep3 = {false, false, false, false, false};
+		boolean enter1 = false;
+		boolean enter2 = false;
+		boolean enter3 = false;
 		
 		if (!this.hasDuplicates(test1)){
 			int numGaps = this.numGaps(test1);
 			if (numGaps == 1 || (numGaps == 0 && this.hasAce(test1) && (this.hasTwo(test1) || this.hasKing(test1)))){
-				boolean[] keep = {false, false, false, false, false};
-				keep[hand.search(test1[0])] = true;
-				keep[hand.search(test1[1])] = true;
-				keep[hand.search(test1[2])] = true;
-				keep[hand.search(test1[3])] = true;
-				
-				return keep;
+				keep1[hand.search(test1[0])] = true;
+				keep1[hand.search(test1[1])] = true;
+				keep1[hand.search(test1[2])] = true;
+				keep1[hand.search(test1[3])] = true;
+				enter1 = true;
 			}
 		}
 		
 		if (!this.hasDuplicates(test2)){
 			int numGaps = this.numGaps(test2);
 			if (numGaps == 1 || (numGaps == 0 && this.hasAce(test2) && (this.hasTwo(test2) || this.hasKing(test2)))){
-				boolean[] keep = {false, false, false, false, false};
-				keep[hand.search(test2[0])] = true;
-				keep[hand.search(test2[1])] = true;
-				keep[hand.search(test2[2])] = true;
-				keep[hand.search(test2[3])] = true;
-				
-				return keep;
+				keep2[hand.search(test2[0])] = true;
+				keep2[hand.search(test2[1])] = true;
+				keep2[hand.search(test2[2])] = true;
+				keep2[hand.search(test2[3])] = true;
+					
+				enter2 = true;
 			}
 		}
 		
 		if (!this.hasDuplicates(test3)){
 			int numGaps = this.numGaps(test3);
 			if (numGaps == 1 || (numGaps == 0 && this.hasAce(test3) && (this.hasTwo(test3) || this.hasKing(test3)))){
-				boolean[] keep = {false, false, false, false, false};
-				keep[hand.search(test3[0])] = true;
-				keep[hand.search(test3[1])] = true;
-				keep[hand.search(test3[2])] = true;
-				keep[hand.search(test3[3])] = true;
+				keep3[hand.search(test3[0])] = true;
+				keep3[hand.search(test3[1])] = true;
+				keep3[hand.search(test3[2])] = true;
+				keep3[hand.search(test3[3])] = true;
 				
-				return keep;
+				enter3 = true;
 			}
 		}
 		
@@ -83,7 +85,39 @@ public class ToIStraight4Evaluator extends HandEvaluator implements Evaluator{
 			}
 			
 		}
+		
+		if (enter1 || enter2 || enter3){
+			int numH1 = numHighCards(test1);
+			int numH2 = numHighCards(test2);
+			int numH3 = numHighCards(test3);
 			
+			if (enter1 && enter2 && enter3){
+				if (numH1 >= numH2 && numH1 >= numH3)
+					return keep1;
+				else if (numH2 >= numH1 && numH2 >= numH3)
+					return keep2;
+				else
+					return keep3;
+			}
+			else if (enter1 && enter2){
+				if (numH1 >= numH2)
+					return keep1;
+				else
+					return keep2;
+			}
+			else if (enter1 && enter3){
+				if (numH1 >= numH3)
+					return keep1;
+				else
+					return keep3;
+			}
+			else if (enter1)
+				return keep1;
+			else if (enter2)
+				return keep2;
+			else 
+				return keep3;
+		}		
 
 		return new boolean[0];
 		
@@ -93,12 +127,12 @@ public class ToIStraight4Evaluator extends HandEvaluator implements Evaluator{
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.JACK, Suit.SPADES);
-		Card c3 = new Card(Value.QUEEN, Suit.CLOVERS);
-		Card c4 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c5 = new Card(Value.ACE, Suit.SPADES);
-
+		Card c1 = new Card(Value.SIX, Suit.SPADES);
+		Card c2 = new Card(Value.SEVEN, Suit.CLOVERS);
+		Card c3 = new Card(Value.EIGHT, Suit.DIAMONDS);
+		Card c4 = new Card(Value.TEN, Suit.HEARTS);
+		Card c5 = new Card(Value.JACK, Suit.HEARTS);
+	
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		ToIStraight4Evaluator eval = new ToIStraight4Evaluator();
 		boolean[] keep = eval.whereCards(hand);
@@ -106,6 +140,6 @@ public class ToIStraight4Evaluator extends HandEvaluator implements Evaluator{
 		for (int i = 0; i < keep.length; i++){
 			System.out.println(keep[i]);
 		}
-		
+	
 	}
 }

@@ -4,6 +4,8 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
+import videopoker.strategy.Advisor;
+import videopoker.strategy.TraditionalStrategy;
 
 public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
@@ -58,11 +60,11 @@ public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEval
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c3 = new Card(Value.ACE, Suit.CLOVERS);
-		Card c4 = new Card(Value.ACE, Suit.SPADES);
-		Card c5 = new Card(Value.FIVE, Suit.HEARTS);
+		Card c1 = new Card(Value.ACE, Suit.HEARTS);
+		Card c2 = new Card(Value.ACE, Suit.SPADES);
+		Card c3 = new Card(Value.ACE, Suit.DIAMONDS);
+		Card c4 = new Card(Value.TEN, Suit.CLOVERS);
+		Card c5 = new Card(Value.TEN, Suit.HEARTS);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		ThreeOfAKindEvaluator eval = new ThreeOfAKindEvaluator();
