@@ -1,10 +1,12 @@
 package videopoker.userinterface;
 
+import java.io.FileReader;
 import java.util.Scanner;
 
-public class ConsoleReadHandler extends ReadHandler{
+public class StdinStdoutHandler extends IOHandler{
+	Scanner mScanner;
 	
-	public ConsoleReadHandler(){
+	public StdinStdoutHandler(){
 		this.mScanner = new Scanner(System.in);
 	}
 	
@@ -15,5 +17,11 @@ public class ConsoleReadHandler extends ReadHandler{
 			return null;
 		}
 		else return retval;
+	}
+
+	@Override
+	public void write(String message) {
+		System.out.println(message);
+		
 	}
 }

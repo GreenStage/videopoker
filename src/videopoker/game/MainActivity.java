@@ -4,10 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import videopoker.userinterface.ConsoleReadHandler;
-import videopoker.userinterface.FileReadHandler;
+import videopoker.userinterface.AdviceinStdoutHandler;
+
+import videopoker.userinterface.FileInStdoutHandler;
+
 import videopoker.userinterface.GraphicUI;
-import videopoker.userinterface.ReadHandler;
+import videopoker.userinterface.IOHandler;
+
+import videopoker.userinterface.StdinStdoutHandler;
 import videopoker.userinterface.TextUI;
 import videopoker.userinterface.UserInterface;
 
@@ -23,7 +27,7 @@ public class MainActivity {
 	
 	public static void main(String[] args){
 		int credit = 0;
-		ReadHandler rh = null;
+		IOHandler rh = null;
 		if(args.length < 2 || Integer.parseInt(args[1])  <= 0){
 			System.exit(ERR_INVALID_CREDIT);
 		}
@@ -32,8 +36,8 @@ public class MainActivity {
 		//Interactive mode
 		if(args[0].equals("-i")){
 			mGame = new Game(credit);
-			rh = new ConsoleReadHandler();
-			mUI = new TextUI(mGame,rh,System.out);
+			rh = new StdinStdoutHandler();
+			mUI = new TextUI(mGame,rh);
 		}
 		
 		//Debug mode
@@ -44,16 +48,16 @@ public class MainActivity {
 			}
 			try{
 				FileReader cardReader = new FileReader(args[3]);
-				FileReadHandler cardRH = new FileReadHandler(cardReader);
+				FileInStdoutHandler cardRH = new FileInStdoutHandler(cardReader);
 				String line = cardRH.getLine();
 				cardReader.close();
 
 				FileReader fr =  new FileReader(args[2]);
-				rh = new FileReadHandler(fr);
+				rh = new FileInStdoutHandler(fr);
 				fr.close();
 				
 				mGame = new Game(credit,line.split(" "));
-				mUI = new TextUI(mGame,rh,System.out);
+				mUI = new TextUI(mGame,rh);
 				
 			}
 			catch(FileNotFoundException e){
@@ -64,7 +68,9 @@ public class MainActivity {
 			}
 		}
 		else if( args[0].equals("-s") ){
-			mUI = null;
+			rh = new AdviceinStdoutHandler(mGame);
+			mGame = new Game( credit);
+			mUI = new TextUI(mGame, rh);
 		}
 		else if( args[0].equals("-g") ){
 			mGame = new Game(1000); //TODO

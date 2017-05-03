@@ -3,11 +3,11 @@ package videopoker.userinterface;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class FileReadHandler extends ReadHandler{
+public class FileInStdoutHandler extends IOHandler{
 	String mLine;
 	Scanner mScanner;
 	
-	public FileReadHandler(FileReader fr){
+	public FileInStdoutHandler(FileReader fr){
 		Scanner temp = new Scanner(fr);
 		this.mLine = temp.nextLine();
 		temp.close();
@@ -29,5 +29,11 @@ public class FileReadHandler extends ReadHandler{
 	
 	public String getLine(){
 		return mLine;
+	}
+
+	@Override
+	public void write(String message) {
+		System.out.println(message);
+		
 	}
 }
