@@ -5,6 +5,7 @@ import java.util.Map;
 
 import videopoker.strategy.Advisor;
 import videopoker.strategy.TraditionalStrategy;
+import videopoker.utilities.PowerHashMap;
 
 public class Game {
 	//Codes
@@ -18,8 +19,10 @@ public class Game {
 	private Advisor mAdvisor;
 	private boolean[] mAdvice;	
 	private String handPower = ""; //Should this should be in Hand class?
+	private PowerHashMap<String, Integer> winningStats = new PowerHashMap<String,Integer>();
 	private boolean wins = false;
 	private boolean betted = false; 
+	
 	public interface ActionListener{
 		public void onSuccess();
 		public void onFailure(String reason);
@@ -27,6 +30,9 @@ public class Game {
 	
 	public Game(int credit){
 		this.mWinningPrizes = new WinningPrizes();
+		for(String s: this.mWinningPrizes.getWinningHands()){
+			winningStats.put(s, 0);
+		}
 		this.mPlayer = new Player(credit);
 		this.mDeck = new Deck();
 		mAdvisor = new Advisor(new TraditionalStrategy());
@@ -83,11 +89,10 @@ public class Game {
 		int prize = mWinningPrizes.getPrize( mWinningPrizes.getHandPower(mPlayer.getHand()),
 				this.mPlayer.getBet());
 		if(prize == 0){
-			wins = false;
+			onLose();
 		}
 		else{
-			this.mPlayer.setCredit(this.mPlayer.getCredit() + prize);
-			wins = true;
+			onWin(prize);
 		} 
 	} 
 	
@@ -131,17 +136,32 @@ public class Game {
 				if(keep[i] == false) newHand.setCard(i, mDeck.popCard());
 			}		
 		}			
-		//Reset status
+
 		evaluateHand();
-		listener.onSuccess();	
+		listener.onSuccess();
+		resetGame();
+	}
+	
+	private void onLose(){
+		wins = false;
+		
+	}
+	
+	private void onWin(int prize){
+		this.mPlayer.setCredit(this.mPlayer.getCredit() + prize);
+		wins = true;
+		if(winningStats.containsKey(handPower)){
+			winningStats.put(handPower, winningStats.get(handPower) + 1);
+		}
+	}
+	
+	private void resetGame(){
 		this.betted = false;
-		this.wins = false;
 		this.mPlayer.setHand(null);
 		
 		if(mDeck.getSavedDeck() != null)
 			this.mDeck = new Deck(this.mDeck.getSavedDeck());
 		else this.mDeck = new Deck();
-		
 	}
 	
 	public WinningPrizes getWinningPrizes(){

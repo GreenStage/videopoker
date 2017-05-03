@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import javax.swing.JPanel;
 
 import videopoker.game.Card;
 import videopoker.game.Game;
+import videopoker.game.WinningPrizes;
 
 
 public class GraphicUI extends JFrame implements UserInterface{
@@ -84,7 +86,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    add(winningsLabel,BorderLayout.NORTH);
 	    
 	    int it = 0;
-	    List<String> iterable = mGame.getWinningPrizes().getKeySet();
+	    List<String> iterable = mGame.getWinningPrizes().getWinningHands();
     	winningsTable = new JLabel[iterable.size()][];
 	    for( String s : iterable ){	 
 	    	

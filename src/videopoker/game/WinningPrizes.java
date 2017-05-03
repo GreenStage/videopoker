@@ -20,11 +20,13 @@ import videopoker.evaluators.StraightEvaluator;
 import videopoker.evaluators.StraightFlushEvaluator;
 import videopoker.evaluators.ThreeOfAKindEvaluator;
 import videopoker.evaluators.TwoPairEvaluator;
+import videopoker.utilities.PowerHashMap;
 
 
 
 public class WinningPrizes {
-	private Map<String,int[]>  winnings = new HashMap<String,int[]>();
+
+	private PowerHashMap<String,int[]>  winnings = new PowerHashMap<String,int[]>();
 
 	private List<HandEvaluator> evaluators= new ArrayList<HandEvaluator>();
 	
@@ -63,6 +65,15 @@ public class WinningPrizes {
 		evaluators.add( new HighPairEvaluator() );	
 	}
 	
+	public List<String> getWinningHands(){
+		return winnings.getOrderedKeys(new Comparator<String>(){
+			@Override
+			public int compare(String o1, String o2) {
+				return  winnings.get(o2)[0] - winnings.get(o1)[0];
+			}
+		});
+	}
+	
 	public int getPrize(String handPower, int bet){
 		if(bet <= 6 && this.winnings.containsKey(handPower)){
 			return this.winnings.get(handPower)[bet - 1];
@@ -75,18 +86,6 @@ public class WinningPrizes {
 			return winnings.get(handPower);
 		else return new int[0];
 	}
-	
-	public List<String> getKeySet(){
-		List<String> retval = new ArrayList(winnings.keySet());
-		Collections.sort(retval,new Comparator<String>(){
-			@Override
-			public int compare(String o1, String o2) {
-				return  winnings.get(o2)[0] - winnings.get(o1)[0];
-			}
-		});
-		return retval;	
-	}
-	
 
 	public String getHandPower(Hand hand){
 		for(HandEvaluator h : evaluators){
