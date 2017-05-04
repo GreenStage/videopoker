@@ -12,6 +12,12 @@ public class Hand {
 	//TODO: Hand cannot have duplicate cards...
 	
 	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4){
+		
+		/*
+		if (c0.equals(c1) || c0.equals(c2) || c0.equals(c3) || c0.equals(c4) || c1.equals(c2) ||
+				c1.equals(c3) || c1.equals(c4) || c2.equals(c3) || c2.equals(c4) || c3.equals(c4))
+			throw new DuplicateCardException("One or more equal cards in the hand");
+		*/
 		hand[0] = c0;
 		hand[1] = c1;
 		hand[2] = c2;
@@ -82,11 +88,11 @@ public class Hand {
 	
 	// TEST ORDERING FUNCTIONS
 	public static void main(String[] args){
-		Card c1 = new Card(Value.FOUR, Suit.DIAMONDS);
-		Card c2 = new Card(Value.JACK, Suit.HEARTS);
-		Card c3 = new Card(Value.THREE, Suit.CLOVERS);
-		Card c4 = new Card(Value.ACE, Suit.HEARTS);
-		Card c5 = new Card(Value.EIGHT, Suit.DIAMONDS);
+		Card c1 = new Card(Value.TWO, Suit.HEARTS);
+		Card c2 = new Card(Value.QUEEN, Suit.SPADES);
+		Card c3 = new Card(Value.JACK, Suit.SPADES);
+		Card c4 = new Card(Value.NINE, Suit.DIAMONDS);
+		Card c5 = new Card(Value.EIGHT, Suit.SPADES);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		
