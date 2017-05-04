@@ -81,6 +81,7 @@ public class Card {
 		}
 		
 	}
+	
 	public char getSuit(){
 		return this.suit.getSuit();
 	}
