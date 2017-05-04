@@ -56,9 +56,5 @@ public class Advisor {
 		for (int i = 0; i < keep.length; i++){
 			System.out.println(keep[i]);
 		}
-		
 	}
-	
-	
-	
 }
