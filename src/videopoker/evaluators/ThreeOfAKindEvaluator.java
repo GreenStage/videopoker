@@ -9,7 +9,7 @@ import videopoker.strategy.TraditionalStrategy;
 
 public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
-	private static final String handPower = "THREE OF A KIND";
+	public static final String handPower = "THREE OF A KIND";
 	
 	@Override
 	public boolean hasHandPower(Hand hand) {

@@ -4,7 +4,7 @@ import videopoker.game.Hand;
 
 public class StraightEvaluator extends HandEvaluator implements MainHandEvaluator {
 
-	private final static String handPower = "STRAIGHT";
+	public final static String handPower = "STRAIGHT";
 
 	
 	@Override

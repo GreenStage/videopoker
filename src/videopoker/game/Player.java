@@ -2,11 +2,13 @@ package videopoker.game;
 
 public class Player {
 	private int mCredit;
+	private int startCredit;
 	private Hand mHand;
 	private int bet = 5;
 	
 	public Player(int credit){
 		this.mCredit = credit;
+		this.startCredit = credit;
 	}
 	
 	public void setHand(Hand hand){
@@ -29,6 +31,9 @@ public class Player {
 	
 	public int getCredit(){
 		return this.mCredit;
+	}
+	public int getGain(){
+		return (int) (100 * (float) mCredit / (float) startCredit) ;
 	}
 	
 	public int getBet(){

@@ -33,6 +33,8 @@ public class Game {
 		for(String s: this.mWinningPrizes.getWinningHands()){
 			winningStats.put(s, 0);
 		}
+		winningStats.put(WinningPrizes.HAND_NONE,0);
+		
 		this.mPlayer = new Player(credit);
 		this.mDeck = new Deck();
 		mAdvisor = new Advisor(new TraditionalStrategy());
@@ -42,6 +44,7 @@ public class Game {
 	public Game(int credit, String[] cards){
 		this(credit);
 		this.mDeck = new Deck(cards);
+		mDeck.setRemoveRandom(false);
 	}	
 	
 	public void setCredit(int credit){
@@ -86,8 +89,10 @@ public class Game {
 	}
 	
 	public void evaluateHand(){
-		int prize = mWinningPrizes.getPrize( mWinningPrizes.getHandPower(mPlayer.getHand()),
-				this.mPlayer.getBet());
+		Hand mHand = mPlayer.getHand();
+		handPower = mWinningPrizes.getHandPower(mPlayer.getHand());
+		int prize = mWinningPrizes.getPrize(handPower,this.mPlayer.getBet());
+		
 		if(prize == 0){
 			onLose();
 		}
@@ -142,8 +147,14 @@ public class Game {
 		resetGame();
 	}
 	
+	public PowerHashMap<String,Integer> getStatistics(){
+		return this.winningStats;
+	}
+	
 	private void onLose(){
 		wins = false;
+		winningStats.put(WinningPrizes.HAND_NONE, 
+				winningStats.get(WinningPrizes.HAND_NONE) + 1);
 		
 	}
 	
@@ -159,9 +170,8 @@ public class Game {
 		this.betted = false;
 		this.mPlayer.setHand(null);
 		
-		if(mDeck.getSavedDeck() != null)
-			this.mDeck = new Deck(this.mDeck.getSavedDeck());
-		else this.mDeck = new Deck();
+		if(mDeck.getRemoveRandom())
+			this.mDeck = new Deck();
 	}
 	
 	public WinningPrizes getWinningPrizes(){

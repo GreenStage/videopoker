@@ -7,7 +7,7 @@ import videopoker.game.Card.Value;
 
 public class FourAcesEvaluator extends FourOfAKindEvaluator implements MainHandEvaluator {
 	
-	private static final String handPower = "FOUR ACES";
+	public static final String handPower = "FOUR ACES";
 	
 	@Override
 	public boolean hasHandPower(Hand hand) {

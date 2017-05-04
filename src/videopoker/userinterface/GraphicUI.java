@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -24,17 +25,20 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import videopoker.game.Card;
 import videopoker.game.Game;
 import videopoker.game.WinningPrizes;
+import videopoker.utilities.PowerHashMap;
 
 
 public class GraphicUI extends JFrame implements UserInterface{
 	private Game mGame;
 	private boolean[] keepArray = {false,false,false,false,false};
 	private JLabel[] keepText = new JLabel[5];
-	private int mBet = 1;
+	private int mBet = 5;
 	private boolean canHold = false;
 	private HashMap<String,Image> cardsImgs = new HashMap<String,Image>();
 	private JLabel[][] winningsTable ;
@@ -45,7 +49,6 @@ public class GraphicUI extends JFrame implements UserInterface{
 	private JButton betButton, dealButton, drawButton, adviceButton, statsButton;
 	
 	private void cleanVars(){
-		mBet = 1;
 		displayBet(mBet);
 		keepArray = new boolean[] {false,false,false,false,false};
 		for(JLabel kt : keepText){
@@ -54,6 +57,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 		betButton.setEnabled(true);
 		dealButton.setEnabled(true);
 		drawButton.setEnabled(false);
+		adviceButton.setEnabled(false);
 		canHold = false;
 		
 	}
@@ -88,6 +92,24 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    int it = 0;
 	    List<String> iterable = mGame.getWinningPrizes().getWinningHands();
     	winningsTable = new JLabel[iterable.size()][];
+    	
+    	JPanel betsPanel = new JPanel();
+    	BoxLayout betslayout = new BoxLayout(betsPanel,BoxLayout.X_AXIS);
+    	betsPanel.setLayout(betslayout);
+    	betsPanel.setPreferredSize(new Dimension(730, 25));
+    	betsPanel.setMaximumSize(new Dimension(730, 25)); 
+    	betsPanel.setMinimumSize(new Dimension(730, 25));
+    	winningsLabel.add(betsPanel);
+    	
+    	for(int i = -1; i < 5; i++){
+    		JLabel betl = new JLabel((i == -1)? "BET": String.valueOf(i + 1));
+    		betl.setFont(betl.getFont().deriveFont(Font.BOLD));
+    		betl.setPreferredSize(new Dimension( (i == -1)? 180: 110, 30));
+    		betl.setMaximumSize(new Dimension((i == -1)? 180: 110, 30)); 
+    		betl.setMinimumSize(new Dimension((i == -1)? 180: 110, 30));
+    		betl.setOpaque(true);
+    		betsPanel.add(betl);
+    	}
 	    for( String s : iterable ){	 
 	    	
 	    	JPanel handPrizesLabel = new JPanel();
@@ -103,6 +125,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    	
 	    	JLabel handPowerLabel = new JLabel(s);
 	    	handPowerLabel.setOpaque(false);
+	    	handPowerLabel.setForeground(new Color(107,125,148));
 	    	handPowerLabel.setPreferredSize(new Dimension(180, 30));
 	    	handPowerLabel.setMaximumSize(new Dimension(180, 30)); 
 	    	handPowerLabel.setMinimumSize(new Dimension(180, 30));
@@ -116,7 +139,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    		winningsTable[it][it2].setMaximumSize(new Dimension(110, 30)); 
 	    		winningsTable[it][it2].setMinimumSize(new Dimension(110, 30));
 	    		winningsTable[it][it2].setOpaque(true);
-	    		if(it2 == 0){
+	    		if(it2 == mBet - 1){
 		    		winningsTable[it][it2].setBackground((it % 2 == 0) ? 
 		    				new Color(51,204,255) : new Color(107,125,148));			
 	    		}
@@ -227,6 +250,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 						public void onSuccess() {
 							canHold = true;
 							betButton.setEnabled(false);
+							adviceButton.setEnabled(true);
 							dealButton.setEnabled(false);
 							drawButton.setEnabled(true);
 							displayHand(mGame.getPlayer().getHand().getHandStrArr());
@@ -259,6 +283,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 				@Override
 				public void onSuccess() {
 					canHold = false;
+					adviceButton.setEnabled(false);
 					drawButton.setEnabled(false);
 					displayHand(mGame.getPlayer().getHand().getHandStrArr());
 					displayWin(mGame.getWinStatus(), mGame.getWinningPrizes().
@@ -277,6 +302,42 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    drawButton.setEnabled(false);
 	    buttonsPanel.add(drawButton);
 
+	 // Advice 
+	    adviceButton = new JButton("Advice");
+	    adviceButton.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  mGame.giveAdvice(new Game.ActionListener() {
+				
+				@Override
+				public void onSuccess() {
+					boolean[] advArr = mGame.getAdvice();
+					displayAdvice(advArr);
+				}
+				
+				@Override
+				public void onFailure(String reason) {
+					displayError(reason);
+				}
+			});
+	      }
+	    });
+	    adviceButton.setEnabled(false);
+	    buttonsPanel.add(adviceButton);
+	    
+	    statsButton = new JButton("Statistics");
+	    statsButton.addActionListener(new ActionListener(){
+	    	
+	      public void actionPerformed(ActionEvent e){
+			PowerHashMap<String, Integer> statsMap = mGame.getStatistics();
+			displayStats(mGame.getCredit(),mGame.getPlayer().getGain(),statsMap);
+			
+	      }
+	      
+	    });
+	    statsButton.setEnabled(true);
+	    buttonsPanel.add(statsButton);
 	}
 	
 	//JUST FOR DEBUGING
@@ -389,9 +450,22 @@ public class GraphicUI extends JFrame implements UserInterface{
 	}
 
 	@Override
-	public void displayAdvice(String[] hand, boolean[] advice) {
-		// TODO Auto-generated method stub
-		
+	public void displayAdvice(boolean[] advice) {
+		String advStr = "";
+		boolean discardALL = true;
+		for(int i = 0; i < advice.length; i++){
+			if(advice[i] == true){
+				advStr += " " + String.valueOf(i + 1) ;
+				discardALL = false;
+			}
+		}
+		if(discardALL == true){
+			alertMsgLabel.setText("Player should discard all cards");	
+		}
+		else{
+			alertMsgLabel.setText("Player should keep cards"+ advStr);
+		}
+		messagesPanel.setVisible(true);	
 	}
 
 	@Override
@@ -415,9 +489,45 @@ public class GraphicUI extends JFrame implements UserInterface{
 		
 	}
 
+
+	@Override
+	public void displayStats(int credit, int gain, PowerHashMap<String, Integer> statsMap) {
+		int total = 0;
+		List<String> powerHands = statsMap.getOrderedKeys(
+				new Comparator<String>(){
+					@Override
+					public int compare(String o1, String o2) {
+						return mGame.getWinningPrizes().getPrize(o2,1) - 
+								mGame.getWinningPrizes().getPrize(o1,1);
+					}
+				});
+		JFrame statsWindow = new JFrame("Game Statistics");
+		statsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		String[][] rowData = new String[powerHands.size() + 2][2];
+		String[] colNames = new String[]{"Hand", "Nb"};
+		
+		int i = 0;
+		for(String s: powerHands){
+			int c = statsMap.get(s);
+			total += c;
+			rowData[i][0] = s;
+			rowData[i][1] = String.valueOf(c);
+			i++;
+		}
+		rowData[i][0] = "Total";
+		rowData[i][1] = String.valueOf(total);
+		rowData[i+1][0] = "Credit";
+		rowData[i+1][1] = String.valueOf(credit) + " (" + String.valueOf(gain) + "%)";
+		JTable table = new JTable(rowData, colNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		statsWindow.add(scrollPane, BorderLayout.CENTER);
+		statsWindow.setSize(300, 300);
+		statsWindow.setVisible(true);
+	}
+	
 	@Override
 	public void run() {
 		setVisible(true);
 	}
-
 }

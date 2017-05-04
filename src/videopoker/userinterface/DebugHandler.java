@@ -3,11 +3,11 @@ package videopoker.userinterface;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class FileInStdoutHandler extends IOHandler{
+public class DebugHandler extends IOHandler{
 	String mLine;
 	Scanner mScanner;
 	
-	public FileInStdoutHandler(FileReader fr){
+	public DebugHandler(FileReader fr){
 		Scanner temp = new Scanner(fr);
 		this.mLine = temp.nextLine();
 		temp.close();
@@ -20,8 +20,10 @@ public class FileInStdoutHandler extends IOHandler{
 		if(mScanner.hasNext()){
 			String retval = mScanner.next();
 			while(mScanner.hasNextInt()){
-				retval += String.valueOf( mScanner.nextInt() );
+				retval += " " + String.valueOf( mScanner.nextInt() );
 			}
+			write("");
+			write("-cmd " + retval);
 			return retval;
 		}	
 		else return null;

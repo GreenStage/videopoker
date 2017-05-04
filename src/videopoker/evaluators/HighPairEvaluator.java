@@ -8,7 +8,7 @@ import videopoker.game.Card.Value;
 
 public class HighPairEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
-	private final static String handPower = "JACKS OR BETTER";
+	public final static String handPower = "JACKS OR BETTER";
 
 	
 	@Override

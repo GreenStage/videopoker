@@ -3,7 +3,7 @@ package videopoker.game;
 import java.util.ArrayList;
 
 public class Deck {
-	private String[] savedDeck = null;
+	private boolean removeRandom = true;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 
 	public Deck(){
@@ -14,12 +14,14 @@ public class Deck {
 		}
 	}
 	
-	public String[] getSavedDeck(){
-		return this.savedDeck;
+	public void setRemoveRandom(boolean f){
+		removeRandom = f;
 	}
 	
+	public boolean getRemoveRandom(){
+		return removeRandom;
+	}
 	public Deck(String[] cardArr){
-		this.savedDeck = cardArr;
 		for(String c : cardArr){
 			try{
 				Card newCard = new Card(c);
@@ -36,13 +38,15 @@ public class Deck {
 		if(cards.size() == 0){
 			return null;
 		}
-		int rand = (int) ((Math.random() * cards.size()));
-		return cards.remove(rand);
+		else if(!removeRandom)
+			return cards.remove(0);
+		else{
+			int rand = (int) ((Math.random() * cards.size()));
+			return cards.remove(rand);		
+		}
+
 	}
 	
-	public Card popCard(int index){
-		return cards.remove(index);
-	}
 	
 	public int getAmountCards(){
 		return cards.size();

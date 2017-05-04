@@ -3,10 +3,10 @@ package videopoker.userinterface;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class StdinStdoutHandler extends IOHandler{
+public class InteractiveHandler extends IOHandler{
 	Scanner mScanner;
 	
-	public StdinStdoutHandler(){
+	public InteractiveHandler(){
 		this.mScanner = new Scanner(System.in);
 	}
 	

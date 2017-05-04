@@ -10,7 +10,7 @@ public class AceEvaluator extends HandEvaluator implements Evaluator {
 		
 		Card[] hand_o = hand.orderByValue();
 		
-		boolean[] keep = {false, false, false, false};
+		boolean[] keep = {false, false,false, false, false};
 		
 		if (hand_o[4].getValue() == 'A'){
 			keep[hand.search(hand_o[4])] = true;

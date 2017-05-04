@@ -1,8 +1,11 @@
 package videopoker.userinterface;
 
 import java.io.PrintStream;
+import java.util.Comparator;
+import java.util.List;
 
 import videopoker.game.Game;
+import videopoker.utilities.PowerHashMap;
 
 
 public class TextUI implements UserInterface{
@@ -18,10 +21,10 @@ public class TextUI implements UserInterface{
 	@Override
 	public void run(){
 		boolean quit  = false;
-		while(!quit){
+		while(true){
 			String readStr =  mIOHandler.read();
 			if(readStr == null){
-				quit = true;
+				break;
 			}
 			
 			String[] command = readStr.split(" ");
@@ -41,7 +44,7 @@ public class TextUI implements UserInterface{
 						
 						@Override
 						public void onSuccess() {
-							displayCredit(mGame.getCredit());	
+							displayBet(mGame.getBet());	
 						}
 						
 						@Override
@@ -58,6 +61,7 @@ public class TextUI implements UserInterface{
 			
 			else if(command[0].equals("d")){
 				mGame.deal(new Game.ActionListener() {
+					
 					@Override
 					public void onSuccess() {
 						displayHand(mGame.getPlayer().getHand().getHandStrArr());
@@ -68,6 +72,7 @@ public class TextUI implements UserInterface{
 						displayError(reason);						
 					}
 				});
+
 			}
 			
 			else if( command[0].equals("h") ){
@@ -95,12 +100,13 @@ public class TextUI implements UserInterface{
 					}
 				});
 			}
+			
 			else if(command[0].equals("a")){
 				mGame.giveAdvice(new Game.ActionListener() {
 					@Override
 					public void onSuccess() {
 						// TODO Auto-generated method stub
-						displayAdvice(mGame.getPlayer().getHand().getHandStrArr(),mGame.getAdvice());
+						displayAdvice(mGame.getAdvice());
 					}
 					
 					@Override
@@ -110,44 +116,71 @@ public class TextUI implements UserInterface{
 					}
 				});
 			}
+			
 			else if(command[0].equals("s")){
-				//TODO
+				PowerHashMap<String, Integer> statsMap = mGame.getStatistics();
+				displayStats(mGame.getCredit(),mGame.getPlayer().getGain(),statsMap);
 			}
 		}
 	}
 	
+	@Override
+	public void displayStats(int credit,int gain,PowerHashMap<String, Integer> statsMap){
+		int total = 0;
+		List<String> PowerHands = statsMap.getOrderedKeys(
+				new Comparator<String>(){
+					@Override
+					public int compare(String o1, String o2) {
+						return mGame.getWinningPrizes().getPrize(o2,1) - 
+								mGame.getWinningPrizes().getPrize(o1,1);
+					}
+				});
+		
+		mIOHandler.write("Hand\tNb\n");
+		for(String s: PowerHands){
+			int c = statsMap.get(s);
+			total += c;
+			mIOHandler.write(s + "\t" + String.valueOf(c) + "\n");
+		}
+		mIOHandler.write("----------------------\n");
+		mIOHandler.write("Total\t" + String.valueOf(total) + "\n");
+		mIOHandler.write("----------------------\n");
+		mIOHandler.write("Credit\t" + String.valueOf(credit) + " ("+ String.valueOf(gain) 
+							+"%)\n" );
+	}
+	
 	public void displayCredit(int credit){
-		mIOHandler.write("player's credit is " + String.valueOf(credit) + "\n");
+		mIOHandler.write("player's credit is " + String.valueOf(credit) );
 	}
 	
 	public void displayBet(int bet){
-		mIOHandler.write("player is betting " + String.valueOf(bet) + "\n");
+		mIOHandler.write("player is betting " + String.valueOf(bet) );
 	}
 	
 	public void displayHand(String[] hand){
-		mIOHandler.write("player's hand " + String.join(" ", hand) + "\n");
+		mIOHandler.write("player's hand " + String.join(" ", hand) );
 	}
 
-	public void displayAdvice(String[] hand,boolean[] advice){
+	public void displayAdvice(boolean[] advice){
 		String toHold = "";
 		for(int i = 0; i < advice.length; i++){
 			if(advice[i]==true) toHold += String.valueOf(i +1) + " ";
 		}
-		mIOHandler.write("player should hold cards " + toHold + "\n");
+		mIOHandler.write("player should hold cards " + toHold );
 	}
 	
 	public void displayWin(boolean wins,String handPower, int credit){
 		if(wins){
 			mIOHandler.write("players wins with " + handPower + 
-								" and his credit is " + String.valueOf(credit) + "\n");
+								" and his credit is " + String.valueOf(credit) );
 		}
 		else{
 			mIOHandler.write("players loses and his credit is "
-								+ String.valueOf(credit) + "\n");
+								+ String.valueOf(credit) );
 		}
 	}
 
 	public void displayError(String reason){
-		mIOHandler.write(reason + "\n");
+		mIOHandler.write(reason );
 	}
 }

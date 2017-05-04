@@ -7,7 +7,7 @@ import videopoker.game.Card.Value;
 
 public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
-	private final static String handPower = "ROYAL FLUSH";
+	public static String handPower = "ROYAL FLUSH";
 	
 	@Override
 	public boolean hasHandPower(Hand hand){

@@ -7,7 +7,7 @@ import videopoker.game.Card.Value;
 
 public class TwoPairEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
-	private final static String handPower = "TWO PAIR";
+	public final static String handPower = "TWO PAIR";
 	
 	@Override
 	public boolean hasHandPower(Hand hand) {

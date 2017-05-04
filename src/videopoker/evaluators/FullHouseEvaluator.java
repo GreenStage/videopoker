@@ -7,7 +7,7 @@ import videopoker.game.Card.Value;
 
 public class FullHouseEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
-	private static final String handPower = "FULL HOUSE";
+	public static final String handPower = "FULL HOUSE";
 	
 	@Override
 	public boolean hasHandPower(Hand hand) {

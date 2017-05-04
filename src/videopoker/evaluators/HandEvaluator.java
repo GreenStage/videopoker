@@ -5,10 +5,11 @@ import java.util.Comparator;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
+import videopoker.game.WinningPrizes;
 
 public abstract class HandEvaluator {
 	
-	private final static String handPower ="HAND_NONE";
+	public final static String handPower = WinningPrizes.HAND_NONE;
 		
 	public boolean hasSameSuit(Card[] set){
 		int suit = set[0].getSuitWeight();

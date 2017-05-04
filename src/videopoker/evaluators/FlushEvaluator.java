@@ -4,7 +4,7 @@ import videopoker.game.Hand;
 
 public class FlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
-	private final static String handPower = "FLUSH";
+	public final static String handPower = "FLUSH";
 	
 	@Override
 	public boolean hasHandPower(Hand hand) {
