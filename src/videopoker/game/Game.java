@@ -1,8 +1,5 @@
 package videopoker.game;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import videopoker.strategy.Advisor;
 import videopoker.strategy.TraditionalStrategy;
 import videopoker.utilities.PowerHashMap;
@@ -89,7 +86,6 @@ public class Game {
 	}
 	
 	public void evaluateHand(){
-		Hand mHand = mPlayer.getHand();
 		handPower = mWinningPrizes.getHandPower(mPlayer.getHand());
 		int prize = mWinningPrizes.getPrize(handPower,this.mPlayer.getBet());
 		

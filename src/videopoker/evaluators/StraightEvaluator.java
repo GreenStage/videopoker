@@ -1,6 +1,9 @@
 package videopoker.evaluators;
 
+import videopoker.game.Card;
 import videopoker.game.Hand;
+import videopoker.game.Card.Suit;
+import videopoker.game.Card.Value;
 
 public class StraightEvaluator extends HandEvaluator implements MainHandEvaluator {
 
@@ -10,7 +13,8 @@ public class StraightEvaluator extends HandEvaluator implements MainHandEvaluato
 	@Override
 	public boolean hasHandPower(Hand hand) {
 		
-		if (!(this.inOrder(hand.getCardList())))
+		Card[] hand_o = hand.orderByValue();
+		if (!(this.inOrder(hand_o)))
 			return false;
 		
 		return true;
@@ -33,6 +37,24 @@ public class StraightEvaluator extends HandEvaluator implements MainHandEvaluato
 			return handPower;
 		
 		return super.getHandPower(hand);
+	}
+	
+	public static void main(String[] args){
+		
+		Card c1 = new Card(Value.ACE, Suit.DIAMONDS);
+		Card c2 = new Card(Value.TWO, Suit.HEARTS);
+		Card c3 = new Card(Value.THREE, Suit.HEARTS);
+		Card c4 = new Card(Value.FOUR, Suit.HEARTS);
+		Card c5 = new Card(Value.FIVE, Suit.HEARTS);
+
+		Hand hand = new Hand(c2,c5,c1,c4,c3);
+		StraightEvaluator eval = new StraightEvaluator();
+		boolean[] keep = eval.whereCards(hand);
+		
+		for (int i = 0; i < keep.length; i++){
+			System.out.println(keep[i]);
+		}
+		
 	}
 
 }

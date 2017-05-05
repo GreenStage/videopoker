@@ -1,14 +1,12 @@
 package videopoker.userinterface;
 
-import videopoker.game.Game;
-
 public class SimulationHandler extends IOHandler{
-	private int nPlays;
 	private int playsIt;
 	private int betValue;
 	private static enum Steps{BET, DEAL,ADVICE, HOLD};
 	String holdValues;
 	private Steps mSteps;
+	private int nPlays;
 	
 	public SimulationHandler(int bet_value, int n_play){
 		this.nPlays = n_play;
@@ -48,7 +46,6 @@ public class SimulationHandler extends IOHandler{
 
 	@Override
 	public void write(String message) {
-		int a = 0;
 		if(playsIt < 0){
 			System.out.print(message);
 		}
@@ -56,7 +53,6 @@ public class SimulationHandler extends IOHandler{
 		else if(mSteps == Steps.ADVICE && message.length() > 24){
 			String messageContent = message.substring(0,25);
 			if(messageContent.equals("player should hold cards ")){
-				String toHold;
 				if(message.length() > 25 )
 					holdValues = message.substring(25);
 				else holdValues = "";

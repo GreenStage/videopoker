@@ -1,6 +1,5 @@
 package videopoker.userinterface;
 
-import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class TextUI implements UserInterface{
 	
 	@Override
 	public void run(){
-		boolean quit  = false;
 		while(true){
 			String readStr =  mIOHandler.read();
 			if(readStr == null){
@@ -125,7 +123,7 @@ public class TextUI implements UserInterface{
 	}
 	
 	@Override
-	public void displayStats(int credit,int gain,PowerHashMap<String, Integer> statsMap){
+	public void displayStats(int credit,float gain,PowerHashMap<String, Integer> statsMap){
 		int total = 0;
 		List<String> PowerHands = statsMap.getOrderedKeys(
 				new Comparator<String>(){

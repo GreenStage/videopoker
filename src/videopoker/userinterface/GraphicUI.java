@@ -491,7 +491,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 
 
 	@Override
-	public void displayStats(int credit, int gain, PowerHashMap<String, Integer> statsMap) {
+	public void displayStats(int credit, float gain, PowerHashMap<String, Integer> statsMap) {
 		int total = 0;
 		List<String> powerHands = statsMap.getOrderedKeys(
 				new Comparator<String>(){

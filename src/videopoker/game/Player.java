@@ -32,8 +32,8 @@ public class Player {
 	public int getCredit(){
 		return this.mCredit;
 	}
-	public int getGain(){
-		return (int) (100 * (float) mCredit / (float) startCredit) ;
+	public float getGain(){
+		return (100 * (float) mCredit / (float) startCredit) ;
 	}
 	
 	public int getBet(){

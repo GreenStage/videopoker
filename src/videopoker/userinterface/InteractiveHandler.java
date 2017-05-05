@@ -1,6 +1,5 @@
 package videopoker.userinterface;
 
-import java.io.FileReader;
 import java.util.Scanner;
 
 public class InteractiveHandler extends IOHandler{

@@ -4,14 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import videopoker.userinterface.SimulationHandler;
-
 import videopoker.userinterface.DebugHandler;
-
 import videopoker.userinterface.GraphicUI;
 import videopoker.userinterface.IOHandler;
-
 import videopoker.userinterface.InteractiveHandler;
+import videopoker.userinterface.SimulationHandler;
 import videopoker.userinterface.TextUI;
 import videopoker.userinterface.UserInterface;
 
@@ -23,6 +20,7 @@ public class MainActivity {
 	public static final int ERR_INVALID_FILENAME = 0x04;
 	public static final int ERR_FILE_NOT_FOUND = 0x08;
 	public static final int INVALID_INTEGER = 0x10;
+	public static final int INVALID_DEAL_NUMBER = 0x12;
 	
 	private static UserInterface mUI;
 	private static Game mGame;
@@ -77,6 +75,11 @@ public class MainActivity {
 		}
 		
 		else if( args[0].equals("-s") ){
+			
+			if (args.length < 4){
+				System.exit(INVALID_DEAL_NUMBER);
+			}
+			
 			int betValue = 0, nDeals = 0;
 			try{
 				betValue = Integer.parseInt(args[2]);

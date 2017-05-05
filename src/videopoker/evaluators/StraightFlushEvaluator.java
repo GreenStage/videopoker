@@ -46,11 +46,11 @@ public class StraightFlushEvaluator extends HandEvaluator implements MainHandEva
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.ACE, Suit.HEARTS);
-		Card c2 = new Card(Value.TWO, Suit.HEARTS);
-		Card c3 = new Card(Value.THREE, Suit.HEARTS);
-		Card c4 = new Card(Value.FOUR, Suit.HEARTS);
-		Card c5 = new Card(Value.FIVE, Suit.HEARTS);
+		Card c1 = new Card(Value.NINE, Suit.SPADES);
+		Card c2 = new Card(Value.TEN, Suit.SPADES);
+		Card c3 = new Card(Value.JACK, Suit.SPADES);
+		Card c4 = new Card(Value.QUEEN, Suit.SPADES);
+		Card c5 = new Card(Value.KING, Suit.SPADES);
 
 		Hand hand = new Hand(c2,c5,c1,c4,c3);
 		StraightFlushEvaluator eval = new StraightFlushEvaluator();

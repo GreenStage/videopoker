@@ -4,8 +4,6 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
-import videopoker.strategy.Advisor;
-import videopoker.strategy.TraditionalStrategy;
 
 public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
 	

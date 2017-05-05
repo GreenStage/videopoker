@@ -67,11 +67,11 @@ public class ToSFlush4Evaluator extends HandEvaluator implements Evaluator{
 	
 	public static void main(String[] args){
 		
-		Card c1 = new Card(Value.ACE, Suit.CLOVERS);
+		Card c1 = new Card(Value.EIGHT, Suit.CLOVERS);
 		Card c2 = new Card(Value.TWO, Suit.CLOVERS);
 		Card c3 = new Card(Value.THREE, Suit.CLOVERS);
 		Card c4 = new Card(Value.FOUR, Suit.CLOVERS);
-		Card c5 = new Card(Value.SEVEN, Suit.HEARTS);
+		Card c5 = new Card(Value.FIVE, Suit.CLOVERS);
 
 		Hand hand = new Hand(c1,c2,c3,c4,c5);
 		ToSFlush4Evaluator eval = new ToSFlush4Evaluator();
