@@ -195,6 +195,28 @@ public abstract class HandEvaluator {
 		return false;
 	}
 	
+	/**
+	 * This function tells the number of cards of the same kind, and also the first position in the hand of that kind.
+	 * <p> It can also account in case there is a second kind, with 2 or more cards. And will tell once again the number of that kind and its first position in the hand.
+	 * <p> For example: the hand [3S 3C 6S 9H 9C] has 2 kinds with more than 1 card of the same kind: 3 and 9.
+	 * <p> It returns an array with the following structure: [n1 p1 n2 p2].
+	 * <ul>
+     * <li>n1 - number of cards of the same kind, of the first kind</li>
+     * <li>p1 - position of the first card, of the first kind</li>
+     * <li>n2 - number of cards of the same kind, of the second kind</li>
+     * <li>p2 - position of the first card, of the second kind</li>      
+     * </ul>
+     * If it exists only one kind with more than 1 card, the last two parameter, of the return, will be set zero.
+     * If it doesn't exist any kind with more than 1 card, then the return matrix will be [0 0 0 0].
+     * <p> Examples:
+     * <li>1 - with the hand [3C 3S 5S 9H TC], this function returns [2 1 0 0]. Since there's only one kind with more than 1 card, the last two elements are set to zero.</li>
+     * <li>2 - with the hand [3C 3S 9S 9H 9C], this function returns [2 0 3 2].
+     * <li>3 - with the hand [3C 3S 3H 9H 9C], this function returns [3 0 2 3].
+     * <li>3 - with the hand [2C 3S 3H 9H 9C], this function returns [2 1 2 3].     
+     * </ul>
+	 * @param set ordered hand
+	 * @return the array described above, which indicates the number of cards of the same kind, and its starting positions.
+	 */
 	public int[] equality(Card[] set){
 		
 		int[] eq = new int[4];
