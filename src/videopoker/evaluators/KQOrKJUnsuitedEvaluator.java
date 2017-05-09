@@ -5,6 +5,13 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Queen and a King or a Jack and a King of any suit.
+ *  <p> For example: the hand [2S 7C QH TS KD] is a "KQOrKJ Unsuited" hand, with a Queen and a King.
+ *  <p> Another example: the hand [JS 7C 8H TS KD] is a "KQOrKJ Unsuited" hand, with a Jack and a King.
+ *
+ */
 public class KQOrKJUnsuitedEvaluator  extends HandEvaluator implements Evaluator {
 	
 	@Override

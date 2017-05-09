@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Straight Flush, that means having the cards Ten, Jack, Queen, King and Ace, of any suit.
+ *  <p> For example: the hand [AH QS KD JS TS] is a "Royal Flush" hand.
+ *
+ */
 public class StraightFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 
 	public static final String handPower = "STRAIGHT FLUSH";

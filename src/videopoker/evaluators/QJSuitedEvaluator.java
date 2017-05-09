@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Jack and a Queen of the same suit.
+ *  <p> For example: the hand [4S 7C 6H JD QD] is a "QJ Suited" hand.
+ *
+ */
 public class QJSuitedEvaluator extends HandEvaluator implements Evaluator {
 	
 	@Override

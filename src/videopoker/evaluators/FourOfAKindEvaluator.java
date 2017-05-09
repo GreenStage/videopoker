@@ -5,6 +5,13 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains four cards of the same kind
+ * <p> For example: the hand [AS AC AH 3H AD] is a "four of a kind" hand, with 4 Aces.
+ *
+ */
+
 public class FourOfAKindEvaluator extends HandEvaluator implements Evaluator {
 	
 	public static final String handPower = "FOUR OF A KIND";

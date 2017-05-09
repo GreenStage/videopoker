@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains two different pairs.
+ *  <p> For example: the hand [QD QH 7S 6S 6C] is a "Two Pair" hand, with 2 Six and 2 Queen.
+ *
+ */
 public class TwoPairEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
 	public final static String handPower = "TWO PAIR";

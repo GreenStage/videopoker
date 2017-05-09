@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains the Ace, King, Queen and Jack of any suit.
+ *  <p> For example: the hand [JS 7C QH AH KD] is a "AKQJ Unsuited" hand.
+ *
+ */
 public class AKQJUnsuitedEvaluator extends HandEvaluator implements Evaluator {
 	
 	@Override
@@ -30,23 +36,5 @@ public class AKQJUnsuitedEvaluator extends HandEvaluator implements Evaluator {
 		keep[hand.search(hand_o[not_card])] = false;
 
 		return keep;
-	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.KING, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c3 = new Card(Value.ACE, Suit.HEARTS);
-		Card c4 = new Card(Value.QUEEN, Suit.SPADES);
-		Card c5 = new Card(Value.JACK, Suit.HEARTS);
-
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		AKQJUnsuitedEvaluator eval = new AKQJUnsuitedEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
 	}
 }

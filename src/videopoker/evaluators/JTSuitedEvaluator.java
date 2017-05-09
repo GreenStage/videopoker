@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Ten and a Jack of the same suit.
+ *  <p> For example: the hand [JS 7C QH TS KD] is a "JT Suited" hand.
+ *
+ */
 public class JTSuitedEvaluator extends HandEvaluator implements Evaluator {
 	
 	@Override

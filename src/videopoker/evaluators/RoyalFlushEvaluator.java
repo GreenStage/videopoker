@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Royal Flush, that means having the cards Ten, Jack, Queen, King and Ace, with the same suit.
+ *  <p> For example: the hand [AS QS KS JS TS] is a "Royal Flush" hand.
+ *
+ */
 public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
 	public static String handPower = "ROYAL FLUSH";

@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Ten and a King of the same suit.
+ *  <p> For example: the hand [4S 7C 6H TD KD] is a "KT Suited" hand.
+ *
+ */
 public class KTSuitedEvaluator extends HandEvaluator implements Evaluator {
 	
 	@Override

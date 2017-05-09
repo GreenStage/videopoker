@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Full House, that means having 3 cards of a kind and 2 of another kind.
+ *  <p> For example: the hand [JS JC JH AH AD] is a "Full House" hand.
+ *
+ */
 public class FullHouseEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
 	public static final String handPower = "FULL HOUSE";
