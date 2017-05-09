@@ -1,10 +1,11 @@
 package videopoker.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Deck {
-	private boolean removeRandom = true;
-	private ArrayList<Card> cards = new ArrayList<Card>();
+	private List<Card> cards = new ArrayList<Card>();
 
 	public Deck(){
 		for( Card.Suit st : Card.Suit.values() ){
@@ -13,14 +14,7 @@ public class Deck {
 			}
 		}
 	}
-	
-	public void setRemoveRandom(boolean f){
-		removeRandom = f;
-	}
-	
-	public boolean getRemoveRandom(){
-		return removeRandom;
-	}
+
 	public Deck(String[] cardArr){
 		for(String c : cardArr){
 			try{
@@ -34,17 +28,12 @@ public class Deck {
 		}
 	}
 	
+	public void shuffle(){
+		Collections.shuffle(cards);
+	}
+	
 	public Card popCard(){
-		if(cards.size() == 0){
-			return null;
-		}
-		else if(!removeRandom)
-			return cards.remove(0);
-		else{
-			int rand = (int) ((Math.random() * cards.size()));
-			return cards.remove(rand);		
-		}
-
+		return cards.remove(0);
 	}
 	
 	

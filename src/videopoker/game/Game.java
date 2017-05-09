@@ -18,7 +18,15 @@ public class Game {
 	private String handPower = ""; //Should this should be in Hand class?
 	private PowerHashMap<String, Integer> winningStats = new PowerHashMap<String,Integer>();
 	private boolean wins = false;
-	private boolean betted = false; 
+	private int lastBet = -1;
+	private boolean shuffleDeck; 
+	
+	private enum State{
+		STATE_IDLE,
+		STATE_BET,
+		STATE_DEAL
+	};
+	State mState;
 	
 	public interface ActionListener{
 		public void onSuccess();
@@ -34,15 +42,29 @@ public class Game {
 		
 		this.mPlayer = new Player(credit);
 		this.mDeck = new Deck();
+		shuffleDeck = true;
 		mAdvisor = new Advisor(new TraditionalStrategy());
+		
+		prepareGame();
 
 	}
 	
 	public Game(int credit, String[] cards){
 		this(credit);
 		this.mDeck = new Deck(cards);
-		mDeck.setRemoveRandom(false);
+		shuffleDeck = false;
+		prepareGame();
 	}	
+	
+	private void prepareGame(){
+		mState = State.STATE_IDLE;
+		this.mPlayer.setHand(null);
+
+		if(shuffleDeck){
+			this.mDeck = new Deck();
+			mDeck.shuffle();
+		}	
+	}
 	
 	public void setCredit(int credit){
 		mPlayer.setCredit(credit);
@@ -57,11 +79,20 @@ public class Game {
 	}
 	
 	public void bet(int value, Game.ActionListener listener){
-		if(mPlayer.hasHand() || value > 5 || betted){
+		if( mState != State.STATE_IDLE){
 			listener.onFailure("b: illegal command");
 		}
+		else if (mPlayer.getCredit() - value < 0){
+			lastBet = -1;
+			listener.onFailure("b: not enough credit");
+		}
+		else if(value > 5 ) 
+			listener.onFailure("b: illegal amount");
+		else if(mPlayer.getCredit() < ( (value == 0)? lastBet : value ) )
+			listener.onFailure("");
 		else{
-			betted = true;
+			lastBet = value;
+			mState = State.STATE_BET;
 			mPlayer.bet(value);
 			listener.onSuccess();
 		}
@@ -100,7 +131,7 @@ public class Game {
 	public boolean getWinStatus(){ return this.wins; }
 	
 	public boolean[] getAdvice(ActionListener listener){
-		if(!mPlayer.hasHand()){
+		if(mState != State.STATE_DEAL){
 			listener.onFailure("a: illegal command");
 			return null;
 		}
@@ -112,24 +143,22 @@ public class Game {
 	
 	
 	public void deal(ActionListener listener){
-		if(mDeck.getAmountCards() < 1 || !betted || mPlayer.hasHand()){
+		if(mDeck.getAmountCards() < 1 || mState == State.STATE_DEAL || lastBet < 0) {
 			listener.onFailure("d: illegal command");
 		}
 		else{
 			Hand newHand = new Hand(mDeck.popCard(),mDeck.popCard(),
 						   mDeck.popCard(),mDeck.popCard(),mDeck.popCard());
 			mPlayer.setHand(newHand);
+			mState = State.STATE_DEAL;
 			listener.onSuccess();
 		}
 	}
 	
 	public void keep(boolean[] keep, ActionListener listener){
-		if(!mPlayer.hasHand() || !betted){
+		if(mDeck.getAmountCards() < 1 || ! ( mState == State.STATE_DEAL ) ){
 			listener.onFailure("h: illegal command");	
 			return;
-		}
-		if(mDeck.getAmountCards() < 1){
-			listener.onFailure("h: illegal command");	
 		}
 		else{
 			Hand newHand = mPlayer.getHand();
@@ -140,7 +169,8 @@ public class Game {
 
 		evaluateHand();
 		listener.onSuccess();
-		resetGame();
+		mState = State.STATE_IDLE;
+		prepareGame();
 	}
 	
 	public PowerHashMap<String,Integer> getStatistics(){
@@ -162,13 +192,6 @@ public class Game {
 		}
 	}
 	
-	private void resetGame(){
-		this.betted = false;
-		this.mPlayer.setHand(null);
-		
-		if(mDeck.getRemoveRandom())
-			this.mDeck = new Deck();
-	}
 	
 	public WinningPrizes getWinningPrizes(){
 		return this.mWinningPrizes;

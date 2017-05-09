@@ -17,26 +17,27 @@ public class SimulationHandler extends IOHandler{
 	
 	@Override
 	public String read() {
-		if(playsIt == 0){
+		if(playsIt == -1){
 			playsIt--;
 			return "s";
 		}
-		else if(playsIt < 0){
+		else if(playsIt == -2){
 			return null;
 		}
 		
 		switch(mSteps){
 			case BET:
+				playsIt --;
 				mSteps = Steps.DEAL;
 				return "b " + String.valueOf(betValue);
 			case DEAL:
 				mSteps = Steps.ADVICE;
 				return "d";
 			case ADVICE:
+				mSteps = Steps.HOLD;
 				return "a";
 			case HOLD:
 				mSteps = Steps.BET;
-				playsIt --;
 				return "h " + holdValues;
 			default:
 				return "";
@@ -46,18 +47,8 @@ public class SimulationHandler extends IOHandler{
 
 	@Override
 	public void write(String message) {
-		if(playsIt < 0){
+		if(playsIt < -1){
 			System.out.print(message);
-		}
-		
-		else if(mSteps == Steps.ADVICE && message.length() > 24){
-			String messageContent = message.substring(0,25);
-			if(messageContent.equals("player should hold cards ")){
-				if(message.length() > 25 )
-					holdValues = message.substring(25);
-				else holdValues = "";
-				mSteps = Steps.HOLD;
-			};
 		}
 	}
 	

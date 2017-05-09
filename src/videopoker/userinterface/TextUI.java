@@ -9,8 +9,10 @@ import videopoker.utilities.PowerHashMap;
 
 public class TextUI implements UserInterface{
 
-	IOHandler mIOHandler;
-	Game mGame;
+	private IOHandler mIOHandler;
+	private Game mGame;
+	private int lastBet = -1;
+	private boolean notExit = true;
 	
 	public TextUI(Game game,IOHandler ioh){
 		this.mGame = game;
@@ -19,7 +21,7 @@ public class TextUI implements UserInterface{
 	
 	@Override
 	public void run(){
-		while(true){
+		while(notExit){
 			String readStr =  mIOHandler.read();
 			if(readStr == null){
 				break;
@@ -34,14 +36,18 @@ public class TextUI implements UserInterface{
 						betValue = Integer.valueOf(command[1]);
 					}
 				}
-				else{
-					betValue = 0;
+				else if(lastBet != -1){
+					betValue = lastBet;
 				}
+				else betValue = 5;
+				
 				if(betValue >= 0 ){
+					final int a = betValue;
 					mGame.bet(betValue , new Game.ActionListener() {
 						
 						@Override
 						public void onSuccess() {
+							lastBet = a;
 							displayBet(mGame.getBet());	
 						}
 						
@@ -58,6 +64,21 @@ public class TextUI implements UserInterface{
 			}
 			
 			else if(command[0].equals("d")){
+				if(lastBet >= 0){
+					mGame.bet(lastBet, new Game.ActionListener() {
+						
+						@Override
+						public void onSuccess() {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void onFailure(String reason) {
+							displayError(reason);
+						}
+					});
+				}
 				mGame.deal(new Game.ActionListener() {
 					
 					@Override
