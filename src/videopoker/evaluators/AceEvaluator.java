@@ -3,6 +3,12 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * 
+ * This class evaluates if the hand contains an Ace.
+ *  <p> For example: the hand [7C JS QH KD AH] is an "Ace" hand.
+ *
+ */
 public class AceEvaluator extends HandEvaluator implements Evaluator {
 
 	@Override

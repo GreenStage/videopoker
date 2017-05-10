@@ -2,9 +2,12 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains 4 cards of the same suit, with 3 high cards.
+ *
+ */
 public class ToIStraight4H3Evaluator extends ToIStraight4Evaluator implements Evaluator {
 	
 public boolean[] whereCards(Hand hand){
@@ -36,23 +39,6 @@ public boolean[] whereCards(Hand hand){
 		
 	}
 
-	public static void main(String[] args){
-	
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.JACK, Suit.SPADES);
-		Card c3 = new Card(Value.QUEEN, Suit.CLOVERS);
-		Card c4 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c5 = new Card(Value.ACE, Suit.SPADES);
-	
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		ToIStraight4H3Evaluator eval = new ToIStraight4H3Evaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-	}
-	
-}
 
 
 }

@@ -7,6 +7,11 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.WinningPrizes;
 
+/**
+ * 
+ * Class with useful functions for the different evaluators of hands.
+ *
+ */
 public abstract class HandEvaluator {
 	
 	public final static String handPower = WinningPrizes.HAND_NONE;
@@ -101,6 +106,14 @@ public abstract class HandEvaluator {
 		return Math.min(num_gaps1, num_gaps2);
 	}
 	
+	/**
+	 * Checks if the 5 cards in the hand are of consecutive values.
+	 * Note: the hands [A 2 3 4 5] and [T J Q K A]. Are both consecutive, since the ace
+	 * id the highest and the lowest value, at the same time, in the deck.
+	 * 
+	 * @param set ordered hand of 5 cards. 
+	 * @return boolean which is true when the cards are of consecutive value, or false in the other case.
+	 */
 	public boolean inOrder(Card[] set){
 		int nxt_val;
 		int cur_val;
@@ -196,7 +209,7 @@ public abstract class HandEvaluator {
 	}
 	
 	/**
-	 * This function tells the number of cards of the same kind, and also the first position in the hand of that kind.
+	 * Returns the number of cards of the same kind, and also the first position in the hand of that kind.
 	 * <p> It can also account in case there is a second kind, with 2 or more cards. And will tell once again the number of that kind and its first position in the hand.
 	 * <p> For example: the hand [3S 3C 6S 9H 9C] has 2 kinds with more than 1 card of the same kind: 3 and 9.
 	 * <p> It returns an array with the following structure: [n1 p1 n2 p2].
@@ -206,15 +219,15 @@ public abstract class HandEvaluator {
      * <li>n2 - number of cards of the same kind, of the second kind</li>
      * <li>p2 - position of the first card, of the second kind</li>      
      * </ul>
-     * If it exists only one kind with more than 1 card, the last two parameter, of the return, will be set zero.
+     * If it exists only one kind with more than 1 card, the last two parameter of the return, will be zero.
      * If it doesn't exist any kind with more than 1 card, then the return matrix will be [0 0 0 0].
      * <p> Examples:
      * <li>1 - with the hand [3C 3S 5S 9H TC], this function returns [2 1 0 0]. Since there's only one kind with more than 1 card, the last two elements are set to zero.</li>
      * <li>2 - with the hand [3C 3S 9S 9H 9C], this function returns [2 0 3 2].
      * <li>3 - with the hand [3C 3S 3H 9H 9C], this function returns [3 0 2 3].
-     * <li>3 - with the hand [2C 3S 3H 9H 9C], this function returns [2 1 2 3].     
+     * <li>4 - with the hand [2C 3S 3H 9H 9C], this function returns [2 1 2 3].     
      * </ul>
-	 * @param set ordered hand
+	 * @param set ordered hand of 5 cards
 	 * @return the array described above, which indicates the number of cards of the same kind, and its starting positions.
 	 */
 	public int[] equality(Card[] set){

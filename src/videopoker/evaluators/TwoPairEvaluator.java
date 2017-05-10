@@ -2,13 +2,11 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
  * This class evaluates if the hand contains two different pairs.
- *  <p> For example: the hand [QD QH 7S 6S 6C] is a "Two Pair" hand, with 2 Six and 2 Queen.
+ *  <p> For example: the hand [6S 6C 7S QD QH] is a "Two Pair" hand, with 2 Six and 2 Queen.
  *
  */
 public class TwoPairEvaluator extends HandEvaluator implements MainHandEvaluator{
@@ -62,23 +60,6 @@ public class TwoPairEvaluator extends HandEvaluator implements MainHandEvaluator
 		return super.getHandPower(hand);
 	}
 	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.TEN, Suit.SPADES);
-		Card c3 = new Card(Value.TWO, Suit.CLOVERS);
-		Card c4 = new Card(Value.JACK, Suit.DIAMONDS);
-		Card c5 = new Card(Value.JACK, Suit.CLOVERS);
-	
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		TwoPairEvaluator eval = new TwoPairEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-	}
-	
-}
 
 
 

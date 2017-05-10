@@ -3,6 +3,12 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * 
+ * This class evaluates if the hand contains four Aces.
+ *  <p> For example: the hand [7C AS AC AD AH] is a "Four Aces" hand.
+ *
+ */
 public class FourAcesEvaluator extends FourOfAKindEvaluator implements MainHandEvaluator {
 	
 	public static final String handPower = "FOUR ACES";

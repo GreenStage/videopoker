@@ -2,13 +2,11 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
  * This class evaluates if the hand contains a Ten and a King of the same suit.
- *  <p> For example: the hand [4S 7C 6H TD KD] is a "KT Suited" hand.
+ *  <p> For example: the hand [4S 6H 7C TD KD] is a "KT Suited" hand.
  *
  */
 public class KTSuitedEvaluator extends HandEvaluator implements Evaluator {
@@ -50,22 +48,5 @@ public class KTSuitedEvaluator extends HandEvaluator implements Evaluator {
 
 		return keep;
 	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.ACE, Suit.SPADES);
-		Card c2 = new Card(Value.TEN, Suit.SPADES);
-		Card c3 = new Card(Value.ACE, Suit.CLOVERS);
-		Card c4 = new Card(Value.TEN, Suit.HEARTS);
-		Card c5 = new Card(Value.KING, Suit.HEARTS);
 
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		KTSuitedEvaluator eval = new KTSuitedEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
-	}
 }

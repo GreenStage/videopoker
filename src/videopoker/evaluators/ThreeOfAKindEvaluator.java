@@ -2,13 +2,11 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
  * This class evaluates if the hand contains Three cards of the same kind.
- *  <p> For example: the hand [QD QH QS 6S TS] is a "Three Of A Kind" hand, with 3 Queens.
+ *  <p> For example: the hand [6S TS QD QH QS] is a "Three Of A Kind" hand, with 3 Queens.
  *
  */
 public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
@@ -61,25 +59,6 @@ public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEval
 		
 		return super.getHandPower(hand);
 	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.ACE, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.SPADES);
-		Card c3 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c4 = new Card(Value.TEN, Suit.CLOVERS);
-		Card c5 = new Card(Value.TEN, Suit.HEARTS);
-
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		ThreeOfAKindEvaluator eval = new ThreeOfAKindEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
-	}
-
 
 	
 	

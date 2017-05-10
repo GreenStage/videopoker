@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains four cards of the same kind. And the kind must be between a 5 and a King.
+ *  <p> For example: the hand [7C TC TH TD TS] is a "Four Five to King" hand.
+ *
+ */
 public class FourFiveKingEvaluator extends FourOfAKindEvaluator implements MainHandEvaluator {
 
 	public static final String handPower = "FOUR 5-K";

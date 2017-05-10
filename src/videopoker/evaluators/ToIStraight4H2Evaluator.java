@@ -5,6 +5,11 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains 4 cards of the same suit, with 2 high cards.
+ *
+ */
 public class ToIStraight4H2Evaluator extends ToIStraight4Evaluator implements Evaluator {
 	
 public boolean[] whereCards(Hand hand){

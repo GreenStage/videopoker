@@ -2,13 +2,11 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
  * This class evaluates if the hand contains a Royal Flush, that means having the cards Ten, Jack, Queen, King and Ace, with the same suit.
- *  <p> For example: the hand [AS QS KS JS TS] is a "Royal Flush" hand.
+ *  <p> For example: the hand [TS JS QS KS AS] is a "Royal Flush" hand.
  *
  */
 public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvaluator {
@@ -45,25 +43,5 @@ public class RoyalFlushEvaluator extends HandEvaluator implements MainHandEvalua
 		return super.getHandPower(hand);
 	}
 	
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.JACK, Suit.HEARTS);
-		Card c3 = new Card(Value.QUEEN, Suit.HEARTS);
-		Card c4 = new Card(Value.ACE, Suit.HEARTS);
-		Card c5 = new Card(Value.KING, Suit.HEARTS);
-
-		Hand hand = new Hand(c2,c5,c1,c4,c3);
-		RoyalFlushEvaluator eval = new RoyalFlushEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
-		System.out.println(eval.getHandPower(hand));
-		
-	}
 	
 }

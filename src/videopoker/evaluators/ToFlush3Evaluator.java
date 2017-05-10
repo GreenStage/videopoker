@@ -3,6 +3,12 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * 
+ * This class evaluates if the hand contains 3 cards of the same suit.
+ *  <p> For example: the hand [6S JS QS KC AC] is a "Three To Flush" hand.
+ *
+ */
 public class ToFlush3Evaluator extends HandEvaluator implements Evaluator {
 
 	@Override

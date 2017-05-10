@@ -5,6 +5,11 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand only needs 2 cards for Royal Flush.
+ *
+ */
 public class ToRFlush3Evaluator extends HandEvaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){

@@ -2,11 +2,13 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
-import videopoker.strategy.Advisor;
-import videopoker.strategy.TraditionalStrategy;
 
+/**
+ * 
+ * This class evaluates if the hand contains 3 Aces.
+ *  <p> For example: the hand [TS JS AH AC AS] is a "Three Aces" hand.
+ *
+ */
 public class ThreeAcesEvaluator extends ThreeOfAKindEvaluator implements Evaluator {
 	
 	@Override
@@ -32,24 +34,6 @@ public class ThreeAcesEvaluator extends ThreeOfAKindEvaluator implements Evaluat
 		}
 		
 		return three;
-		
-	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.ACE, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.HEARTS);
-		Card c3 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c4 = new Card(Value.TEN, Suit.CLOVERS);
-		Card c5 = new Card(Value.TEN, Suit.HEARTS);
-
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		Advisor adv = new Advisor(new TraditionalStrategy());
-		boolean[] keep = adv.giveAdvice(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
 		
 	}
 	

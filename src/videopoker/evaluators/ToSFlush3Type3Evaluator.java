@@ -5,6 +5,11 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand only needs 2 cards for Straight Flush, of type 3.
+ *
+ */
 public class ToSFlush3Type3Evaluator extends ToSFlush3Evaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){

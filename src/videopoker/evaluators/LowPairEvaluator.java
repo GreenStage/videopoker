@@ -2,13 +2,11 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
  * This class evaluates if the hand contains a Low pair, that means having a pair bellow or equal to Ten.
- *  <p> For example: the hand [4S 7C 6H 6D KD] is a "Low Pair" hand.
+ *  <p> For example: the hand [4S 6H 6D 7C KD] is a "Low Pair" hand.
  *
  */
 public class LowPairEvaluator extends HandEvaluator implements Evaluator{
@@ -52,23 +50,5 @@ public class LowPairEvaluator extends HandEvaluator implements Evaluator{
 
 		return keep;
 	}
-	
-public static void main(String[] args){
-		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.TEN, Suit.SPADES);
-		Card c3 = new Card(Value.TWO, Suit.CLOVERS);
-		Card c4 = new Card(Value.KING, Suit.DIAMONDS);
-		Card c5 = new Card(Value.KING, Suit.CLOVERS);
-	
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		LowPairEvaluator eval = new LowPairEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-	}
-	
-}
 
 }

@@ -3,6 +3,11 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * 
+ * This class evaluates if the hand contains 3 cards of the same suit, with 1 high card.
+ *
+ */
 public class ToFlush3H1Evaluator extends ToFlush3Evaluator implements Evaluator {
 
 	@Override

@@ -5,6 +5,12 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains a Straight, which means having all the 5 cards consecutive, no matter the suit.
+ *  <p> For example: the hand [4S 5C 6S 7S 8C] is a "Flush" hand.
+ *
+ */
 public class StraightEvaluator extends HandEvaluator implements MainHandEvaluator {
 
 	public final static String handPower = "STRAIGHT";

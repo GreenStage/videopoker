@@ -2,9 +2,12 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class evaluates if the hand contains 4 consecutive cards who can be completed at the beginning and the end.
+ *
+ */
 public class ToOStraight4Evaluator extends HandEvaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){
@@ -69,21 +72,4 @@ public class ToOStraight4Evaluator extends HandEvaluator implements Evaluator{
 		return new boolean[0];
 	}
 	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.FOUR, Suit.CLOVERS);
-		Card c2 = new Card(Value.FIVE, Suit.HEARTS);
-		Card c3 = new Card(Value.FIVE, Suit.DIAMONDS);
-		Card c4 = new Card(Value.SIX, Suit.HEARTS);
-		Card c5 = new Card(Value.SEVEN, Suit.DIAMONDS);
-
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		ToOStraight4Evaluator eval = new ToOStraight4Evaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
-	}
 }

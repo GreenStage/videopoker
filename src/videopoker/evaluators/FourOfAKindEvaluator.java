@@ -8,7 +8,7 @@ import videopoker.game.Card.Value;
 /**
  * 
  * This class evaluates if the hand contains four cards of the same kind
- * <p> For example: the hand [AS AC AH 3H AD] is a "four of a kind" hand, with 4 Aces.
+ * <p> For example: the hand [3H AS AC AH AD] is a "four of a kind" hand, with 4 Aces.
  *
  */
 
