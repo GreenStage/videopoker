@@ -88,9 +88,9 @@ public class MainActivity {
 				System.out.println(e.getMessage());
 				System.exit(INVALID_INTEGER);
 			}
-			rh = new SimulationHandler(betValue,nDeals);
 			
 			mGame = new Game( credit);
+			rh = new SimulationHandler(mGame,betValue,nDeals);
 			mUI = new TextUI(mGame, rh);
 		}
 		
