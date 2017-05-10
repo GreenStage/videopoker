@@ -4,13 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import videopoker.userinterface.DebugHandler;
 import videopoker.userinterface.GraphicUI;
-import videopoker.userinterface.IOHandler;
-import videopoker.userinterface.InteractiveHandler;
-import videopoker.userinterface.SimulationHandler;
 import videopoker.userinterface.TextUI;
 import videopoker.userinterface.UserInterface;
+import videopoker.utilities.DebugHandler;
+import videopoker.utilities.IOHandler;
+import videopoker.utilities.InteractiveHandler;
+import videopoker.utilities.SimulationHandler;
 
 
 public class MainActivity {

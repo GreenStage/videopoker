@@ -1,4 +1,4 @@
-package videopoker.userinterface;
+package videopoker.utilities;
 
 import java.util.Scanner;
 

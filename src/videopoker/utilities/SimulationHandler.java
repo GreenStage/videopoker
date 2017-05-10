@@ -1,4 +1,4 @@
-package videopoker.userinterface;
+package videopoker.utilities;
 
 public class SimulationHandler extends IOHandler{
 	private int playsIt;

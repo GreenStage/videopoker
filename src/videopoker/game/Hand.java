@@ -10,13 +10,30 @@ import java.util.Comparator;
  *
  */
 public class Hand {
+	
+	/**
+	 * Exception class for duplicated cards in an hand
+	 *
+	 */
+	public class DuplicateCardException extends RuntimeException {
+		public DuplicateCardException(){
+			super();
+		}
+	}
+
 	/**
 	 * Array containing the five cards that constitute the hand.
 	 */
 	private Card[] hand = new Card[5];
 	
+	
 	/**
-	 * Initialise the hand with the specified cards.
+	 * a hands power (value)
+	 */
+	private String handPower = WinningPrizes.HAND_NONE;
+	
+	/**
+	 * Initialize the hand with the specified cards.
 	 * @param c0 : first card in the hand
 	 * @param c1 : second card in the hand
 	 * @param c2 : third card in the hand
@@ -26,7 +43,7 @@ public class Hand {
 	 * @exception DuplicateCardException if two equal cards are inserted in the hand.
 	 * @exception IllegalArgumentException if one of the cards is a null reference.
 	 */
-	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4){
+	public Hand(Card c0, Card c1, Card c2, Card c3, Card c4) throws DuplicateCardException{
 		
 		if (c0.equals(c1) || c0.equals(c2) || c0.equals(c3) || c0.equals(c4) || c1.equals(c2) ||
 				c1.equals(c3) || c1.equals(c4) || c2.equals(c3) || c2.equals(c4) || c3.equals(c4))
@@ -75,6 +92,14 @@ public class Hand {
 		if (card == null)
 			throw new IllegalArgumentException("Card cannot be NULL");
 		this.hand[index] = card;
+	}
+	
+	/**
+	 * Set hand power 
+	 * @param handpower
+	 */
+	public void setHandPower(String handpower){
+		this.handPower = handpower;
 	}
 	
 	/**
@@ -139,5 +164,13 @@ public class Hand {
 		}
 		
 		return -1;
+	}
+	
+	/**
+	 * Fetching method to retrieve a hand power (value).
+	 * @return current hands power
+	 */
+	public String getHandPower(){
+		return this.handPower;
 	}
 }

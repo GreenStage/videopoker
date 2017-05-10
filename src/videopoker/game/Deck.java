@@ -5,12 +5,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-	private List<Card> cards = new ArrayList<Card>();
-	class EmptyDeckException extends Exception{
+	
+	class EmptyDeckException extends RuntimeException{
 		 public EmptyDeckException(String msg){
 		      super(msg);
 		   }
 	};
+	
+	private List<Card> cards = new ArrayList<Card>();
+
 	
 	public Deck(){
 		for( Card.Suit st : Card.Suit.values() ){
