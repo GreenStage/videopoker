@@ -3,9 +3,6 @@ package videopoker.game;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
-
 /**
  * This class abstract the concept of a poker hand. 
  * A poker hand is always made of five cards and no other configuration is permitted.

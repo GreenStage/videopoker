@@ -2,9 +2,19 @@ package videopoker.strategy;
 
 import videopoker.evaluators.*;
 
-
+/**
+ * This class provides a pre-made strategy that guarantees a maximum theoretical 
+ * return of 100.2% on a Double Bonus 10/7 video poker game.
+ * Additional informations can be found  
+ * <a href="https://wizardofodds.com/games/video-poker/strategy/double-bonus/10-7/">here</a>.
+ * 
+ *
+ */
 public class TraditionalStrategy extends Strategy{
 	
+	/**
+	 * Instantiates a traditional strategy.
+	 */
 	public TraditionalStrategy(){
 		super();
 		//Royal Flush
