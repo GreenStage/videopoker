@@ -6,9 +6,7 @@ import videopoker.utilities.PowerHashMap;
 
 /**
  * Game core class, for each received command, performs one or more actions. 
- * 
  */
-
 public class Game {
 	
 	/**
@@ -41,8 +39,6 @@ public class Game {
 	 * Player declaration
 	 */
 	private Player mPlayer;
-	private int lastBet = -1;
-	
 	
 	/**
 	 * Deck declaration
@@ -184,24 +180,23 @@ public class Game {
 	 *	@onSuccess called if the game state does not allows placing bets.
 	 * 
 	 * 	@onFailure called if the game state does not allows placing bets.
-	 * 			   or if the player tries to bet more than 5 credits
+	 * 			   or if the player tries to bet more than 5 credits or less than 1
 	 * 			   or if the player has less credit than he wants to bet
 	 */
 	public void bet(int value, ActionListener listener){
-		int toBet = (value == 0)? lastBet : value;
+		
 		if( mState != State.STATE_IDLE){
 			listener.onFailure("illegal command");
 		}
-		else if(value > 5 ){ 
+		else if(value > 5  || value < 1){ 
 			listener.onFailure("illegal amount");
 		}
-		else if(mPlayer.getCredit() < toBet ){
-			listener.onFailure("not enough credit to bet " + String.valueOf(toBet));
+		else if(mPlayer.getCredit() < value ){
+			listener.onFailure("not enough credit to bet " + String.valueOf(value));
 		}
 		else{
-			lastBet = toBet;
 			mState = State.STATE_BET;
-			mPlayer.bet(toBet);
+			mPlayer.bet(value);
 			listener.onSuccess();
 		}
 	}
@@ -253,7 +248,7 @@ public class Game {
 	 * 			   or if the deck does not have 5 cards to pop
 	 */
 	public void deal(ActionListener listener){
-		if(mState != State.STATE_BET || lastBet < 0) {
+		if(mState != State.STATE_BET) {
 			listener.onFailure("illegal command");
 		}
 		else{
@@ -334,33 +329,46 @@ public class Game {
 	/*********************************
 	 * Fetching methods
 	 ********************************/
-	
-	public int getCredit(){
-		return mPlayer.getCredit();
-	}
-	
+
+	/**
+	 * @return game state
+	 */
 	public State getState(){
 		return this.mState;
 	}
 	
-	public int getBet(){
-		return mPlayer.getBet();
-	}
-	
+	/**
+	 * @return player object
+	 */
 	public Player getPlayer(){
 		return this.mPlayer;
 	}
 	
-	public boolean getWinStatus(){ return this.wins; }
+	/**
+	 * @return true if player won this round, false if not
+	 */
+	public boolean getWinStatus(){
+		return this.wins; 
+	}
 	
+	
+	/**
+	 * @return boolean array with cards to hold
+	 */
 	public boolean[] getAdvice(){
 		return mAdvice;
 	}
 	
+	/**
+	 * @return Statistics hashmap
+	 */
 	public PowerHashMap<String,Integer> getStatistics(){
 		return this.winningStats;
 	}
 	
+	/**
+	 * @return winning prizes table
+	 */
 	public WinningPrizes getWinningPrizes(){
 		return this.mWinningPrizes;
 	}

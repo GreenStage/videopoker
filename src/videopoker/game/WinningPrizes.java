@@ -20,12 +20,27 @@ import videopoker.utilities.PowerHashMap;
 
 
 
+/**
+ * Winning Prizes class
+ * Used to create a table with a powerhashMap 
+ * with the format "HANDn => PRIZEn1,PRIZEn2,PRIZEn3,PRIZEn4,PRIZEn5
+ * and to evaluate if a hand is a winning one.
+ * Winning hands are also defined here.
+ */
+
 public class WinningPrizes {
 	public static String HAND_NONE ="Other";
+	
+	//HashMap representing the winning hands table
 	private PowerHashMap<String,int[]>  winnings = new PowerHashMap<String,int[]>();
-
+	
+	// List of
 	private List<HandEvaluator> evaluators= new ArrayList<HandEvaluator>();
 	
+	/** Constructor
+	 *  constructs an object and fills the table with the winning hands and 
+	 *  each corresponding prizes.
+	 */
 	public WinningPrizes(){
 		this.winnings.put(RoyalFlushEvaluator.handPower,new int[] {250,500,750,1000,4000});
 		evaluators.add( new RoyalFlushEvaluator() );
@@ -61,6 +76,9 @@ public class WinningPrizes {
 		evaluators.add( new HighPairEvaluator() );	
 	}
 	
+	/** 
+	 * @return (LIST) all the winning hands
+	 */
 	public List<String> getWinningHands(){
 		return winnings.getOrderedKeys(new Comparator<String>(){
 			@Override
@@ -70,25 +88,39 @@ public class WinningPrizes {
 		});
 	}
 	
+	/**
+	 * @param handPower - a winning hand name
+	 * @param bet - bet value
+	 * @return prize for the corresponding hand and bet
+	 */
 	public int getPrize(String handPower, int bet){
 		if(bet <= 6 && this.winnings.containsKey(handPower)){
 			return this.winnings.get(handPower)[bet - 1];
 		}
 		else return 0;
 	}
-	
+
+	/**
+	 * @param handPower - a winning hand name
+	 * @return prizes for the corresponding hand
+	 */
 	public int[] getPrizeArray(String handPower){
 		if(winnings.containsKey(handPower))
 			return winnings.get(handPower);
 		else return new int[0];
 	}
 
+	/**
+	 * @param hand (made of 5 cards)
+	 * @return the corresponding handPower , if its a winning hand
+	 * 		   HAND_NONE, if its not a winning hand
+	 */
 	public String getHandPower(Hand hand){
 		for(HandEvaluator h : evaluators){
 			if(!h.getHandPower(hand).equals(HAND_NONE)){
 				return h.getHandPower(hand);
 			}
 		}
-		return "NONE";
+		return HAND_NONE;
 	}
 }

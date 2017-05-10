@@ -8,11 +8,28 @@ import videopoker.utilities.IOHandler;
 import videopoker.utilities.PowerHashMap;
 
 
+/**
+ * Text User Interface
+ * Uses a Input/Output Handler to read a command (string) 
+ *  and write an event (string).
+ */
 public class TextUI implements UserInterface{
-
+	
+	/**Default bet value, for when the player wants to use the
+	 * previous successful bet */
+	public static final int DEFAULT_BETVALUE = 5;
+	
+	/** Input/Output Handler declaration*/
 	private IOHandler mIOHandler;
+	
+	/** Game object declaration*/
 	private Game mGame;
+	
+	/**Used to perform a bet request in case user 
+	 * decides to bet the same amount as the last time*/
 	private int lastBet = -1;
+	
+	/** Loop exiting variable */
 	private boolean notExit = true;
 	
 	public TextUI(Game game,IOHandler ioh){
@@ -20,23 +37,27 @@ public class TextUI implements UserInterface{
 		this.mIOHandler = ioh;
 	}
 	
+	
+	/* main loop method */
 	@Override
 	public void run(){
 		while(true){
+			
+			/* ask the IO handler for input*/
 			String readStr =  mIOHandler.read();
 			if(readStr == null){
 				break;
 			}
 			
+			/*parse a command in the input string*/
 			String[] command = readStr.split(" ");
 			
 			if( command[0].equals("q") ){
+				/*Quit requested, ask the game instance to terminate the game*/
 				mGame.endGame(new Game.ActionListener() {
-					
 					@Override
 					public void onSuccess() {
-						notExit = false;
-						
+						notExit = false;	
 					}
 					
 					@Override
@@ -49,48 +70,60 @@ public class TextUI implements UserInterface{
 			}
 			
 			if( command[0].equals("b") ){
+				/*Bet action request, ask the game instance to place one*/
+				
 				int betValue = -1;
+				
+				/*Check if bet value was specified*/
 				if(command.length > 1){
 					if(command[1].matches("^-?\\d+$")){
 						betValue = Integer.valueOf(command[1]);
 					}
 				}
+				
+				/*If no bet value found in the command, try and use the 
+				 * last successful bet*/
 				else if(lastBet != -1){
 					betValue = lastBet;
 				}
-				else betValue = 5;
 				
-				if(betValue >= 0 ){
-					final int a = betValue;
-					mGame.bet(betValue , new Game.ActionListener() {
-						
-						@Override
-						public void onSuccess() {
-							lastBet = a;
-							displayBet(mGame.getBet());	
-						}
-						
-						@Override
-						public void onFailure(String reason) {
-							displayError("b: " + reason);
-						}
-					});	
-				}
+				/*If no previous bet was made, use the default value*/
+				else betValue = DEFAULT_BETVALUE;
+
+				final int a = betValue;
+				
+				/*Try to place a bet*/
+				mGame.bet(betValue , new Game.ActionListener() {
+					
+					@Override
+					public void onSuccess() {
+						lastBet = a;
+						displayBet(mGame.getPlayer().getBet());	
+					}
+					
+					@Override
+					public void onFailure(String reason) {
+						displayError("b: " + reason);
+					}
+				});	
+				
 			}
-			
+
 			else if(command[0].equals("$")){
-				displayCredit(mGame.getCredit());
+				/*Fetching request, no influence in the game state
+				 *Ask for the player credit.*/
+				displayCredit(mGame.getPlayer().getCredit());
 			}
-			
+
+			/*Deal action request*/
 			else if(command[0].equals("d")){
+				
+				/*If at least one bet was placed so far, bet with the last value*/
 				if(lastBet >= 0 && mGame.getState() == Game.State.STATE_IDLE){
 					mGame.bet(lastBet, new Game.ActionListener() {
 						
 						@Override
-						public void onSuccess() {
-							// TODO Auto-generated method stub
-							
-						}
+						public void onSuccess() {}
 						
 						@Override
 						public void onFailure(String reason) {
@@ -98,6 +131,8 @@ public class TextUI implements UserInterface{
 						}
 					});
 				}
+				
+				/*Ask the game to deal 5 cards*/
 				mGame.deal(new Game.ActionListener() {
 					
 					@Override
@@ -114,7 +149,11 @@ public class TextUI implements UserInterface{
 			}
 			
 			else if( command[0].equals("h") ){
+				/*hold action request*/
+				
 				boolean[] keepArray = new boolean[] {false,false,false,false,false};
+				
+				/*pass cards to hold from the input string to a boolean array*/
 				for(int i = 1; i < command.length; i ++){
 					if(command[i].matches("^-?\\d+$") ){
 						int index = Integer.valueOf(command[i]);
@@ -123,13 +162,18 @@ public class TextUI implements UserInterface{
 						}
 					}
 				}
+				
+				/*Ask the game to hold cards*/
 				mGame.keep(keepArray, new Game.ActionListener() {
 					@Override
 					public void onSuccess() {
+						/*Display players new hand*/
 						displayHand( mGame.getPlayer().getHand().getHandStrArr());	
-						displayWin(mGame.getWinStatus(),
+						
+						/*Display round result*/
+						displayResult(mGame.getWinStatus(),
 								mGame.getWinningPrizes().getHandPower(mGame.getPlayer().getHand()),
-								mGame.getCredit());
+								mGame.getPlayer().getCredit());
 					}
 					
 					@Override
@@ -139,32 +183,39 @@ public class TextUI implements UserInterface{
 				});
 			}
 			
+			
 			else if(command[0].equals("a")){
+				/*Advice command request, ask the game to compute the best
+				  the best advice possible*/
 				mGame.giveAdvice(new Game.ActionListener() {
+					
 					@Override
 					public void onSuccess() {
-						// TODO Auto-generated method stub
 						displayAdvice(mGame.getAdvice());
 					}
 					
 					@Override
 					public void onFailure(String reason) {
-						// TODO Auto-generated method stub
 						displayError("a: " + reason);
 					}
 				});
 			}
 			
+			/* A fetching command request, get the current game statistics*/
 			else if(command[0].equals("s")){
 				PowerHashMap<String, Integer> statsMap = mGame.getStatistics();
-				displayStats(mGame.getCredit(),mGame.getPlayer().getGain(),statsMap);
+				displayStats(mGame.getPlayer().getCredit(),
+						mGame.getPlayer().getGain(),statsMap);
 			}
 		}
 	}
 	
+	/*Display the game statistics, using the output handler*/
 	@Override
 	public void displayStats(int credit,float gain,PowerHashMap<String, Integer> statsMap){
 		int total = 0;
+		
+		/*Order the winning hands from most valuable to least valuable*/
 		List<String> PowerHands = statsMap.getOrderedKeys(
 				new Comparator<String>(){
 					@Override
@@ -174,6 +225,7 @@ public class TextUI implements UserInterface{
 					}
 				});
 		
+		/*Pass it to the output handler to write the table*/
 		mIOHandler.write("Hand\tNb\n");
 		for(String s: PowerHands){
 			int c = statsMap.get(s);
@@ -187,18 +239,22 @@ public class TextUI implements UserInterface{
 							+"%)\n" );
 	}
 	
+	/*Display current players credit, using the output handler*/
 	public void displayCredit(int credit){
 		mIOHandler.write("player's credit is " + String.valueOf(credit) );
 	}
-	
+
+	/*Display a bet value, using the output handler*/
 	public void displayBet(int bet){
 		mIOHandler.write("player is betting " + String.valueOf(bet) );
 	}
 	
+	/*Display an hand, using the output handler*/
 	public void displayHand(String[] hand){
 		mIOHandler.write("player's hand " + String.join(" ", hand) );
 	}
 
+	/*Display an advice, using the output handler*/
 	public void displayAdvice(boolean[] advice){
 		String toHold = "";
 		for(int i = 0; i < advice.length; i++){
@@ -207,7 +263,8 @@ public class TextUI implements UserInterface{
 		mIOHandler.write("player should hold cards " + toHold );
 	}
 	
-	public void displayWin(boolean wins,String handPower, int credit){
+	/*Display a result and players credit, using the output handler*/
+	public void displayResult(boolean wins,String handPower, int credit){
 		if(wins){
 			mIOHandler.write("players wins with " + handPower + 
 								" and his credit is " + String.valueOf(credit) );
@@ -218,6 +275,7 @@ public class TextUI implements UserInterface{
 		}
 	}
 
+	/*Display an error message, using the output handler*/
 	public void displayError(String reason){
 		mIOHandler.write(reason );
 	}

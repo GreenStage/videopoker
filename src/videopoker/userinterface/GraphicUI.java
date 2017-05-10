@@ -286,7 +286,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 					adviceButton.setEnabled(false);
 					drawButton.setEnabled(false);
 					displayHand(mGame.getPlayer().getHand().getHandStrArr());
-					displayWin(mGame.getWinStatus(), mGame.getWinningPrizes().
+					displayResult(mGame.getWinStatus(), mGame.getWinningPrizes().
 							getHandPower(mGame.getPlayer().getHand()),
 							mGame.getPlayer().getCredit() );
 					cleanVars();
@@ -331,7 +331,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	    	
 	      public void actionPerformed(ActionEvent e){
 			PowerHashMap<String, Integer> statsMap = mGame.getStatistics();
-			displayStats(mGame.getCredit(),mGame.getPlayer().getGain(),statsMap);
+			displayStats(mGame.getPlayer().getCredit(),mGame.getPlayer().getGain(),statsMap);
 			
 	      }
 	      
@@ -476,7 +476,7 @@ public class GraphicUI extends JFrame implements UserInterface{
 	}
 
 	@Override
-	public void displayWin(boolean wins, String handPower, int credit) {
+	public void displayResult(boolean wins, String handPower, int credit) {
 		String msg = "";
 		if(wins){
 			msg = "Player wins with " + handPower + " and his credit is " +
