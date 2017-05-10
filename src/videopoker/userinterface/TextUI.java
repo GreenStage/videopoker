@@ -21,13 +21,31 @@ public class TextUI implements UserInterface{
 	
 	@Override
 	public void run(){
-		while(notExit){
+		while(true){
 			String readStr =  mIOHandler.read();
 			if(readStr == null){
 				break;
 			}
 			
 			String[] command = readStr.split(" ");
+			
+			if( command[0].equals("q") ){
+				mGame.endGame(new Game.ActionListener() {
+					
+					@Override
+					public void onSuccess() {
+						notExit = false;
+						
+					}
+					
+					@Override
+					public void onFailure(String reason) {
+						displayError("q: " + reason);
+					}
+				});
+				
+				if(!notExit) break;
+			}
 			
 			if( command[0].equals("b") ){
 				int betValue = -1;
@@ -53,7 +71,7 @@ public class TextUI implements UserInterface{
 						
 						@Override
 						public void onFailure(String reason) {
-							displayError(reason);
+							displayError("b: " + reason);
 						}
 					});	
 				}
@@ -64,7 +82,7 @@ public class TextUI implements UserInterface{
 			}
 			
 			else if(command[0].equals("d")){
-				if(lastBet >= 0){
+				if(lastBet >= 0 && mGame.getState() == Game.State.STATE_IDLE){
 					mGame.bet(lastBet, new Game.ActionListener() {
 						
 						@Override
@@ -75,7 +93,7 @@ public class TextUI implements UserInterface{
 						
 						@Override
 						public void onFailure(String reason) {
-							displayError(reason);
+							displayError("d: " + reason);
 						}
 					});
 				}
@@ -88,7 +106,7 @@ public class TextUI implements UserInterface{
 					
 					@Override
 					public void onFailure(String reason) {
-						displayError(reason);						
+						displayError("d: " + reason);					
 					}
 				});
 
@@ -115,7 +133,7 @@ public class TextUI implements UserInterface{
 					
 					@Override
 					public void onFailure(String reason) {
-						displayError(reason);						
+						displayError("h: " + reason);						
 					}
 				});
 			}
@@ -131,7 +149,7 @@ public class TextUI implements UserInterface{
 					@Override
 					public void onFailure(String reason) {
 						// TODO Auto-generated method stub
-						displayError(reason);
+						displayError("a: " + reason);
 					}
 				});
 			}

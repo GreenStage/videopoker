@@ -11,11 +11,7 @@ public class InteractiveHandler extends IOHandler{
 	
 	@Override
 	public String read(){
-		String retval = mScanner.nextLine();
-		if(retval.equals("q")){
-			return null;
-		}
-		else return retval;
+		return  mScanner.nextLine();
 	}
 
 	@Override

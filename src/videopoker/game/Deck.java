@@ -6,7 +6,12 @@ import java.util.List;
 
 public class Deck {
 	private List<Card> cards = new ArrayList<Card>();
-
+	class EmptyDeckException extends Exception{
+		 public EmptyDeckException(String msg){
+		      super(msg);
+		   }
+	};
+	
 	public Deck(){
 		for( Card.Suit st : Card.Suit.values() ){
 			for( Card.Value vl : Card.Value.values() ){
@@ -32,8 +37,11 @@ public class Deck {
 		Collections.shuffle(cards);
 	}
 	
-	public Card popCard(){
-		return cards.remove(0);
+	public Card popCard() throws EmptyDeckException{
+		if(cards.isEmpty()){
+			throw new EmptyDeckException("Deck is empty");
+		}
+		else return cards.remove(0);
 	}
 	
 	

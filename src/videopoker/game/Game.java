@@ -21,7 +21,7 @@ public class Game {
 	private int lastBet = -1;
 	private boolean shuffleDeck; 
 	
-	private enum State{
+	public static enum State{
 		STATE_IDLE,
 		STATE_BET,
 		STATE_DEAL
@@ -66,6 +66,18 @@ public class Game {
 		}	
 	}
 	
+	public void endGame(ActionListener listener){
+		if(mState == State.STATE_IDLE){
+			listener.onSuccess();
+		}
+		else 
+			listener.onFailure("cant quit after betting");
+	}
+	
+	public State getState(){
+		return this.mState;
+	}
+	
 	public void setCredit(int credit){
 		mPlayer.setCredit(credit);
 	}
@@ -78,16 +90,16 @@ public class Game {
 		return mPlayer.getBet();
 	}
 	
-	public void bet(int value, Game.ActionListener listener){
+	public void bet(int value, ActionListener listener){
 		if( mState != State.STATE_IDLE){
-			listener.onFailure("b: illegal command");
+			listener.onFailure("illegal command");
 		}
 		else if (mPlayer.getCredit() - value < 0){
 			lastBet = -1;
-			listener.onFailure("b: not enough credit");
+			listener.onFailure("not enough credit");
 		}
 		else if(value > 5 ) 
-			listener.onFailure("b: illegal amount");
+			listener.onFailure("illegal amount");
 		else if(mPlayer.getCredit() < ( (value == 0)? lastBet : value ) )
 			listener.onFailure("");
 		else{
@@ -108,7 +120,7 @@ public class Game {
 	
 	public void giveAdvice(Game.ActionListener listener){
 		if(!mPlayer.hasHand()){
-			listener.onFailure("a: illegal command");
+			listener.onFailure("illegal command");
 		}
 		else{
 			this.mAdvice = mAdvisor.giveAdvice(mPlayer.getHand());
@@ -132,7 +144,7 @@ public class Game {
 	
 	public boolean[] getAdvice(ActionListener listener){
 		if(mState != State.STATE_DEAL){
-			listener.onFailure("a: illegal command");
+			listener.onFailure("illegal command");
 			return null;
 		}
 		else{
@@ -144,26 +156,35 @@ public class Game {
 	
 	public void deal(ActionListener listener){
 		if(mDeck.getAmountCards() < 1 || mState == State.STATE_DEAL || lastBet < 0) {
-			listener.onFailure("d: illegal command");
+			listener.onFailure("illegal command");
 		}
 		else{
-			Hand newHand = new Hand(mDeck.popCard(),mDeck.popCard(),
-						   mDeck.popCard(),mDeck.popCard(),mDeck.popCard());
-			mPlayer.setHand(newHand);
-			mState = State.STATE_DEAL;
-			listener.onSuccess();
+			try{
+				Hand newHand = new Hand(mDeck.popCard(),mDeck.popCard(),
+						   	mDeck.popCard(),mDeck.popCard(),mDeck.popCard());
+				mPlayer.setHand(newHand);
+				mState = State.STATE_DEAL;
+				listener.onSuccess();
+			}catch(Deck.EmptyDeckException e){
+				listener.onFailure("Deck does not have 5 cards to deal");
+			}
 		}
 	}
 	
 	public void keep(boolean[] keep, ActionListener listener){
 		if(mDeck.getAmountCards() < 1 || ! ( mState == State.STATE_DEAL ) ){
-			listener.onFailure("h: illegal command");	
+			listener.onFailure("illegal command");	
 			return;
 		}
 		else{
 			Hand newHand = mPlayer.getHand();
 			for(int i = 0; i < 5; i ++){
-				if(keep[i] == false) newHand.setCard(i, mDeck.popCard());
+				try{
+					if(keep[i] == false) newHand.setCard(i, mDeck.popCard());
+				}
+				catch(Deck.EmptyDeckException e){
+					listener.onFailure("deck does not have 5 cards to deal");
+				}
 			}		
 		}			
 
