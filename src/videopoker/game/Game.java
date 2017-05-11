@@ -18,7 +18,13 @@ public class Game {
 	 * 	or not.
 	 */
 	public static interface ActionListener{
+		/** called when an action was done with success
+		 */
 		public void onSuccess();
+		
+		/** called when an action failed to execute
+		 * @param reason - String describing the reason why it failed
+		 */
 		public void onFailure(String reason);
 	}
 	
