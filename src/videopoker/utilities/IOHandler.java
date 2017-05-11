@@ -13,7 +13,8 @@ public interface IOHandler {
 	public String read();
 	
 	/** Declaration of writing method
-	 * used to write  string to an output source
+	 * used to write string to an output source
+	 * @param message - string to write
 	 */
 	public void write(String message);
 }

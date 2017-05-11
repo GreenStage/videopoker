@@ -4,17 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Deck class
+ * handles the game deck
+ */
 public class Deck {
 	
+	/** EmptyDeckException
+	 *  Many operations require the deck to not be empty,
+	 *  this exception alerts for an empty deck
+	 */
 	class EmptyDeckException extends RuntimeException{
 		 public EmptyDeckException(String msg){
 		      super(msg);
 		   }
 	};
 	
+	/** List with current cards in deck */
 	private List<Card> cards = new ArrayList<Card>();
 
 	
+	/** Deck default constructor
+	 * 	use to create a deck with 52 different cards
+	 */
 	public Deck(){
 		for( Card.Suit st : Card.Suit.values() ){
 			for( Card.Value vl : Card.Value.values() ){
@@ -23,6 +35,11 @@ public class Deck {
 		}
 	}
 
+	/**
+	 * @param cardArr Array with cards to fill the deck
+	 * 	each card must be a string and take the format 'VS'
+	 * 	where V = value and S = suit
+	 */
 	public Deck(String[] cardArr){
 		for(String c : cardArr){
 			try{
@@ -36,10 +53,17 @@ public class Deck {
 		}
 	}
 	
+	/** Shuffle operator
+	 *  shuffles the deck
+	 */
 	public void shuffle(){
 		Collections.shuffle(cards);
 	}
 	
+	/** Pop a card from the deck, removing it from the list
+	 * @return Card instance, popped card
+	 * @throws EmptyDeckException - in case the deck is empty
+	 */
 	public Card popCard() throws EmptyDeckException{
 		if(cards.isEmpty()){
 			throw new EmptyDeckException("Deck is empty");
@@ -47,7 +71,9 @@ public class Deck {
 		else return cards.remove(0);
 	}
 	
-	
+	/** Fetches the amount of cards in deck
+	 * @return integer , amount of cards in deck
+	 */
 	public int getAmountCards(){
 		return cards.size();
 	}

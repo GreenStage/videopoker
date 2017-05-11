@@ -4,8 +4,7 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 
-/** DebugHandler - implementation of IOHandler 
- * for debug mode
+/** DebugHandler - implementation of IOHandler for debug mode
  * 	reads from a file/String
  *  writes to the console
  */

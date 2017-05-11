@@ -163,10 +163,10 @@ public class Game {
 	/**
 	 * Attempts to end the game
 	 * @param listener - ActionListener instance
-	 * 	-onSuccess called if no bet is in place -
+	 * 	-{@link ActionListener#onSuccess()} called if no bet is in place -
 	 *  	therefore the user has permission to quit.
 	 * 
-	 * 	-onFailure called if there is a bet in place and the  player cannot quit.
+	 * 	-{@link ActionListener#onFailure(String)} called if there is a bet in place and the  player cannot quit.
 	 */
 	public void endGame(ActionListener listener){
 		if(mState == State.STATE_IDLE){
@@ -180,9 +180,9 @@ public class Game {
 	 * Attempts to place a bet
 	 * @param value bets value to place
 	 * @param listener - ActionListener instance
-	 *	-onSuccess called if the game state does not allows placing bets.
+	 *	-{@link ActionListener#onSuccess()} called if the game state does not allows placing bets.
 	 * 
-	 * 	-onFailure called if the game state does not allows placing bets.
+	 * 	-{@link ActionListener#onFailure(String)} called if the game state does not allows placing bets.
 	 * 			   or if the player tries to bet more than 5 credits or less than 1
 	 * 			   or if the player has less credit than he wants to bet
 	 */
@@ -208,9 +208,9 @@ public class Game {
 	/**
 	 * Asks the advisor for an advice, giving the current players hand.
 	 * @param listener - ActionListener instance
-	 * 	-onSuccess called if the advice was successfully asked for.
+	 * 	-{@link ActionListener#onSuccess()} called if the advice was successfully asked for.
 	 * 
-	 * 	-onFailure called if the game state is not at dealing stage.
+	 * 	-{@link ActionListener#onFailure(String)} called if the game state is not at dealing stage.
 	 */
 	public void giveAdvice(Game.ActionListener listener){
 		if(mState != State.STATE_DEAL){
@@ -244,9 +244,9 @@ public class Game {
 	/**
 	 * Attempts to deal 5 cards to the player.
 	 * @param listener - ActionListener instance
-	 * 	-onSuccess called if dealing was successful.
+	 * 	-{@link ActionListener#onSuccess()} called if dealing was successful.
 	 * 
-	 * 	-onFailure called if the cards were already dealt.
+	 * 	-{@link ActionListener#onFailure(String)}  called if the cards were already dealt.
 	 * 			   or if the player did not bet yet in the game
 	 * 			   or if the deck does not have 5 cards to pop
 	 */
@@ -274,10 +274,10 @@ public class Game {
 	/**
 	 * Attempts to draw cards, holding those defined in @keep 
 	 * @param keep - cards to hold
-	 * @param listener - ActionListener instance
-	 * 	-onSuccess called if draw was successful.
+	 * @param listener - {@link ActionListener} instance
+	 * 	-{@link ActionListener#onSuccess()} called if draw was successful.
 	 * 
-	 * 	-onFailure called if the cards weren't dealt yet.
+	 * 	-{@link ActionListener#onFailure(String)} called if the cards weren't dealt yet.
 	 * 			   or if the deck does not have 5 cards to pop
 	 */
 	public void keep(boolean[] keep, ActionListener listener){
@@ -333,21 +333,21 @@ public class Game {
 	 * Fetching methods
 	 ********************************/
 
-	/**
+	/** Fetches games current state
 	 * @return game state
 	 */
 	public State getState(){
 		return this.mState;
 	}
 	
-	/**
+	/** Fetches a player instance
 	 * @return player object
 	 */
 	public Player getPlayer(){
 		return this.mPlayer;
 	}
 	
-	/**
+	/** Evaluates if player won current round
 	 * @return true if player won this round, false if not
 	 */
 	public boolean getWinStatus(){
@@ -355,22 +355,22 @@ public class Game {
 	}
 	
 	
-	/**
+	/** Fetches current advice
 	 * @return boolean array with cards to hold
 	 */
 	public boolean[] getAdvice(){
 		return mAdvice;
 	}
 	
-	/**
-	 * @return Statistics hashmap
+	/** Fetches current statistic table
+	 * @return Statistics table , HandPowerN - Nº occurencesN
 	 */
 	public PowerHashMap<String,Integer> getStatistics(){
 		return this.winningStats;
 	}
 	
-	/**
-	 * @return winning prizes table
+	/** Fetches Winnings prizes tabe
+	 * @return winning prizes table , HandPowerN - prize1N,prize2N...
 	 */
 	public WinningPrizes getWinningPrizes(){
 		return this.mWinningPrizes;

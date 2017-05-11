@@ -3,8 +3,7 @@ package videopoker.utilities;
 import java.util.Scanner;
 
 
-/** InteractiveHandler - implementation of IOHandler 
- * for interactive mode
+/** InteractiveHandler - implementation of IOHandler for interactive mode
  * 	reads from the console
  * 	writes to the console
  */
