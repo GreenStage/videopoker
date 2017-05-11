@@ -6,8 +6,12 @@ import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
 /**
- * 
- * This class evaluates if the hand contains a Queen and a King or a Jack and a King of any suit.
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a
+ * Jack and a King or a King and a Queen with different suits.
  *  <p> For example: the hand [2S 7C QH TS KD] is a "KQOrKJ Unsuited" hand, with a Queen and a King.
  *  <p> Another example: the hand [JS 7C 8H TS KD] is a "KQOrKJ Unsuited" hand, with a Jack and a King.
  *

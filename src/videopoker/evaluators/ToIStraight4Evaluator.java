@@ -5,6 +5,17 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to an Inside Straight, 
+ * i.e. a hand with a straight  and with a missing inside card, such as the cards 679T. In addition
+	A234 and JQKA also count as inside straights because they are at an extreme end.
+ * <p> For example: the hand [6H 7D 9H TC KS] is a "Four to an Inside Straight" hand. </p>
+ */
 public class ToIStraight4Evaluator extends HandEvaluator implements Evaluator{
 
 	@Override

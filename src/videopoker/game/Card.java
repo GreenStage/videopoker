@@ -34,7 +34,7 @@ public class Card {
         }
         
         /**
-        * This method returns a char representing the card value. <p>
+        * This method returns a char representing the card value. 
         * <ul>
         * <li>Ace : 'A'</li>
         * <li>Two : '2'</li>
@@ -50,7 +50,6 @@ public class Card {
         * <li>Queen : 'Q' </li>
         * <li>King : 'K' </li>
         * </ul>
-        * </p>
         * @return character representing the card value
         */
         public char getValue(){
@@ -58,7 +57,7 @@ public class Card {
         };
         
         /**
-        * This method returns a number that represents the weight of the card's value. <p>
+        * This method returns a number that represents the weight of the card's value.
         * <ul>
         * <li>Two : 2</li>
         * <li>Three : 3 </li>
@@ -78,7 +77,6 @@ public class Card {
         * Ace can have two possible weights, 14 or 1, depending on the game played and the combination
         * of cards in the player's hand. In this specific circumstance determining the value of the Ace
         * is a responsability of the developer.
-        * </p>
         * 
         * 
         * @return integer representing the card weight
@@ -104,14 +102,13 @@ public class Card {
         }
         
         /**
-        * This method returns a char representing the card suit. <p>
+        * This method returns a char representing the card suit. 
         * <ul>
         * <li>Clovers : 'C'</li>
         * <li>Diamonds : 'D'</li>
         * <li>Spades : 'S' </li>
         * <li>Hearts : 'H' </li>
         * </ul>
-        * </p>
         * @return character representing the card value
         */
         public char getSuit(){
@@ -119,7 +116,7 @@ public class Card {
         };
         
         /**
-        * This method returns an integer representing the card's suit weight. <p>
+        * This method returns an integer representing the card's suit weight. 
         * <ul>
         * <li>Diamonds : 0 </li>
         * <li>Spades : 15</li>
@@ -128,7 +125,6 @@ public class Card {
         * </ul>
         * The assigned weights are arbitrary. These values are used to order the cards by suit. 
         * 
-        * </p>
         * @return integer representing the suit's weight
         */
         public int getWeight(){

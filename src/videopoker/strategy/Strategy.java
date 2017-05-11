@@ -14,7 +14,7 @@ import videopoker.evaluators.Evaluator;
  * desired position. The {@link videopoker.strategy.Advisor} class should be used to
  * evaluate a hand against a strategy.
  * 
- *@see videopoker.strategy.Advisor;
+ *@see Advisor
  */
 public class Strategy {
 	

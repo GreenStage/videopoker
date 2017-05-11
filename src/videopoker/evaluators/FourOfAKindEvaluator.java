@@ -6,16 +6,18 @@ import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
 /**
- * 
- * This class evaluates if the hand contains four cards of the same kind
- * <p> For example: the hand [AS AC AH 3H AD] is a "four of a kind" hand, with 4 Aces.
- *
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four of kind, i.e. a hand in which four
+ * cards with the same value are present.
+ * <p> For example: the hand [6S 6C 6H 6D KD] is an "Four of a kind" hand. </p>
  */
 
 public class FourOfAKindEvaluator extends HandEvaluator implements Evaluator {
 	
-	public static final String handPower = "FOUR OF A KIND";
-	
+	@Override
 	public boolean[] whereCards(Hand hand){
 		
 		Card[] hand_o = hand.orderByValue();

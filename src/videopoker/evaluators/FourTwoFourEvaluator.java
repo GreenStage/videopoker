@@ -4,9 +4,24 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
-
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with Four 2-4, i.e. a hand in which four cards
+ * are 2, 3 or 4. 
+ * <p> For example: the hand [4H 4S 4D 4C KS] is a "Four 2-4" hand. </p>
+ *
+ * The hand name is : <b>FOUR 2-4</b> (case sensitive)
+ */
 public class FourTwoFourEvaluator extends FourOfAKindEvaluator implements MainHandEvaluator {
 
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is FOUR 2-4.
+	 */
 	public static final String handPower = "FOUR 2-4";
 	
 	@Override

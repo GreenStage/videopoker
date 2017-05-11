@@ -7,8 +7,12 @@ import videopoker.game.Card.Value;
 
 /**
  * 
- * This class evaluates if the hand contains a Ten and a Jack of the same suit.
- *  <p> For example: the hand [JS 7C QH TS KD] is a "JT Suited" hand.
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a pair of a Jack and a 10 with the same suit. 
+ * <p> For example: the hand [JS 7C QH TS KD] is a "JT Suited" hand.
  *
  */
 public class JTSuitedEvaluator extends HandEvaluator implements Evaluator {

@@ -6,9 +6,15 @@ import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
 /**
+ /**
  * 
- * This class evaluates if the hand contains a Low pair, that means having a pair bellow or equal to Ten.
- *  <p> For example: the hand [4S 7C 6H 6D KD] is a "Low Pair" hand.
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a pair of low cards (all cards excluded Jack,
+ * , Queen, King, Ace). 
+ * <p> For example: the hand [4S 7C 6H 6D KD] is a "Low Pair" hand.
  *
  */
 public class LowPairEvaluator extends HandEvaluator implements Evaluator{

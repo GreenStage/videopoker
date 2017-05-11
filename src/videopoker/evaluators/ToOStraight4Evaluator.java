@@ -5,6 +5,17 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to an Outside Straight, 
+ * i.e. a hand with an open ended straight that can be completed at either end, such as
+ * the cards 789T.
+ * <p> For example: the hand [7H 8D 9H TC KS] is a "Four to an Outside Straight" hand. </p>
+ */
 public class ToOStraight4Evaluator extends HandEvaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){

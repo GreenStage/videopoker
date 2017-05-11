@@ -5,6 +5,16 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to a Royal Flush, 
+ * i.e. a hand in which four royal cards (T, J, Q, K) of the same suit are present. 
+ * <p> For example: the hand [TH JH QH KH 2S] is a "Four to a Royal flush" hand. </p>
+ */
 public class ToRFlush4Evaluator extends HandEvaluator implements Evaluator {
 	
 	

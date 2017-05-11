@@ -2,13 +2,15 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
- * This class evaluates if the hand contains the Ace, King, Queen and Jack of any suit.
- *  <p> For example: the hand [JS 7C QH AH KD] is a "AKQJ Unsuited" hand.
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with Ace, King, Queen and Jack of any suit. 
+ * <p> For example: the hand [JS 7C QH AH KD] is an "AKQJ Unsuited" hand. </p>
  *
  */
 public class AKQJUnsuitedEvaluator extends HandEvaluator implements Evaluator {

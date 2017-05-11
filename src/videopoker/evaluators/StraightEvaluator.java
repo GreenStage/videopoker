@@ -5,8 +5,26 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Straight, i.e. a hand in 
+ * which 5 consecutive cards of any suit are present (at least two different suits should
+ * be in the hand, otherwise it's a straight flush). 
+ * <p> For example: the hand [AS 2S 3D 4H 5H] is an "Straight" hand. </p>
+ * 
+ * The hand name is : <b>STRAIGHT</b> (case sensitive)
+ *
+ */
 public class StraightEvaluator extends HandEvaluator implements MainHandEvaluator {
 
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is STRAIGHT.
+	 */
 	public final static String handPower = "STRAIGHT";
 
 	

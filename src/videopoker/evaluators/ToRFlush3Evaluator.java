@@ -5,6 +5,16 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Three to a Royal Flush, 
+ * i.e. a hand in which three royal cards (T, J, Q, K) of the same suit are present. 
+ * <p> For example: the hand [TH JH QH 4H 2S] is a "Three to a Royal flush" hand. </p>
+ */
 public class ToRFlush3Evaluator extends HandEvaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){

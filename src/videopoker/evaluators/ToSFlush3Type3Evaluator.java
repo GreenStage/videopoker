@@ -5,6 +5,16 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Three to a Straight Flush (Type 3), 
+ * i.e. a hand in which there are three cards of the same suit with two gaps and no high cards.
+ * <p> For example: the hand [2H 5H 6H 2C KS] is a "Three to a Straight flush (Type 3)" hand. </p>
+ */
 public class ToSFlush3Type3Evaluator extends ToSFlush3Evaluator implements Evaluator{
 
 	public boolean[] whereCards(Hand hand){

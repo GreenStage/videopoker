@@ -2,12 +2,13 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
- * 
- * This class evaluates if the hand contains a Ten and a Queen of the same suit.
+* This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Queen and a Ten with the same suit. 
  *  <p> For example: the hand [4S 7C 6H TD QD] is a "QT Suited" hand.
  *
  */

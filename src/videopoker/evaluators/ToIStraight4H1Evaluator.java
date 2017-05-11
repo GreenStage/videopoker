@@ -5,6 +5,17 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to an Inside Straight with one high
+ * card, 
+ * i.e. a hand with a straight with a missing inside card and one single high card.
+ * <p> For example: the hand [7H 8D 9H JC 2S] is a "Four to an Inside Straight with one high card" hand. </p>
+ */
 public class ToIStraight4H1Evaluator extends ToIStraight4Evaluator implements Evaluator {
 	
 public boolean[] whereCards(Hand hand){

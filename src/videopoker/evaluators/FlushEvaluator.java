@@ -5,8 +5,25 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Flush, i.e. a hand in which all cards
+ * have the same suit. 
+ * <p> For example: the hand [JS 7S QS AS KS] is an "Flush" hand. </p>
+ * 
+ * The hand name is : <b>FLUSH</b> (case sensitive)
+ *
+ */
 public class FlushEvaluator extends HandEvaluator implements MainHandEvaluator {
 	
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is FLUSH.
+	 */
 	public final static String handPower = "FLUSH";
 	
 	@Override

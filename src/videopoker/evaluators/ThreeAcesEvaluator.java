@@ -7,6 +7,16 @@ import videopoker.game.Card.Value;
 import videopoker.strategy.Advisor;
 import videopoker.strategy.TraditionalStrategy;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with Three Aces, i.e. a hand in which three cards
+ * are Aces. 
+ * <p> For example: the hand [AH AS AD 2C KS] is a "Three Aces" hand. </p>
+ */
 public class ThreeAcesEvaluator extends ThreeOfAKindEvaluator implements Evaluator {
 	
 	@Override

@@ -5,6 +5,16 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to a Flush, 
+ * i.e. a hand in which four cards have the same suit. 
+ * <p> For example: the hand [2H 3H 8H 9H KS] is a "Four to a flush" hand. </p>
+ */
 public class ToFlush4Evaluator extends HandEvaluator implements Evaluator{
 	
 	@Override

@@ -7,12 +7,23 @@ import videopoker.game.Card.Value;
 
 /**
  * 
- * This class evaluates if the hand contains Three cards of the same kind.
- *  <p> For example: the hand [QD QH QS 6S TS] is a "Three Of A Kind" hand, with 3 Queens.
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Three of A Kind, i.e. a hand in 
+ * which there are three cards of any suit with the same value. 
+ * <p> For example: the hand [2S 2D 2H 7H KH] is an "Three of a kind" hand. </p>
+ * 
+ * The hand name is : <b>THREE OF A KIND</b> (case sensitive)
  *
  */
 public class ThreeOfAKindEvaluator extends HandEvaluator implements MainHandEvaluator{
 	
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is THREE OF A KIND.
+	 */
 	public static final String handPower = "THREE OF A KIND";
 	
 	@Override

@@ -28,7 +28,7 @@ public class Hand {
 	
 	
 	/**
-	 * a hands power (value)
+	 * Power of the current hand. The default value is HAND_NONE.
 	 */
 	private String handPower = WinningPrizes.HAND_NONE;
 	
@@ -95,8 +95,8 @@ public class Hand {
 	}
 	
 	/**
-	 * Set hand power 
-	 * @param handpower
+	 * Set the power of the hand.
+	 * @param handpower : string with the name of the hand power.
 	 */
 	public void setHandPower(String handpower){
 		this.handPower = handpower;

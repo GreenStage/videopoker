@@ -3,6 +3,16 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Three to a Flush with two high cards, 
+ * i.e. a hand in which three cards have the same suit and only two of these cards are high cards.
+ * <p> For example: the hand [2H JH KH 2C KS] is a "Three to a flush with two high cards " hand. </p>
+ */
 public class ToFlush3H2Evaluator extends ToFlush3Evaluator implements Evaluator {
 
 	@Override

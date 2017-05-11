@@ -7,12 +7,22 @@ import videopoker.game.Card.Value;
 
 /**
  * 
- * This class evaluates if the hand contains a high pair, that means having a pair with a greater or equal value to Jacks.
- *  <p> For example: the hand [JS 7C QH KH KD] is a "High Pair" hand. Being the 2 kings the high pair.
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a "Jack or Better (High Pair)",
+ *  i.e. a hand in which
+ * there is a pair of Jacks, Queens, Kings or Aces. 
+ * <p> For example: the hand [3H 2S 6D KC KS] is a "Jacks or better (High pair)" hand. </p>
  *
+ * The hand name is : <b>JACKS OR BETTER</b> (case sensitive)
  */
 public class HighPairEvaluator extends HandEvaluator implements MainHandEvaluator{
-	
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is JACKS OR BETTER.
+	 */
 	public final static String handPower = "JACKS OR BETTER";
 
 	

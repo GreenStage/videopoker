@@ -3,6 +3,9 @@ package videopoker.strategy;
 import java.util.ArrayList;
 
 import videopoker.evaluators.Evaluator;
+import videopoker.game.Card;
+import videopoker.game.Card.Suit;
+import videopoker.game.Card.Value;
 import videopoker.game.Hand;
 
 /**
@@ -67,4 +70,39 @@ public class Advisor {
 		
 		
 	}
+	
+	  public static void main(String[] args){
+		  
+		    
+		  
+		    Card c1 = new Card(Value.TWO, Suit.HEARTS);
+		 
+		    Card c2 = new Card(Value.QUEEN, Suit.CLOVERS);
+		 
+		    Card c3 = new Card(Value.FIVE, Suit.HEARTS);
+		 
+		    Card c4 = new Card(Value.SEVEN, Suit.HEARTS);
+		 
+		    Card c5 = new Card(Value.NINE, Suit.SPADES);
+		 
+
+		 
+		    Hand hand = new Hand(c1,c2,c3,c4,c5);
+		 
+		    Advisor adv = new Advisor(new TraditionalStrategy());
+		 
+		    boolean[] keep = adv.giveAdvice(hand);
+		 
+		    
+		 
+		    for (int i = 0; i < keep.length; i++){
+		 
+		      System.out.println(keep[i]);
+		 
+		    }
+		 
+		    
+		 
+		  }
+		 
 }

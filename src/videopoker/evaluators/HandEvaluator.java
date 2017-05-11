@@ -7,11 +7,29 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.WinningPrizes;
 
+/**
+ * This class provides some utility methods that helps in building classes that implement
+ * the {@link Evaluator} interface.
+ * 
+ * @see videopoker.evaluators.Evaluator
+ */
+
 public abstract class HandEvaluator {
 	
+	/**
+	 * Constant string representing the name of the hand. The
+	 * default value is HAND_NONE. This value should be overridden by 
+	 * subclasses if needed (for example in evaluators
+	 * that implement the {@link videopoker.evaluators.MainHandEvaluator} interface.
+	 */
 	public final static String handPower = WinningPrizes.HAND_NONE;
-		
-	public boolean hasSameSuit(Card[] set){
+	
+	/**
+	 * Checks if the the cards in the array passed as argument have the same suit.
+	 * @param set : array of cards to evaluate.
+	 * @return true if the cards have all the same suit.
+	 */
+	protected boolean hasSameSuit(Card[] set){
 		int suit = set[0].getSuitWeight();
 		
 		for (int i=0; i<set.length; i++){
@@ -22,11 +40,24 @@ public abstract class HandEvaluator {
 		return true;
 	}
 	
+	/**
+	 * Return the typer of the hand as a string. This defaults to HAND_NONE if subclasses do not
+	 * override this method.
+	 * @param hand : hand to evaluate
+	 * @return string with the type of hand.
+	 */
 	public String getHandPower(Hand hand){
 		return handPower;
 	}
 	
-	public int numRoyalCards(Card[] set){
+	/**
+	 * Counts the number of royal cards in the array of cards passed as argument.
+	 * <p> A royal card is a card that can be used to get a Royal Flush, namely a 10, a Jack,
+	 * a Queen, a King or an Ace. </p>
+	 * @param set : cards to evaluate
+	 * @return : number of royal cards in the array
+	 */
+	protected int numRoyalCards(Card[] set){
 		
 		int num = 0;
 		for (int i=0; i<set.length; i++){
@@ -39,7 +70,14 @@ public abstract class HandEvaluator {
 		return num;
 	}
 	
-	public int numGaps(Card[] set){		
+	/**
+	 * Counts the number of gaps in a sorted array of cards.
+	 * <p> If the array is not sorted, it is sorted by value, then the number of gaps between 
+	 * consecutive cards is returned. </p>
+	 * @param set : cards to evaluate
+	 * @return number of gaps in the passed card set
+	 */
+	protected int numGaps(Card[] set){		
 
 		if (set.length < 2)
 			return 0;
@@ -101,7 +139,16 @@ public abstract class HandEvaluator {
 		return Math.min(num_gaps1, num_gaps2);
 	}
 	
-	public boolean inOrder(Card[] set){
+	/**
+	 * Checks if the cards are in perfect sequence. 
+	 * <p>Cards are considered to be in perfect sequence 
+	 * if, after being sorted by value, two consecutive
+	 * cards differ by just one. If cards with the same value are present, the method returns
+	 * false in any case.</p>
+	 * @param set : cards to evaluate
+	 * @return true if the cards are in perfect sequence
+	 */
+	protected boolean inOrder(Card[] set){
 		int nxt_val;
 		int cur_val;
 		Card[] set2;
@@ -145,7 +192,12 @@ public abstract class HandEvaluator {
 		return test1 || test2;
 	}
 	
-	public boolean hasAce(Card[] set){
+	/**
+	 * Checks if among the cards in the array there's an Ace.
+	 * @param set : cards to evaluate.
+	 * @return true if an Ace is present
+	 */
+	protected boolean hasAce(Card[] set){
 		
 		for (int i = 0; i < set.length; i++){
 			if (set[i].getValue() == 'A')
@@ -155,7 +207,12 @@ public abstract class HandEvaluator {
 		return false;
 	}
 	
-	public boolean hasTwo(Card[] set){
+	/**
+	 * Checks if among the cards in the array there's a Two.
+	 * @param set : cards to evaluate.
+	 * @return true if a Two is present
+	 */
+	protected boolean hasTwo(Card[] set){
 		
 		for (int i = 0; i < set.length; i++){
 			if (set[i].getValue() == '2')
@@ -165,7 +222,12 @@ public abstract class HandEvaluator {
 		return false;
 	}
 	
-	public boolean hasThree(Card[] set){
+	/**
+	 * Checks if among the cards in the array there's a Three.
+	 * @param set : cards to evaluate.
+	 * @return true if a Three is present
+	 */
+	protected boolean hasThree(Card[] set){
 		
 		for (int i = 0; i < set.length; i++){
 			if (set[i].getValue() == '3')
@@ -175,7 +237,12 @@ public abstract class HandEvaluator {
 		return false;
 	}
 	
-	public boolean hasFour(Card[] set){
+	/**
+	 * Checks if among the cards in the array there's a Four.
+	 * @param set : cards to evaluate.
+	 * @return true if a Four is present
+	 */
+	protected boolean hasFour(Card[] set){
 		
 		for (int i = 0; i < set.length; i++){
 			if (set[i].getValue() == '4')
@@ -185,7 +252,12 @@ public abstract class HandEvaluator {
 		return false;
 	}
 	
-	public boolean hasKing(Card[] set){
+	/**
+	 * Checks if among the cards in the array there's a King.
+	 * @param set : cards to evaluate.
+	 * @return true if a King is present.
+	 */
+	protected boolean hasKing(Card[] set){
 		
 		for (int i = 0; i < set.length; i++){
 			if (set[i].getValue() == 'K')
@@ -204,20 +276,21 @@ public abstract class HandEvaluator {
      * <li>n1 - number of cards of the same kind, of the first kind</li>
      * <li>p1 - position of the first card, of the first kind</li>
      * <li>n2 - number of cards of the same kind, of the second kind</li>
-     * <li>p2 - position of the first card, of the second kind</li>      
-     * </ul>
+     * <li>p2 - position of the first card, of the second kind</li>    
+     * </ul>  
      * If it exists only one kind with more than 1 card, the last two parameter, of the return, will be set zero.
      * If it doesn't exist any kind with more than 1 card, then the return matrix will be [0 0 0 0].
-     * <p> Examples:
+     * <p> Examples: </p>
+     * <ul>
      * <li>1 - with the hand [3C 3S 5S 9H TC], this function returns [2 1 0 0]. Since there's only one kind with more than 1 card, the last two elements are set to zero.</li>
      * <li>2 - with the hand [3C 3S 9S 9H 9C], this function returns [2 0 3 2].
      * <li>3 - with the hand [3C 3S 3H 9H 9C], this function returns [3 0 2 3].
      * <li>3 - with the hand [2C 3S 3H 9H 9C], this function returns [2 1 2 3].     
      * </ul>
-	 * @param set ordered hand
-	 * @return the array described above, which indicates the number of cards of the same kind, and its starting positions.
+	 * @param set : sorted hand
+	 * @return an array that indicates the number of cards of the same kind, and its starting positions.
 	 */
-	public int[] equality(Card[] set){
+	protected int[] equality(Card[] set){
 		
 		int[] eq = new int[4];
 		int size_eq = 0;
@@ -250,7 +323,13 @@ public abstract class HandEvaluator {
 		return eq;
 	}
 	
-	public int numHighCards(Card[] set){
+	/**
+	 * Counts the number of high cards in the array of cards passed as argument.
+	 * <p>An high card is one of the followings: Jack, Queen, King, Ace</p>.
+	 * @param set : cards to evaluate.
+	 * @return number of high cards in the array.
+	 */
+	protected int numHighCards(Card[] set){
 		
 		int num_cards = 0;
 		
@@ -262,7 +341,12 @@ public abstract class HandEvaluator {
 		return num_cards;
 	}
 	
-	public boolean hasDuplicates(Card[] set){
+	/**
+	 * Checks if there are cards with the same value in the array passed as argument.
+	 * @param set : cards to evaluate.
+	 * @return true if at least two cards with the same value are present in the array
+	 */
+	protected boolean hasDuplicates(Card[] set){
 		
 		Arrays.sort(set, new Comparator<Card>() {
 			

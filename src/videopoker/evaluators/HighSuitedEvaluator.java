@@ -5,6 +5,17 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a suited pair of high cards (Jack, Queen,
+ * King, Ace). 
+ * <p> For example: the hand [JS QC 4H 2H 7D] is an high suited hand. </p>
+ *
+ */
 public class HighSuitedEvaluator extends HandEvaluator implements Evaluator {
 
 	@Override

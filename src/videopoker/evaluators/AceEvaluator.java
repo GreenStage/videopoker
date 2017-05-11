@@ -3,6 +3,15 @@ package videopoker.evaluators;
 import videopoker.game.Card;
 import videopoker.game.Hand;
 
+/**
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with an ACE. If multiple Aces are present only
+ * one is reported.
+ * <p> For example: the hand [JS 7C QH AH KD] is an "Ace" hand. </p>
+ */
 public class AceEvaluator extends HandEvaluator implements Evaluator {
 
 	@Override

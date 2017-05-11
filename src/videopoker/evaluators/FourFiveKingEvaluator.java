@@ -4,9 +4,24 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
-
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link MainHandEvaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with Four 5-K, i.e. a hand in which four cards
+ * are 5, 6, 7, 8, 9, 10, Jack, Queen or King. 
+ * <p> For example: the hand [6H 6S 6D 6C KS] is an "Four 5-K" hand. </p>
+ *
+ * The hand name is : <b>FOUR 5-K</b> (case sensitive)
+ */
 public class FourFiveKingEvaluator extends FourOfAKindEvaluator implements MainHandEvaluator {
-
+	
+	/**
+	 * The name of the hand evaluated by the class.
+	 * The name of the hand is FOUR 5-K.
+	 */
 	public static final String handPower = "FOUR 5-K";
 	
 	@Override

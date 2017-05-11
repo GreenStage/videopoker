@@ -5,6 +5,17 @@ import videopoker.game.Hand;
 import videopoker.game.Card.Suit;
 import videopoker.game.Card.Value;
 
+/**
+ * 
+ * This class is part
+ * of a group of classes that implements the interface {@link Evaluator} and 
+ * scans the hand looking for a 
+ * specific card combination.
+ * More specifically, this class searches for a hand with a Four to a Straight Flush, 
+ * i.e. a hand in which there are four cards of the same suit with at most one gap between cards'
+ * values. 
+ * <p> For example: the hand [2H 3H 4H 6H KS] is a "Four to a Straight flush" hand. </p>
+ */
 public class ToSFlush4Evaluator extends HandEvaluator implements Evaluator{
 	
 	public boolean[] whereCards(Hand hand){
