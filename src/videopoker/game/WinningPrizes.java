@@ -23,11 +23,10 @@ import videopoker.utilities.PowerHashMap;
 /**
  * Winning Prizes class
  * Used to create a table with a powerhashMap 
- * with the format "HANDn => PRIZEn1,PRIZEn2,PRIZEn3,PRIZEn4,PRIZEn5
+ * with the format "HANDn / PRIZEn1,PRIZEn2,PRIZEn3,PRIZEn4,PRIZEn5
  * and to evaluate if a hand is a winning one.
  * Winning hands are also defined here.
  */
-
 public class WinningPrizes {
 	public static String HAND_NONE ="Other";
 	

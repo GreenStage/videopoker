@@ -32,6 +32,10 @@ public class TextUI implements UserInterface{
 	/** Loop exiting variable */
 	private boolean notExit = true;
 	
+	/** TextUi constructor
+	 * @param game - Game instance
+	 * @param ioh - Input/Output handler
+	 */
 	public TextUI(Game game,IOHandler ioh){
 		this.mGame = game;
 		this.mIOHandler = ioh;

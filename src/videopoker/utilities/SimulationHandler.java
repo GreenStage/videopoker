@@ -1,7 +1,6 @@
 package videopoker.utilities;
 
 import videopoker.game.Game;
-import videopoker.strategy.Advisor;
 
 /** SimulationHandler
  *	used for simulation mode

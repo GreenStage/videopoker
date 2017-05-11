@@ -9,6 +9,9 @@ import videopoker.utilities.PowerHashMap;
  */
 public class Game {
 	
+	public static final int MIN_BET_VALUE = 1;
+	public static final int MAX_BET_VALUE = 5;
+	
 	/**
 	 * Interface for callback on some game methods.
 	 * 	used to reply to parent caller if its command was successfully executed.
@@ -159,11 +162,11 @@ public class Game {
 	
 	/**
 	 * Attempts to end the game
-	 * @param listener
-	 * 	@onSuccess called if no bet is in place - therefore the user has permission
-	 * 			   to quit.
+	 * @param listener - ActionListener instance
+	 * 	-onSuccess called if no bet is in place -
+	 *  	therefore the user has permission to quit.
 	 * 
-	 * 	@onFailure called if there is a bet in place and the  player cannot quit.
+	 * 	-onFailure called if there is a bet in place and the  player cannot quit.
 	 */
 	public void endGame(ActionListener listener){
 		if(mState == State.STATE_IDLE){
@@ -175,11 +178,11 @@ public class Game {
 	
 	/**
 	 * Attempts to place a bet
-	 * @param value
-	 * @param listener
-	 *	@onSuccess called if the game state does not allows placing bets.
+	 * @param value bets value to place
+	 * @param listener - ActionListener instance
+	 *	-onSuccess called if the game state does not allows placing bets.
 	 * 
-	 * 	@onFailure called if the game state does not allows placing bets.
+	 * 	-onFailure called if the game state does not allows placing bets.
 	 * 			   or if the player tries to bet more than 5 credits or less than 1
 	 * 			   or if the player has less credit than he wants to bet
 	 */
@@ -188,7 +191,7 @@ public class Game {
 		if( mState != State.STATE_IDLE){
 			listener.onFailure("illegal command");
 		}
-		else if(value > 5  || value < 1){ 
+		else if(value > MAX_BET_VALUE  || value < MIN_BET_VALUE){ 
 			listener.onFailure("illegal amount");
 		}
 		else if(mPlayer.getCredit() < value ){
@@ -204,10 +207,10 @@ public class Game {
 	
 	/**
 	 * Asks the advisor for an advice, giving the current players hand.
-	 * @param listener
-	 * 	@onSuccess called if the advice was successfully asked for.
+	 * @param listener - ActionListener instance
+	 * 	-onSuccess called if the advice was successfully asked for.
 	 * 
-	 * 	@onFailure called if the game state is not at dealing stage.
+	 * 	-onFailure called if the game state is not at dealing stage.
 	 */
 	public void giveAdvice(Game.ActionListener listener){
 		if(mState != State.STATE_DEAL){
@@ -240,10 +243,10 @@ public class Game {
 	
 	/**
 	 * Attempts to deal 5 cards to the player.
-	 * @param listener
-	 * 	@onSuccess called if dealing was successful.
+	 * @param listener - ActionListener instance
+	 * 	-onSuccess called if dealing was successful.
 	 * 
-	 * 	@onFailure called if the cards were already dealt.
+	 * 	-onFailure called if the cards were already dealt.
 	 * 			   or if the player did not bet yet in the game
 	 * 			   or if the deck does not have 5 cards to pop
 	 */
@@ -271,10 +274,10 @@ public class Game {
 	/**
 	 * Attempts to draw cards, holding those defined in @keep 
 	 * @param keep - cards to hold
-	 * @param listener
-	 * 	@onSuccess called if draw was successful.
+	 * @param listener - ActionListener instance
+	 * 	-onSuccess called if draw was successful.
 	 * 
-	 * 	@onFailure called if the cards weren't dealt yet.
+	 * 	-onFailure called if the cards weren't dealt yet.
 	 * 			   or if the deck does not have 5 cards to pop
 	 */
 	public void keep(boolean[] keep, ActionListener listener){

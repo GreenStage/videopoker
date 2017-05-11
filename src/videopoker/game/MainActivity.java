@@ -20,13 +20,14 @@ import videopoker.utilities.SimulationHandler;
  */
 public class MainActivity {
 	//Error codes
-	public static final int ERR_INVALID_MODE = 0x01;
-	public static final int ERR_INVALID_CREDIT = 0x02;
-	public static final int ERR_INVALID_FILENAME = 0x04;
-	public static final int ERR_FILE_NOT_FOUND = 0x08;
-	public static final int INVALID_INTEGER = 0x10;
-	public static final int INVALID_DEAL_NUMBER = 0x20;
-	public static final int INVALID_BET_NUMBER = 0x30;
+	public static final int ERR_MISSING_ARGS = 1;
+	public static final int ERR_INVALID_MODE = 2;
+	public static final int ERR_INVALID_CREDIT = 3;
+	public static final int ERR_INVALID_FILENAME = 4;
+	public static final int ERR_FILE_NOT_FOUND = 5;
+	public static final int INVALID_INTEGER = 6;
+	public static final int INVALID_DEAL_NUMBER = 7;
+	public static final int INVALID_BET_NUMBER = 8;
 	
 	/**
 	 * User interface (can be graphical or textual)
@@ -48,20 +49,25 @@ public class MainActivity {
 	public static void main(String[] args){
 		int credit = 0;
 		IOHandler rh = null;
-		if(args.length < 2 || Integer.parseInt(args[1])  <= 0){
-			System.exit(ERR_INVALID_CREDIT);
+		
+		if(args.length < 1){
+			System.exit(ERR_MISSING_ARGS);
 		}
-		else{
-			try{
-				credit = Integer.parseInt(args[1]);
-			}catch(NumberFormatException e){
-				System.out.println(e.getMessage());
-				System.exit(INVALID_INTEGER);
-			}
-		} 
 		
 		//Interactive mode
 		if(args[0].equals("-i")){
+			if(args.length < 2 ){
+				System.exit(ERR_MISSING_ARGS);
+			}
+			else{
+				try{
+					credit = Integer.parseInt(args[1]);
+				}catch(NumberFormatException e){
+					System.out.println(e.getMessage());
+					System.exit(INVALID_INTEGER);
+				}
+			} 
+			
 			mGame = new Game(credit);
 			rh = new InteractiveHandler();
 			mUI = new TextUI(mGame,rh);
@@ -73,9 +79,12 @@ public class MainActivity {
 		 */
 		else if( args[0].equals("-d") ) {
 			if(args.length < 4){
-				System.exit(ERR_INVALID_FILENAME);
+				System.exit(ERR_MISSING_ARGS);
 			}
+
 			try{
+				credit = Integer.parseInt(args[1]);
+				
 				/*We need to read a line from the cardsfile to set our
 				 *starting deck */
 				FileReader cardReader = new FileReader(args[3]);
@@ -83,7 +92,6 @@ public class MainActivity {
 				String line = cardRH.getLine();
 				cardReader.close();
 
-				
 				FileReader fr =  new FileReader(args[2]);
 				rh = new DebugHandler(fr);
 				/*We only need a line from the commandFile, 
@@ -93,6 +101,9 @@ public class MainActivity {
 				mGame = new Game(credit,line.split(" "));
 				mUI = new TextUI(mGame,rh);
 				
+			}catch(NumberFormatException e){
+				System.out.println(e.getMessage());
+				System.exit(INVALID_INTEGER);
 			}
 			catch(FileNotFoundException e){
 				System.exit(ERR_FILE_NOT_FOUND);
@@ -108,23 +119,26 @@ public class MainActivity {
 		 *   console.
 		 */
 		else if( args[0].equals("-s") ){
+			int betValue = 0, nDeals = 0;
 			
 			if (args.length < 4){
-				System.exit(INVALID_DEAL_NUMBER);
-			}
-			
-			int betValue = 0, nDeals = 0;
+				System.exit(ERR_MISSING_ARGS);
+			} 
+
 			try{
+				credit = Integer.parseInt(args[1]);
 				betValue = Integer.parseInt(args[2]);
 				nDeals = Integer.parseInt(args[3]);
-			}catch(NumberFormatException e){
+			}
+			catch(NumberFormatException e){
 				System.out.println(e.getMessage());
 				System.exit(INVALID_INTEGER);
 			}
 			
-			if(betValue == 0){
+			if(betValue > Game.MAX_BET_VALUE || betValue < Game.MIN_BET_VALUE){
 				System.exit(INVALID_BET_NUMBER);
 			}
+			
 			if(nDeals == 0){
 				System.exit(INVALID_DEAL_NUMBER);
 			}
