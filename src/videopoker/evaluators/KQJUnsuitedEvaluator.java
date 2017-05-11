@@ -2,8 +2,6 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * This class is part
@@ -46,22 +44,5 @@ public class KQJUnsuitedEvaluator extends HandEvaluator implements Evaluator {
 
 		return keep;
 	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.KING, Suit.HEARTS);
-		Card c2 = new Card(Value.ACE, Suit.DIAMONDS);
-		Card c3 = new Card(Value.ACE, Suit.CLOVERS);
-		Card c4 = new Card(Value.QUEEN, Suit.SPADES);
-		Card c5 = new Card(Value.JACK, Suit.HEARTS);
 
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		KQJUnsuitedEvaluator eval = new KQJUnsuitedEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
-	}
 }

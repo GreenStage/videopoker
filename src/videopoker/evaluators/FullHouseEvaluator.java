@@ -2,8 +2,6 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  * 
@@ -58,24 +56,6 @@ public class FullHouseEvaluator extends HandEvaluator implements MainHandEvaluat
 			return handPower;
 		
 		return super.getHandPower(hand);
-	}
-	
-	public static void main(String[] args){
-		
-		Card c1 = new Card(Value.SIX, Suit.HEARTS);
-		Card c2 = new Card(Value.SIX, Suit.DIAMONDS);
-		Card c3 = new Card(Value.SIX, Suit.CLOVERS);
-		Card c4 = new Card(Value.TEN, Suit.SPADES);
-		Card c5 = new Card(Value.TEN, Suit.CLOVERS);
-
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		FullHouseEvaluator eval = new FullHouseEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-		}
-		
 	}
 
 

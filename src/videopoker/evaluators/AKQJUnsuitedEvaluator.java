@@ -14,6 +14,7 @@ import videopoker.game.Hand;
  *
  */
 public class AKQJUnsuitedEvaluator extends HandEvaluator implements Evaluator {
+
 	
 	@Override
 	public boolean[] whereCards(Hand hand){

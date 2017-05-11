@@ -2,8 +2,6 @@ package videopoker.evaluators;
 
 import videopoker.game.Card;
 import videopoker.game.Hand;
-import videopoker.game.Card.Suit;
-import videopoker.game.Card.Value;
 
 /**
  /**
@@ -58,23 +56,5 @@ public class LowPairEvaluator extends HandEvaluator implements Evaluator{
 
 		return keep;
 	}
-	
-public static void main(String[] args){
-		
-		Card c1 = new Card(Value.TEN, Suit.HEARTS);
-		Card c2 = new Card(Value.TEN, Suit.SPADES);
-		Card c3 = new Card(Value.TWO, Suit.CLOVERS);
-		Card c4 = new Card(Value.KING, Suit.DIAMONDS);
-		Card c5 = new Card(Value.KING, Suit.CLOVERS);
-	
-		Hand hand = new Hand(c1,c2,c3,c4,c5);
-		LowPairEvaluator eval = new LowPairEvaluator();
-		boolean[] keep = eval.whereCards(hand);
-		
-		for (int i = 0; i < keep.length; i++){
-			System.out.println(keep[i]);
-	}
-	
-}
 
 }
