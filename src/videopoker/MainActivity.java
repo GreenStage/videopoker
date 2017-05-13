@@ -1,9 +1,10 @@
-package videopoker.game;
+package videopoker;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import videopoker.game.Game;
 import videopoker.userinterface.GraphicUI;
 import videopoker.userinterface.TextUI;
 import videopoker.userinterface.UserInterface;
