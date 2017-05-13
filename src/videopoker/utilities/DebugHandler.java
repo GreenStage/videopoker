@@ -23,14 +23,15 @@ public class DebugHandler implements IOHandler{
 	 * @param fr - file reader instance
 	 */
 	public DebugHandler(FileReader fr){
-		
-		/*Get the input as a string, as it is only one line*/
-		Scanner temp = new Scanner(fr);
-		this.mLine = temp.nextLine();
-		
-		/*We only need the first line, we can now close the scanner*/
-		temp.close();
-		this.mScanner = new Scanner(mLine);
+		Scanner sc = new Scanner(fr);
+		this.mLine = "";
+		while(sc.hasNextLine()){
+			this.mLine += sc.nextLine();
+		}
+
+		/*We only need a string, we can now close the scanner*/
+		sc.close();
+		this.mScanner = new Scanner(this.mLine);
 	}
 	
 

@@ -22,7 +22,7 @@ public class Deck {
 	
 	/** List with current cards in deck */
 	private List<Card> cards = new ArrayList<Card>();
-
+	private List<Card> poppedCards = new ArrayList<Card>();
 	
 	/** Deck default constructor
 	 * 	use to create a deck with 52 different cards
@@ -57,6 +57,8 @@ public class Deck {
 	 *  shuffles the deck
 	 */
 	public void shuffle(){
+		cards.addAll(poppedCards);
+		poppedCards.clear();
 		Collections.shuffle(cards);
 	}
 	
@@ -68,7 +70,11 @@ public class Deck {
 		if(cards.isEmpty()){
 			throw new EmptyDeckException("Deck is empty");
 		}
-		else return cards.remove(0);
+		else{
+			Card rm = cards.remove(0);
+			poppedCards.add(rm);
+			return rm;
+		} 
 	}
 	
 	/** Fetches the amount of cards in deck

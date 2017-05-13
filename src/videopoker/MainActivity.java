@@ -29,6 +29,7 @@ public class MainActivity {
 	public static final int INVALID_INTEGER = 6;
 	public static final int INVALID_DEAL_NUMBER = 7;
 	public static final int INVALID_BET_NUMBER = 8;
+	public static final int ERR_NO_CARDS = 9;
 	
 	/**
 	 * User interface (can be graphical or textual)
@@ -86,16 +87,18 @@ public class MainActivity {
 			try{
 				credit = Integer.parseInt(args[1]);
 				
-				/*We need to read a line from the cardsfile to set our
+				/*We need to read a string from the cardsfile to set our
 				 *starting deck */
 				FileReader cardReader = new FileReader(args[3]);
 				DebugHandler cardRH = new DebugHandler(cardReader);
 				String line = cardRH.getLine();
 				cardReader.close();
-
+				if(line.isEmpty()){
+					System.exit(ERR_NO_CARDS);
+				}
 				FileReader fr =  new FileReader(args[2]);
 				rh = new DebugHandler(fr);
-				/*We only need a line from the commandFile, 
+				/*We only need a string from the commandFile, 
 				 * we can close it after DebugHandler fetches it.*/
 				fr.close();
 				

@@ -103,6 +103,7 @@ public class Game {
 			
 			mAdvisor = new Advisor(new TraditionalStrategy());
 			
+			this.mDeck = new Deck();
 			prepareRound();		
 		}	
 	}
@@ -159,7 +160,6 @@ public class Game {
 		this.mPlayer.setHand(null);
 
 		if(shuffleDeck){
-			this.mDeck = new Deck();
 			mDeck.shuffle();
 		}	
 	}

@@ -211,6 +211,9 @@ public class TextUI implements UserInterface{
 				displayStats(mGame.getPlayer().getCredit(),
 						mGame.getPlayer().getGain(),statsMap);
 			}
+			else{
+				mIOHandler.write(command[0] + ": illegal command");
+			}
 		}
 	}
 	
