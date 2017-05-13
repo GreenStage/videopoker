@@ -2,7 +2,6 @@ package videopoker.game;
 
 import videopoker.strategy.Advisor;
 import videopoker.strategy.TraditionalStrategy;
-import videopoker.utilities.PowerHashMap;
 
 /**
  * Game core class, for each received command, performs one or more actions. 
@@ -322,7 +321,7 @@ public class Game {
 	
 	/**
 	 * Called when player wins, updates statistics and sets wins status to true
-	 * @param prize
+	 * @param prize 
 	 */
 	private void onWin(int prize){
 		this.mPlayer.setCredit(this.mPlayer.getCredit() + prize);

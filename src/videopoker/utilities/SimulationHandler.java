@@ -9,21 +9,56 @@ import videopoker.game.Game;
  */
 public class SimulationHandler implements IOHandler{
 	
-	/** Enumeration having each step in a simulation round*/
-	private static enum Steps{BET, DEAL, ADVICE, HOLD, ENDTURN, DISPSTATS, ENDGAME};
+	/** Enumeration containing all the steps of a simulation round*/
+	private static enum Steps{
+		/**
+		 * Bet step.
+		 */
+		BET, 
+		/**
+		 * Deal step
+		 */
+		DEAL,
+		/**
+		 * Advice step
+		 */
+		ADVICE,
+		/**
+		 * Hold step
+		 */
+		HOLD, 
+		/**
+		 * End of the turn
+		 */
+		ENDTURN,
+		/**
+		 * Display of the statistics
+		 */
+		DISPSTATS, 
+		/**
+		 * End of the game
+		 */
+		ENDGAME
+		};
 	
-	/**rounds iterator*/
+	/**Rounds iterator*/
 	private int playsIt;
 	
-	/** betValue to bet each round*/
+	/** Value of the bet for each round*/
 	private int betValue;
 	
-	/** Game instance, for advising*/
+	/** Game instance used for receiving the advices*/
 	private Game mGame;
 
 	/**Steps instance*/
 	private Steps mSteps;
 	
+	/**
+	 * Initialise the simulation handler and set the game, the value to bet and the number of total deals.
+	 * @param game : instance of a game;
+	 * @param bet_value : value to bet during all the simulation
+	 * @param n_play : total number of deals in the simulation
+	 */
 	public SimulationHandler(Game game,int bet_value, int n_play){
 		this.playsIt = n_play;
 		this.betValue = bet_value;

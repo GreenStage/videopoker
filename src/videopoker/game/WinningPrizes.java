@@ -16,7 +16,6 @@ import videopoker.evaluators.StraightEvaluator;
 import videopoker.evaluators.StraightFlushEvaluator;
 import videopoker.evaluators.ThreeOfAKindEvaluator;
 import videopoker.evaluators.TwoPairEvaluator;
-import videopoker.utilities.PowerHashMap;
 
 
 

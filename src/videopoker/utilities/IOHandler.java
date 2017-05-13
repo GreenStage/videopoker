@@ -9,7 +9,7 @@ public interface IOHandler {
 	
 	/**Declaration of reading method
 	 * used to read a command string from an input source
-	 * @return read command string.*/
+	 * @return command string.*/
 	String read();
 	
 	/** Declaration of writing method

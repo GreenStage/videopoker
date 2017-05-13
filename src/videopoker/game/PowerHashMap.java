@@ -1,4 +1,4 @@
-package videopoker.utilities;
+package videopoker.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * PowerHashMap - HashMap extension with order method
+ * PowerHashMap - HashMap extension with an order method
  *
  * @param <K> - Key variable type
  * @param <V> - Value variable type
@@ -17,7 +17,7 @@ public class PowerHashMap<K,V> extends HashMap<K,V>{
 
 	/** Fetches an ordered list with current keys
 	 * @param comp callback comparator used to set the ordering criteria
-	 * @return List with ordered keys
+	 * @return list with ordered keys
 	 */
 	public List<K> getOrderedKeys(Comparator<K> comp){
 		List<K> retval = new ArrayList<K>(this.keySet());

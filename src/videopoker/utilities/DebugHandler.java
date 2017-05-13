@@ -4,14 +4,24 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 
-/** DebugHandler - implementation of IOHandler for debug mode
- * 	reads from a file/String
- *  writes to the console
+/** DebugHandler - implementation of IOHandler for the debug mode.
+ * 	Reads from a file and writes to the console
  */
 public class DebugHandler implements IOHandler{
-	String mLine;
-	Scanner mScanner;
+	/**
+	 * Current line
+	 */
+	private String mLine;
 	
+	/**
+	 * Instance of scanner to read the file.
+	 */
+	private Scanner mScanner;
+	
+	/**
+	 * Initialise the debug handler, reads the content of the file and save it as a string.
+	 * @param fr - file reader instance
+	 */
 	public DebugHandler(FileReader fr){
 		
 		/*Get the input as a string, as it is only one line*/
@@ -42,12 +52,13 @@ public class DebugHandler implements IOHandler{
 		}	
 		else return null;
 	}
-	
-	/*returns current input String*/
+	/**
+	 * 	Returns the current input String
+	 */
 	public String getLine(){
 		return mLine;
 	}
-
+	
 	@Override
 	public void write(String message) {
 		System.out.println(message);

@@ -34,8 +34,8 @@ import javax.swing.JTable;
 
 import videopoker.game.Card;
 import videopoker.game.Game;
+import videopoker.game.PowerHashMap;
 import videopoker.game.WinningPrizes;
-import videopoker.utilities.PowerHashMap;
 
 
 public class GraphicUI extends JFrame implements UserInterface{

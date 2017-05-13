@@ -2,7 +2,7 @@
 
 package videopoker.userinterface;
 
-import videopoker.utilities.PowerHashMap;
+import videopoker.game.PowerHashMap;
 
 /**
  * UserInterface - UI interface, extending a runnable

@@ -8,8 +8,15 @@ import java.util.Scanner;
  * 	writes to the console
  */
 public class InteractiveHandler implements IOHandler{
-	Scanner mScanner;
 	
+	/**
+	 * Instance od a scanner to read from standard input
+	 */
+	private Scanner mScanner;
+	
+	/**
+	 * Initialise the interactive handler. The content is read from a the console.
+	 */
 	public InteractiveHandler(){
 		this.mScanner = new Scanner(System.in);
 	}

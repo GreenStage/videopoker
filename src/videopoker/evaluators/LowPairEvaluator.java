@@ -4,7 +4,6 @@ import videopoker.game.Card;
 import videopoker.game.Hand;
 
 /**
- /**
  * 
  * This class is part
  * of a group of classes that implements the interface {@link Evaluator} and 
