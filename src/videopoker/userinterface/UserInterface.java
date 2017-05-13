@@ -9,7 +9,6 @@ import videopoker.game.PowerHashMap;
  *
  */
 public interface  UserInterface extends Runnable{
-
 	
 	/** Display the game statistics, using the output handler
 	 * @param credit - players credit

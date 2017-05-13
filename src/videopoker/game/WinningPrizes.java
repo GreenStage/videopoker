@@ -11,6 +11,7 @@ import videopoker.evaluators.FourTwoFourEvaluator;
 import videopoker.evaluators.FullHouseEvaluator;
 import videopoker.evaluators.HandEvaluator;
 import videopoker.evaluators.HighPairEvaluator;
+import videopoker.evaluators.MainHandEvaluator;
 import videopoker.evaluators.RoyalFlushEvaluator;
 import videopoker.evaluators.StraightEvaluator;
 import videopoker.evaluators.StraightFlushEvaluator;
@@ -27,13 +28,13 @@ import videopoker.evaluators.TwoPairEvaluator;
  * Winning hands are also defined here.
  */
 public class WinningPrizes {
-	public static String HAND_NONE ="Other";
+	public static final String HAND_NONE ="Other";
 	
 	//HashMap representing the winning hands table
 	private PowerHashMap<String,int[]>  winnings = new PowerHashMap<String,int[]>();
 	
 	// List of
-	private List<HandEvaluator> evaluators= new ArrayList<HandEvaluator>();
+	private List<MainHandEvaluator> evaluators= new ArrayList<MainHandEvaluator>();
 	
 	/** Constructor
 	 *  constructs an object and fills the table with the winning hands and 
@@ -114,7 +115,7 @@ public class WinningPrizes {
 	 * 		   HAND_NONE, if its not a winning hand
 	 */
 	public String getHandPower(Hand hand){
-		for(HandEvaluator h : evaluators){
+		for(MainHandEvaluator h : evaluators){
 			if(!h.getHandPower(hand).equals(HAND_NONE)){
 				return h.getHandPower(hand);
 			}
