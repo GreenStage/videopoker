@@ -10,11 +10,11 @@ public interface IOHandler {
 	/**Declaration of reading method
 	 * used to read a command string from an input source
 	 * @return read command string.*/
-	public String read();
+	String read();
 	
 	/** Declaration of writing method
 	 * used to write string to an output source
 	 * @param message - string to write
 	 */
-	public void write(String message);
+	void write(String message);
 }
