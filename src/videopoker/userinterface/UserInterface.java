@@ -2,14 +2,13 @@
 
 package videopoker.userinterface;
 
-import videopoker.utilities.PowerHashMap;
+import videopoker.game.PowerHashMap;
 
 /**
  * UserInterface - UI interface, extending a runnable
  *
  */
 public interface  UserInterface extends Runnable{
-
 	
 	/** Display the game statistics, using the output handler
 	 * @param credit - players credit

@@ -8,7 +8,7 @@ import java.util.Scanner;
  * 	writes to the console
  */
 public class InteractiveHandler implements IOHandler{
-	Scanner mScanner;
+	private Scanner mScanner;
 	
 	public InteractiveHandler(){
 		this.mScanner = new Scanner(System.in);

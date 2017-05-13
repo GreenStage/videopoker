@@ -9,8 +9,8 @@ import java.util.Scanner;
  *  writes to the console
  */
 public class DebugHandler implements IOHandler{
-	String mLine;
-	Scanner mScanner;
+	private String mLine;
+	private Scanner mScanner;
 	
 	public DebugHandler(FileReader fr){
 		

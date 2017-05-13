@@ -4,8 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import videopoker.game.Game;
+import videopoker.game.PowerHashMap;
 import videopoker.utilities.IOHandler;
-import videopoker.utilities.PowerHashMap;
 
 
 /**

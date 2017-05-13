@@ -1,4 +1,4 @@
-package videopoker.utilities;
+package videopoker.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
