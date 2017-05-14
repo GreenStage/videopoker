@@ -23,7 +23,7 @@ import videopoker.evaluators.TwoPairEvaluator;
 /**
  * Winning Prizes class
  * Used to create a table with a powerhashMap 
- * with the format "HANDn / PRIZEn1,PRIZEn2,PRIZEn3,PRIZEn4,PRIZEn5
+ * with the format <i>"HANDn / PRIZEn1,PRIZEn2,PRIZEn3,PRIZEn4,PRIZEn5"</i>
  * and to evaluate if a hand is a winning one.
  * Winning hands are also defined here.
  */
@@ -36,7 +36,7 @@ public class WinningPrizes {
 	// List of
 	private List<MainHandEvaluator> evaluators= new ArrayList<MainHandEvaluator>();
 	
-	/** Constructor
+	/** Constructor that
 	 *  constructs an object and fills the table with the winning hands and 
 	 *  each corresponding prizes.
 	 */
@@ -76,6 +76,7 @@ public class WinningPrizes {
 	}
 	
 	/** 
+	 * This method returns a list of all the winning hands
 	 * @return (LIST) all the winning hands
 	 */
 	public List<String> getWinningHands(){
@@ -88,6 +89,8 @@ public class WinningPrizes {
 	}
 	
 	/**
+	 * Given the name of a winning hand  and the bet, this method returns the prize. 
+	 *
 	 * @param handPower - a winning hand name
 	 * @param bet - bet value
 	 * @return prize for the corresponding hand and bet
@@ -100,6 +103,8 @@ public class WinningPrizes {
 	}
 
 	/**
+	 * Return an array containing all the prizes for the winning hand passed as argument as a string
+	 * 
 	 * @param handPower - a winning hand name
 	 * @return prizes for the corresponding hand
 	 */
@@ -110,6 +115,8 @@ public class WinningPrizes {
 	}
 
 	/**
+	 * Returns the name of the hand.
+	 * 
 	 * @param hand (made of 5 cards)
 	 * @return the corresponding handPower , if its a winning hand
 	 * 		   HAND_NONE, if its not a winning hand

@@ -8,7 +8,14 @@ import videopoker.strategy.TraditionalStrategy;
  */
 public class Game {
 	
+	/**
+	 * Minimum bet
+	 */
 	public static final int MIN_BET_VALUE = 1;
+	
+	/**
+	 * Maximum bet
+	 */
 	public static final int MAX_BET_VALUE = 5;
 	
 	/**
@@ -52,6 +59,10 @@ public class Game {
 	 * Deck declaration
 	 */
 	private Deck mDeck;
+	
+	/**
+	 * Determines when to shuffle the deck
+	 */
 	private boolean shuffleDeck; 
 	
 	/**
@@ -65,6 +76,10 @@ public class Game {
 	 * Advisor, witch takes care of all the strategy
 	 */
 	private Advisor mAdvisor;
+	
+	/**
+	 * Current advice given by the advisor
+	 */
 	private boolean[] mAdvice;	
 	
 	
@@ -321,7 +336,7 @@ public class Game {
 	
 	/**
 	 * Called when player wins, updates statistics and sets wins status to true
-	 * @param prize 
+	 * @param prize : value won by the player
 	 */
 	private void onWin(int prize){
 		this.mPlayer.setCredit(this.mPlayer.getCredit() + prize);

@@ -6,9 +6,24 @@ package videopoker.game;
  * Takes care of players credit, bets and hands
  */
 public class Player {
+	/**
+	 * Credit of the player
+	 */
 	private int mCredit;
+	
+	/**
+	 * Initial credit of the player
+	 */
 	private int startCredit;
+	
+	/**
+	 * Current player hand;
+	 */
 	private Hand mHand;
+	
+	/**
+	 * Initial bet of the player;
+	 */
 	private int bet = 5;
 	
 	/** Players constructor

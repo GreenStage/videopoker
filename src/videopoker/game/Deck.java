@@ -22,6 +22,10 @@ public class Deck {
 	
 	/** List with current cards in deck */
 	private List<Card> cards = new ArrayList<Card>();
+	
+	/**
+	 * Contains the popped cards after a deal and a hold. All the cards will be inserted in the deck at the end of the turn.
+	 */
 	private List<Card> poppedCards = new ArrayList<Card>();
 	
 	/** Deck default constructor
